@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: linyao <linyao@student.42barcelona.co      +#+  +:+       +#+        */
+/*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:17:34 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/11 13:01:08 by linyao           ###   ########.fr       */
+/*   Updated: 2024/09/12 00:48:24 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "inc/minishell.h"
+#include "minishell.h"
 
 //int	main(int ac, char **av, char **env)
 int	main()
