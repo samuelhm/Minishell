@@ -39,12 +39,12 @@ OBJS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
 all: libft $(TARGET)
 
 # Compile Binary
-$(TARGET): $(OBJS) $(LIBFT)
-	@$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) $(LIBFT) $(LDFLAGS) -o $(TARGET)
+$(TARGET): $(OBJS)
+	@$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) $(LDFLAGS) -o $(TARGET)
 	@echo "\033[1;36mBinary $@ created\033[0m"
 
 
-# -MMD to include header dependences to .d file and run $(OBJ_DIR) if not exist.make
+# -MMD to include header dependences to .d file and create $(OBJ_DIR) if it doesn't exist
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c Makefile | $(OBJ_DIR)
 	@$(CC) $(CFLAGS) $(INCLUDES) -MMD -c $< -o $@ > /dev/null
 	@echo "\033[0;32mObject $@ created\033[0m"
@@ -63,7 +63,7 @@ clean:
 		rm -rf $(OBJ_DIR); \
 		echo "\033[1;31mObjects deleted\033[0m"; \
 	fi
-	@$(MAKE) --silent --no-print-directory -C $(LIBFT_DIR) fclean
+	@$(MAKE) --silent --no-print-directory -C $(LIBFT_DIR) clean
 
 #remove binaries too
 fclean: clean
@@ -71,6 +71,7 @@ fclean: clean
 		rm -f $(TARGET); \
 		echo "\033[1;31m$(TARGET) deleted\033[0m"; \
 	fi
+	@$(MAKE) --silent --no-print-directory -C $(LIBFT_DIR) fclean
 
 
 re: fclean all
