@@ -63,7 +63,7 @@ clean:
 		rm -rf $(OBJ_DIR); \
 		echo "\033[1;31mObjects deleted\033[0m"; \
 	fi
-	@$(MAKE) --silent --no-print-directory -C $(LIBFT_DIR) fclean
+	@$(MAKE) --silent --no-print-directory -C $(LIBFT_DIR) clean
 
 #remove binaries too
 fclean: clean
@@ -71,6 +71,7 @@ fclean: clean
 		rm -f $(TARGET); \
 		echo "\033[1;31m$(TARGET) deleted\033[0m"; \
 	fi
+	@$(MAKE) --silent --no-print-directory -C $(LIBFT_DIR) fclean
 
 
 re: fclean all
