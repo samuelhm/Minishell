@@ -2,7 +2,7 @@
 *.swp
 .vscode/
 *.tmp
-*.Ds_Store
+*.DS_Store
 # Prerequisites
 *.d
 
