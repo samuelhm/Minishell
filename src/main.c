@@ -6,16 +6,23 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:17:34 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/12 00:48:24 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/09/13 17:33:05 by linyao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//int	main(int ac, char **av, char **env)
-int	main()
+int	main(int ac, char **av, char **env)
 {
 	char	*input;
+	t_ms	*ms;
+
+	(void)av;
+	if (ac != 1)
+		return (printf("Incorrect number of argument\n"), 1);
+	init_hash();
+	ms->env = init_hash();
+	assign_hash(ms->env, "?", "?=0");	
 
 	while (1)
 	{
