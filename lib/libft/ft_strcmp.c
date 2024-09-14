@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.h                                              :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: linyao <linyao@student.42barcelona.co      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/13 15:22:32 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/14 13:21:03 by linyao           ###   ########.fr       */
+/*   Created: 2024/09/14 15:02:28 by linyao            #+#    #+#             */
+/*   Updated: 2024/09/14 15:15:23 by linyao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENV_H
-# define ENV_H
+#include "libft.h"
 
-# include "../lib/libft/libft.h" 
-
-# define HASH_LEN 300;
-
-
-typedef struct s_node
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	char			*key;
-	char			*value;
-	struct	s_node	*next;
-}		t_node;
-
-typedef struct s_hash
-{
-	t_node	*slot[HASH_LEN];
-}		t_hash;
-
-#endif
+	while (*s1 && (*s1 == *s2))
+	{
+		s1++;
+		s2++;
+	}
+	return (*(unsigned char *)s1 - *(unsigned char *)s2);
+}
