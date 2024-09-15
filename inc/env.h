@@ -13,9 +13,10 @@
 #ifndef ENV_H
 # define ENV_H
 
-# include "../lib/libft/libft.h" 
+# include "../lib/libft/libft.h"
+# include "minishell.h"
 
-# define HASH_LEN 300;
+# define HASH_LEN 300
 
 
 typedef struct s_node
@@ -29,5 +30,14 @@ typedef struct s_hash
 {
 	t_node	*slot[HASH_LEN];
 }		t_hash;
+
+t_hash  *init_hash(void);
+char    *lookup_hash(t_hash *env, char *key);
+bool    assign_hash(t_hash *en, char *key, char *value);
+unsigned int    hash_function(char *key);
+t_node  *init_list(void);
+bool    add_list(t_node *n, char *key, char *value);
+bool    del_list(t_node *n, char *key);
+bool    del_hash(t_hash *env, char *key);
 
 #endif

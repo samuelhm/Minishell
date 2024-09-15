@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
-#include "minishell.h"
+#include "../../inc/env.h"
+#include "../../inc/minishell.h"
 
 t_hash	*init_hash(void)
 {
@@ -48,28 +48,44 @@ char	*lookup_hash(t_hash *env, char *key)
 	return (NULL);
 }
 
-t_hash	*assign_hash(t_hash *en, char *key, char *value)
+bool	assign_hash(t_hash *en, char *key, char *value)
 {
-	t_hash	*current;
-	t_hash	*new;
-	int		inx;
+	int	inx;
 
 	inx = hash_function(key);
 	if (lookup_hash(en, key))
 		del_hash(en, key);
 	if (!en->slot[inx])
 	{
-		
+		en->slot[inx] = init_list();
+		if (!en->slot[inx])
+			return (false);
+		add_list(en->slot[inx], key, value);
 	}
-	current = en;
-	new = malloc(sizeof(t_hash));
-	if (!new)
-		return (NULL);
-	if (!en->slot->next)
-	while (en->slot)
+	else
+		add_list(en->slot[inx], key, value);
+	return (true);
+}
+
+void	init_env(t_ms *ms, char **env)
+{
+	int	i;
+	int	key_len;
+	char	*key;
+
+	ms->env = init_hash();
+	assign_hash(ms->env, "?", "?=0");
+	i = 0;
+	key_len = 0;
+	while (env[i])
 	{
-		if (en->slot[i]->key == key)
-			
-		en;
+		key_len = ft_getinx(env[i], '=');
+		if (key_len >= 0)
+		{
+			key = ft_substr(env[i], 0, key_len);
+			assign_hash(ms->env, key, env[i] + key_len + 1);
+			free(key);
+		}
+		i++;
 	}
 }

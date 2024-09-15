@@ -18,13 +18,19 @@
 # include <readline/history.h>
 # include <stdbool.h>
 # include "../lib/libft/libft.h"
+# include "env.h"
 
 
 # define PROMPT "\x1b[1;32mminishell\x1b[0m\x1b[1;36m > \x1b[0m"
+struct s_hash;
 
 typedef struct s_ms
 {
-	t_hash	*env;
+	struct s_hash	*env;
 }	t_ms;
+
+void	init_ms(t_ms *ms, char **env);
+void    init_env(t_ms *ms, char **env);
+void    realize_shell(t_ms *ms);
 
 #endif

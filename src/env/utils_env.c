@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
-#include "minishell.h"
+#include "../../inc/env.h"
+#include "../../inc/minishell.h"
 
 unsigned int	hash_function(char *key)
 {
@@ -21,6 +21,44 @@ unsigned int	hash_function(char *key)
 	while (*key)
 		h = h * 31 + *key++;
 	return (h % HASH_LEN);
+}
+
+t_node	*init_list(void)
+{
+	t_node	*new;
+
+	new = malloc(sizeof(t_node));
+	if (!new)
+		return (NULL);
+	new->key = NULL;
+	new->value = NULL;
+	new->next = NULL;
+	return (new);
+}
+
+bool	add_list(t_node *n, char *key, char *value)
+{
+	t_node	*new;
+	t_node	*cur;
+
+	if (!n)
+		return (false);
+	if (!n->key)
+	{
+		n->key = ft_strdup(key);
+		n->value = ft_strdup(value);
+		return (true);
+	}
+	cur = n;
+	new = init_list();
+	if (!new)
+		return (false);
+	new->key = ft_strdup(key);
+	new->value = ft_strdup(value);
+	while (cur->next)
+		cur = cur->next;
+	cur->next = new;
+	return (true);
 }
 
 bool	del_list(t_node *n, char *key)
@@ -62,7 +100,7 @@ bool	del_hash(t_hash *env, char *key)
 
 	inx = hash_function(key);
 	if (!env->slot[inx])
-		return ;
+		return (false);
 	if (del_list(env->slot[inx], key))
 		return (true);
 	else

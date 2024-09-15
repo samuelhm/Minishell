@@ -10,19 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../inc/minishell.h"
+#include "../inc/env.h"
 
 int	main(int ac, char **av, char **env)
 {
 	char	*input;
-	t_ms	*ms;
+	t_ms	ms;
 
 	(void)av;
 	if (ac != 1)
 		return (printf("Incorrect number of argument\n"), 1);
-	ms->env = init_hash();
-	assign_hash(ms->env, "?", "?=0");	
-
+	init_env(&ms, env);
+	realize_shell(&ms);
+/*
+	for (int i = 0; env[i]; i++)
+	{
+		input = ft_substr(env[i], 0, ft_getinx(env[i], '='));
+		printf("%s~~~~~~ \n",lookup_hash(ms.env, input));
+	}
+*/
+/*
 	while (1)
 	{
 		input = readline(PROMPT);
@@ -36,5 +44,6 @@ int	main(int ac, char **av, char **env)
 		printf("%s\n", input);
 		free(input);
 	}
+*/
 	return (0);
 }
