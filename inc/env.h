@@ -6,7 +6,7 @@
 /*   By: linyao <linyao@student.42barcelona.co      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 15:22:32 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/14 13:21:03 by linyao           ###   ########.fr       */
+/*   Updated: 2024/09/17 17:18:10 by linyao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,18 @@
 # include "minishell.h"
 
 # define HASH_LEN 300
-
+# define SINGLE_QUOTE 1
+# define DOUBLE_QUOTE 2
+# define MORE '>'
+# define LESS '<'
+# define PIPE '|'
+# define S_QUOTE '\''
+# define D_QUOTE '\"'
+# define DOUBLE_MORE ">>"
+# define DOUBLE_LESS "<<"
+# define MORE_S ">"
+# define LESS_S "<"
+# define PIPE_S "|"
 
 typedef struct s_node
 {

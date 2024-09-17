@@ -6,89 +6,77 @@
 /*   By: linyao <linyao@student.42barcelona.co      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:20:41 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/16 18:31:24 by linyao           ###   ########.fr       */
+/*   Updated: 2024/09/17 17:02:18 by linyao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 #include "../inc/env.h"
 
-bool	check_quote(char *s)
+bool	handle_single(bool *s_close, bool *d_close, int *flag)
 {
-	while (*s)
+	if (*flag == DOUBLE_QUOTE)
 	{
-		if (*s == '\'')
-		{
-			s++;
-			while (*s && *s != '\'')
-				s++;
-			if (*s == '\0')
-				return (false);
-		}
-		else if (*s == '\"')
-		{
-			s++;
-			while (*s && *s != '\"')
-				s++;
-			if (*s == '\0')
-				return (false);
-		}
-		s++;
+		*flag = SINGLE_QUOTE;
+		if (!*d_close && !*s_close)
+			return (false);
+		else if (*d_close && !*s_close)
+			*s_close = true;
+		else if (*s_close)
+			*s_close = false;
+	}
+	else if (*flag == SINGLE_QUOTE)
+		*s_close = !*s_close;
+	else if (*flag == 0)
+	{
+		*flag = SINGLE_QUOTE;
+		*s_close = false;
 	}
 	return (true);
 }
 
-bool    check_quote(char *s)
+bool	handle_double(bool *s_close, bool *d_close, int *flag)
 {
-	bool	single_quote_close = true;
-	bool	double_quote_close = true;
-	int	flag = 0;
+	if (*flag == SINGLE_QUOTE)
+	{
+		*flag = DOUBLE_QUOTE;
+		if (!*s_close && !*d_close)
+			return (false);
+		else if (*s_close && !*d_close)
+			*d_close = true;
+		else if (*d_close)
+			*d_close = false;
+	}
+	else if (*flag == DOUBLE_QUOTE)
+		*d_close = !*d_close;
+	else if (*flag == 0)
+	{
+		*flag = DOUBLE_QUOTE;
+		*d_close = false;
+	}
+	return (true);
+}
 
+bool	check_quote(char *s)
+{
+	bool	single_quote_close;
+	bool	double_quote_close;
+	int		flag;
+
+	single_quote_close = true;
+	double_quote_close = true;
+	flag = 0;
 	while (*s)
 	{
 		if (*s == '\'')
 		{
-			if (flag == DOUBLE_QUOTE && double_quote_close == false)
-				break ;
-			else if (flag == DOUBLE_QUOTE && double_quote_close == true)
-			{
-				flag = SINGLE_QUOTE;
-				if (single_quote_close == false)
-					single_quote_close = true;
-				else if (single_quote_close == true)
-					single_quote_close = false;
-			}
-			else if (flag == SINGLE_QUOTE && single_quote_close == false)
-				single_quote_close = true;
-			else if (flag == SINGLE_QUOTE && single_quote_close == true)
-				single_quote_close = false;
-			else if (flag == 0)
-			{
-				flag = SINGLE_QUOTE;
-				single_quote_close = false;
-			}
+			if (!handle_single(&single_quote_close, &double_quote_close, &flag))
+				return (false);
 		}
 		else if (*s == '\"')
 		{
-			if (flag == SINGLE_QUOTE && single_quote_close == false)
-				break ;
-			else if (flag == SINGLE_QUOTE && single_quote_close == true)
-			{
-				flag = DOUBLE_QUOTE;
-				if (double_quote_close == false)
-					double_quote_close = true;
-				else if (double_quote_close == true)
-					double_quote_close = false;
-			}
-			else if (flag == DOUBLE_QUOTE && double_quote_close == false)
-				double_quote_close = true;
-			else if (flag == DOUBLE_QUOTE && double_quote_close == true)
-				double_quote_close = false;
-			else if (flag == 0)
-			{
-				flag = DOUBLE_QUOTE;
-				double_quote_close = false;
-			}
+			if (!handle_double(&single_quote_close, &double_quote_close, &flag))
+				return (false);
 		}
 		s++;
 	}
@@ -98,6 +86,7 @@ bool    check_quote(char *s)
 void	split_into_arrays(char ***new, char *input)
 {
 	char	*str;
+	char	*new_arr;
 	char	**new_array;
 
 	if (!input || !new)
@@ -105,6 +94,19 @@ void	split_into_arrays(char ***new, char *input)
 	str = ft_strtrim(input, " \t");
 	if (!str)
 		return ;
+	input = str;
+	while (*str)
+	{
+		if (str == ' ' && new_arr)
+		{
+
+		}
+		handle_special(&new_array, &new_arr, &str);
+		handle_quote();
+		if (is_ordinary(&str))
+
+		str++;
+	}
 	new_array =  ft_split(str, ' ');
 	*new = new_array;
 	free(str);
@@ -128,10 +130,17 @@ char	**split_av(char *input)
 
 int main(void)
 {
-	char	arr[3][10];
+//	char	arr[3][10];
 
-	arr = split_av("This \'is \" a \'test for \"something");
-	for (int i = 0; i < 3; i++)
-		printf("%s\n", arr[1]);
+	bool	b;
+
+	b = check_quote("This \"is\' a \' test\" for\' \"something\"");
+	if (b)
+		printf("valid");
+	else
+		printf("invalid");
+//	arr = split_av("This \'is \" a \'test for \"something");
+//	for (int i = 0; i < 3; i++)
+//		printf("%s\n", arr[1]);
 	return (0);
 }
