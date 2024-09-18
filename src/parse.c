@@ -92,17 +92,16 @@ void	split_into_arrays(char ***new, char *input)
 	if (!input || !new)
 		return ;
 	str = ft_strtrim(input, " \t");
-	if (!str)
-		return ;
 	input = str;
 	while (*str)
 	{
-		if (str == ' ' && new_arr)
+		if ((*str == ' ' || *str == '\t') && new_arr)
 		{
-
+			store_to_array(&new_array, &new_arr);
+			move_over(&str);
 		}
 		handle_special(&new_array, &new_arr, &str);
-		handle_quote();
+		handle_quote(&new_array, &new_arr, &str);
 		if (is_ordinary(&str))
 
 		str++;
