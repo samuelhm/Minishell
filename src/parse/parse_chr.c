@@ -6,12 +6,12 @@
 /*   By: linyao <linyao@student.42barcelona.co      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:36:43 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/17 17:19:51 by linyao           ###   ########.fr       */
+/*   Updated: 2024/09/19 16:26:29 by linyao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
-#include "../inc/env.h"
+#include "../../inc/minishell.h"
+#include "../../inc/env.h"
 
 void	move_over(char **str)
 {
@@ -57,11 +57,35 @@ void	handle_special(char ***array, char **arr, char **c)
 	}
 }
 
-void	handle_quote(char ***array, char **arr, char **c)
+static void	check_handle_dollar(char **arr, char **c, char ch)
+{
+	char	*key;
+	char	*env_val;
+
+	if (ch == D_QUOTE && **c == '$')
+	{
+		(*c)++;
+		key = extract_key(*c);
+		if (key)
+		{
+			env_val = getenv(key);
+			if (env_val)
+				append_str(arr, env_val);
+			free(key);
+		}
+		while (**c && (**c == '_' || ft_isalnum(**c)))
+			(*c)++;
+	}
+	else
+	{
+		append_char(arr, **c);
+		(*c)++;
+	}
+}
+
+void	handle_quote(char ***array, char **arr, char **c, char *start)
 {
 	char	ch;
-	char	*env_val;
-	char	*key;
 
 	if (**c == S_QUOTE)
 		ch = S_QUOTE;
@@ -69,31 +93,12 @@ void	handle_quote(char ***array, char **arr, char **c)
 		ch = D_QUOTE;
 	else
 		return ;
-	if (*(*c - 1) == ' ' && *arr != NULL)
+	if (*c > start && *(*c - 1) == ' ' && *arr != NULL)
 		store_to_array(array, arr);
 	append_char(arr, **c);
 	(*c)++;
 	while (**c && **c != ch)
-	{
-		if (ch == D_QUOTE && **c == '$')
-		{
-			key = extract_key(*c + 1); 
-			if (key)
-			{
-				env_val = getenv(key);
-				if (env_val)
-					append_str(arr, env_val);
-				free(key);
-			}
-			while (**c && (**c == '_' || ft_isalnum(**c)))
-				(*c)++;
-		}
-		else
-		{
-			append_char(arr, **c);
-			(*c)++;
-		}
-	}
+		check_handle_dollar(arr, c, ch);
 	append_char(arr, **c);
 	(*c)++;
 	if (*(*c) && *(*c) == ' ' && *arr != NULL)

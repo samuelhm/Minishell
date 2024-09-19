@@ -6,12 +6,12 @@
 /*   By: linyao <linyao@student.42barcelona.co      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 17:22:27 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/17 17:28:50 by linyao           ###   ########.fr       */
+/*   Updated: 2024/09/19 17:22:26 by linyao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
-#include "../env/env.h"
+#include "../../inc/minishell.h"
+#include "../../env/env.h"
 
 void	store_to_array(char ***array, char **arr)
 {
@@ -55,20 +55,28 @@ bool	add_array(char ***array, char *s)
 
 //To append a string to an original one-demensional string array, such as
 //appending the environment variables to array
-void	append_str(char **arr, char *env_val)
+bool	append_str(char **arr, char *env_val)
 {
 	size_t	arr_len;
 	size_t	env_val_len;
 	size_t	new_len;
 	char	*new_arr;
 
+	if (!*arr)
+	{
+		*arr = (char *)malloc(1);
+		if (!*arr)
+			return (false);
+		(*arr)[0] = '\0';
+	}
 	arr_len = ft_strlen(*arr);
 	env_val_len = ft_strlen(env_val);
 	new_len = arr_len + env_val_len;
-	new_arr = (char *)realloc(*arr, arr_len, new_len + 1);
+	new_arr = (char *)ft_realloc(*arr, arr_len + 1, new_len + 1);
 	if (!new_arr)
-		return ;
+		return (false);
 	ft_memcpy(new_arr + arr_len, env_val, env_val_len);
 	new_arr[new_len] = '\0';
 	*arr = new_arr;
+	return (true);
 }

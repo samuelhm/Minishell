@@ -6,12 +6,12 @@
 /*   By: linyao <linyao@student.42barcelona.co      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:20:41 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/17 17:02:18 by linyao           ###   ########.fr       */
+/*   Updated: 2024/09/19 17:39:29 by linyao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
-#include "../inc/env.h"
+#include "../../inc/minishell.h"
+#include "../../inc/env.h"
 
 bool	handle_single(bool *s_close, bool *d_close, int *flag)
 {
@@ -101,14 +101,14 @@ void	split_into_arrays(char ***new, char *input)
 			move_over(&str);
 		}
 		handle_special(&new_array, &new_arr, &str);
-		handle_quote(&new_array, &new_arr, &str);
-		if (is_ordinary(&str))
-
+		handle_quote(&new_array, &new_arr, &str, input);
+		if (is_ordinary(*str))
+			append_char(&new_arr, *str);
 		str++;
 	}
-	new_array =  ft_split(str, ' ');
+	store_to_array(&new_array, &new_arr);
 	*new = new_array;
-	free(str);
+	free(input);
 }
 
 char	**split_av(char *input)
