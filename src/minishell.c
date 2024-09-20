@@ -28,7 +28,7 @@ void	realize_shell(t_ms *ms)
 		if (input && *input)
 		{
 			add_history(input);
-			ms->av = split_av(input);//
+			ms->av = split_av(input);
 			if (!ms->av)
 				continue ;
 			free(input);

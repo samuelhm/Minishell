@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-#include "../../env/env.h"
+#include "../../inc/env.h"
 
 void	store_to_array(char ***array, char **arr)
 {
@@ -45,11 +45,10 @@ bool	add_array(char ***array, char *s)
 		count++;
 	new_arrays = ft_realloc(*array, sizeof(char *) * (count + 1), \
 				sizeof(char *) * (count + 2));
-	if (!new_array)
+	if (!new_arrays)
 		return (false);
 	*array = new_arrays;
 	(*array)[count] = ft_strdup(s);
-	(*array)[count + 1] = NULL;
 	return (true);
 }
 

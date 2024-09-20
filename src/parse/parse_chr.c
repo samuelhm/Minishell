@@ -15,7 +15,7 @@
 
 void	move_over(char **str)
 {
-	while (**str && (**str == ' ' || **str == '\t')
+	while (**str && (**str == ' ' || **str == '\t'))
 		(*str)++;
 }
 
@@ -102,5 +102,5 @@ void	handle_quote(char ***array, char **arr, char **c, char *start)
 	append_char(arr, **c);
 	(*c)++;
 	if (*(*c) && *(*c) == ' ' && *arr != NULL)
-		store_to array(array, arr);
+		store_to_array(array, arr);
 }

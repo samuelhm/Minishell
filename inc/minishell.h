@@ -62,5 +62,8 @@ char    *extract_key(const char *str);
 void    handle_special(char ***array, char **arr, char **c);
 void    handle_quote(char ***array, char **arr, char **c, char *start);
 bool    is_ordinary(char c);
+bool    is_compliance(char **arrays);
+void    free_array(char **arrays);
+int     count_arrays(char **arrays);
 
 #endif

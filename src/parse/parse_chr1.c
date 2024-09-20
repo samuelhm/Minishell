@@ -13,9 +13,10 @@
 #include "../../inc/env.h"
 #include "../../inc/minishell.h"
 
-bool	append_char(char **arr, char c);
+bool	append_char(char **arr, char c)
 {
 	char	*new_arr;
+	size_t	arr_len;
 
 	if (!*arr)
 	{
@@ -26,19 +27,20 @@ bool	append_char(char **arr, char c);
 		(*arr)[1] = '\0';
 		return (true);
 	}
-	new_arr = (char *)ft_realloc(*arr, ft_strlen(*arr) + 1, \
-								ft_strlen(*arr) + 2);
+	arr_len = ft_strlen(*arr);
+	new_arr = (char *)ft_realloc(*arr, arr_len + 1, \
+					arr_len + 2);
 	if (!new_arr)
 		return (false);
-	new_arr[ft_strlen(*arr)] = c;
-	new_arr[ft_strlen(*arr) + 1] = '\0';
+	new_arr[arr_len] = c;
+	new_arr[arr_len + 1] = '\0';
 	*arr = new_arr;
 	return (true);
 }
 
 bool	is_ordinary(char c)
 {
-	if (c != ' ' && c != MORE && c != LESS && c != PIPE \
+	if (c != ' ' && c != '\t' && c != MORE && c != LESS && c != PIPE \
 					&& c != S_QUOTE && c != D_QUOTE)
 		return (true);
 	return (false);

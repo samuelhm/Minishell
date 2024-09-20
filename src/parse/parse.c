@@ -89,6 +89,8 @@ void	split_into_arrays(char ***new, char *input)
 	char	*new_arr;
 	char	**new_array;
 
+	new_arr = NULL;
+	new_array = NULL;
 	if (!input || !new)
 		return ;
 	str = ft_strtrim(input, " \t");
@@ -123,21 +125,32 @@ char	**split_av(char *input)
 		return (NULL);
 	}
 	new = NULL;
-	split_into_arrays(&new, input);	
+	split_into_arrays(&new, input);
+	if (!is_compliance(new))
+		return (free_array(new), NULL);
 	return (new);
 }
 
 int main(void)
 {
+	char	input[] = " 	infile << ls | grep 'hello world' >	 \"$PWD\" >>  output.txt ";
+	char	**res;
+	res = split_av(input);
+	for (int i = 0; res[i] != NULL; i++)
+	{
+		printf("%s\n", res[i]);
+		free(res[i]);
+	}
+	free(res);
 //	char	arr[3][10];
-
+/*
 	bool	b;
-
 	b = check_quote("This \"is\' a \' test\" for\' \"something\"");
 	if (b)
 		printf("valid");
 	else
 		printf("invalid");
+*/
 //	arr = split_av("This \'is \" a \'test for \"something");
 //	for (int i = 0; i < 3; i++)
 //		printf("%s\n", arr[1]);
