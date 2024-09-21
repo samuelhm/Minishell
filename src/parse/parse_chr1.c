@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parse_chr1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
+/*   By: linyao <linyao@student.42barcelona.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 15:44:46 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/21 17:00:31 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/09/21 21:54:44 by linyao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../inc/minishell.h"
+#include "../../inc/env.h"
 
 bool	append_char(char **arr, char c)
 {

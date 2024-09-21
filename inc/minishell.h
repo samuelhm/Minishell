@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
+/*   By: linyao <linyao@student.42barcelona.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:14:45 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/21 17:31:02 by linyao           ###   ########.fr       */
+/*   Updated: 2024/09/21 21:40:17 by linyao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,6 @@ int		blt_cd(char **av, t_hash *env);
 int		blt_pwd(void);
 int		blt_export(char **av, t_hash *env);
 int		blt_unset(char **av, t_hash *env);
+
 
 #endif
