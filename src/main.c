@@ -6,16 +6,14 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:17:34 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/14 13:24:40 by linyao           ###   ########.fr       */
+/*   Updated: 2024/09/21 17:06:28 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
-#include "../inc/env.h"
+#include "minishell.h"
 
 int	main(int ac, char **av, char **env)
 {
-	char	*input;
 	t_ms	ms;
 
 	(void)av;
