@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:36:43 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/21 17:00:31 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/09/21 17:19:56 by linyao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,12 @@ void	handle_special(char ***array, char **arr, char **c)
 	}
 }
 
-static void	check_handle_dollar(char **arr, char **c, char ch)
+void	check_handle_dollar(char **arr, char **c, char ch)
 {
 	char	*key;
 	char	*env_val;
 
-	if (ch == D_QUOTE && **c == '$')
+	if ((ch == D_QUOTE && **c == '$') || (ch = ' ' && **c == '$'))
 	{
 		(*c)++;
 		key = extract_key(*c);

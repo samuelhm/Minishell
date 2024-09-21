@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:20:41 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/21 17:21:27 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/09/21 17:37:44 by linyao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ char	**split_av(char *input)
 /*
 int main(void)
 {
-	char	input[] = " 	infile << ls | grep 'hello world' >	 \"$PWD\" >>  output.txt ";
+	char	input[] = " 	infile << ls | grep &USER 'hello world' >	 \"$PWD\" >>  output.txt ";
 	char	**res;
 	res = split_av(input);
 	for (int i = 0; res[i] != NULL; i++)

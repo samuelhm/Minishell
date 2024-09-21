@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:14:45 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/21 17:11:50 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/09/21 17:31:02 by linyao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,16 @@ void	store_to_array(char ***array, char **arr);
 bool	add_array(char ***array, char *s);
 bool	append_str(char **arr, char *env_val);
 bool	append_char(char **arr, char c);
-void	move_over(char **str);
-char	*extract_key(const char *str);
-void	handle_special(char ***array, char **arr, char **c);
-void	handle_quote(char ***array, char **arr, char **c, char *start);
-bool	is_ordinary(char c);
-bool	is_compliance(char **arrays);
-void	free_array(char **arrays);
+void    move_over(char **str);
+char    *extract_key(const char *str);
+void    handle_special(char ***array, char **arr, char **c);
+void    handle_quote(char ***array, char **arr, char **c, char *start);
+bool    is_ordinary(char c);
+bool    is_compliance(char **arrays);
+void    free_array(char **arrays);
 int		count_arrays(char **arrays);
+char	**process_av(char **av, struct s_hash *env);
+void	check_handle_dollar(char **arr, char **c, char ch);
 
 //Utils
 bool	is_special(const char *s);
