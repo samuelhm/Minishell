@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:14:45 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/19 17:35:38 by linyao           ###   ########.fr       */
+/*   Updated: 2024/09/21 14:25:07 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@
 # include <readline/history.h>
 # include <stdbool.h>
 # include <stdlib.h>
-# include "../lib/libft/libft.h"
+# include "libft.h"
 # include "env.h"
+# include <limits.h>
 
 # define PROMPT "\x1b[1;32mminishell\x1b[0m\x1b[1;36m > \x1b[0m"
 # define SINGLE_QUOTE 1
@@ -35,7 +36,7 @@
 # define LESS_S "<"
 # define PIPE_S "|"
 
-struct s_hash;
+struct	s_hash;
 
 typedef struct s_ms
 {
@@ -44,26 +45,32 @@ typedef struct s_ms
 }	t_ms;
 
 void	init_ms(t_ms *ms, char **env);
-void    init_env(t_ms *ms, char **env);
-void    realize_shell(t_ms *ms);
+void	init_env(t_ms *ms, char **env);
+void	realize_shell(t_ms *ms);
 
 //------------------parse------------------
-bool    handle_single(bool *s_close, bool *d_close, int *flag);
-bool    handle_double(bool *s_close, bool *d_close, int *flag);
-bool    check_quote(char *s);
-void    split_into_arrays(char ***new, char *input);
-char    **split_av(char *input);
-void    store_to_array(char ***array, char **arr);
-bool    add_array(char ***array, char *s);
-bool    append_str(char **arr, char *env_val);
+bool	handle_single(bool *s_close, bool *d_close, int *flag);
+bool	handle_double(bool *s_close, bool *d_close, int *flag);
+bool	check_quote(char *s);
+void	split_into_arrays(char ***new, char *input);
+char	**split_av(char *input);
+void	store_to_array(char ***array, char **arr);
+bool	add_array(char ***array, char *s);
+bool	append_str(char **arr, char *env_val);
 bool	append_char(char **arr, char c);
-void    move_over(char **str);
-char    *extract_key(const char *str);
-void    handle_special(char ***array, char **arr, char **c);
-void    handle_quote(char ***array, char **arr, char **c, char *start);
-bool    is_ordinary(char c);
-bool    is_compliance(char **arrays);
-void    free_array(char **arrays);
-int     count_arrays(char **arrays);
+void	move_over(char **str);
+char	*extract_key(const char *str);
+void	handle_special(char ***array, char **arr, char **c);
+void	handle_quote(char ***array, char **arr, char **c, char *start);
+bool	is_ordinary(char c);
+bool	is_compliance(char **arrays);
+void	free_array(char **arrays);
+int		count_arrays(char **arrays);
+
+//Utils
+bool	is_special(const char *s);
+
+//Built-ins
+int		echo(char **av);
 
 #endif
