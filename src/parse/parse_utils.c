@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 21:12:36 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/21 17:00:31 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/09/21 18:12:17 by linyao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,15 @@ int	count_arrays(char **arrays)
 
 static bool	comply_rule(char *bf, char *af, char *mark)
 {
-	if (ft_strcmp(bf, mark) && ft_strcmp(af, LESS_S))
+	if (ft_strcmp(bf, mark) == 0 && ft_strcmp(af, LESS_S)  == 0)
 		return (printf("Token next to another <\n"), false);
-	if (ft_strcmp(bf, mark) && ft_strcmp(af, MORE_S))
+	if (ft_strcmp(bf, mark) == 0 && ft_strcmp(af, MORE_S) == 0)
 		return (printf("Token next to another >\n"), false);
-	if (ft_strcmp(bf, mark) && ft_strcmp(af, DOUBLE_LESS))
+	if (ft_strcmp(bf, mark) == 0 && ft_strcmp(af, DOUBLE_LESS) == 0)
 		return (printf("Token next to another <<\n"), false);
-	if (ft_strcmp(bf, mark) && ft_strcmp(af, DOUBLE_MORE))
+	if (ft_strcmp(bf, mark) == 0 && ft_strcmp(af, DOUBLE_MORE) == 0)
 		return (printf("Token next to another >>\n"), false);
-	if (ft_strcmp(bf, mark) && ft_strcmp(af, PIPE_S))
+	if (ft_strcmp(bf, mark)== 0 && ft_strcmp(af, PIPE_S)  == 0)
 		return (printf("Token next to another |\n"), false);
 	return (true);
 }
@@ -64,13 +64,13 @@ bool	is_compliance(char **as)
 	if (!as || !*as)
 		return (true);
 	len = count_arrays(as);
-	if (ft_strcmp(as[len - 1], PIPE_S) || ft_strcmp(as[len - 1], \
-		LESS_S) || ft_strcmp(as[len - 1], MORE_S) || \
-		ft_strcmp(as[len - 1], DOUBLE_LESS) || \
-		ft_strcmp(as[len - 1], DOUBLE_MORE))
+	if (!ft_strcmp(as[len - 1], PIPE_S) || !ft_strcmp(as[len - 1], \
+		LESS_S) || !ft_strcmp(as[len - 1], MORE_S) || \
+		!ft_strcmp(as[len - 1], DOUBLE_LESS) || \
+		!ft_strcmp(as[len - 1], DOUBLE_MORE))
 		return (printf("Illegal shell command\n"), false);
 	i = 0;
-	while (i < len)
+	while (i < len - 1)
 	{
 		if (as[i + 1] && !comply_rule(as[i], as[i + 1], LESS_S))
 			return (false);
