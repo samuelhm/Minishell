@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:14:45 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/21 14:25:07 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/09/21 16:53:08 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "libft.h"
 # include "env.h"
 # include <limits.h>
+# include <sys/errno.h>
 
 # define PROMPT "\x1b[1;32mminishell\x1b[0m\x1b[1;36m > \x1b[0m"
 # define SINGLE_QUOTE 1
@@ -71,6 +72,11 @@ int		count_arrays(char **arrays);
 bool	is_special(const char *s);
 
 //Built-ins
-int		echo(char **av);
+int		blt_echo(char **av);
+int		blt_exit(char **av);
+int		blt_cd(char **av, t_hash *env);
+int		blt_pwd(void);
+int		blt_export(char **av, t_hash *env);
+int		blt_unset(char **av, t_hash *env);
 
 #endif

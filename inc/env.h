@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: linyao <linyao@student.42barcelona.co      +#+  +:+       +#+        */
+/*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 15:22:32 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/19 12:18:37 by linyao           ###   ########.fr       */
+/*   Updated: 2024/09/21 16:18:47 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct s_node
 {
 	char			*key;
 	char			*value;
-	struct	s_node	*next;
+	struct s_node	*next;
 }		t_node;
 
 typedef struct s_hash
@@ -31,12 +31,12 @@ typedef struct s_hash
 }		t_hash;
 
 t_hash			*init_hash(void);
-char    		*lookup_hash(t_hash *env, char *key);
-bool    		assign_hash(t_hash *en, char *key, char *value);
-unsigned int    hash_function(char *key);
-t_node  		*init_list(void);
-bool    		add_list(t_node *n, char *key, char *value);
-bool    		del_list(t_node *n, char *key);
-bool    		del_hash(t_hash *env, char *key);
+char			lookup_hash(t_hash *env, char *key);
+bool			assign_hash(t_hash *en, char *key, char *value);
+unsigned int	hash_function(char *key);
+t_node			*init_list(void);
+bool			add_list(t_node *n, char *key, char *value);
+bool			del_list(t_node *n, char *key);
+bool			del_hash(t_hash *env, char *key);
 
 #endif

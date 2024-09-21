@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 13:04:27 by shurtado          #+#    #+#             */
-/*   Updated: 2024/09/21 14:38:01 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/09/21 16:17:38 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ bool	is_special(const char *s)
 // You should receive **av moving its pointer to echo
 //in case you have redirects or pipes
 
-int	echo(char **av)
+int	blt_echo(char **av)
 {
 	bool	n;
 
