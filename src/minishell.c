@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: linyao <linyao@student.42barcelona.com>    +#+  +:+       +#+        */
+/*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 12:37:25 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/16 12:53:11 by linyao           ###   ########.fr       */
+/*   Updated: 2024/09/21 17:05:40 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,18 @@ void	realize_shell(t_ms *ms)
 				continue ;
 			free(input);
 			input = NULL;
-			ms->av = process_av(ms->av, ms->env);//
+//			ms->av = process_av(ms->av, ms->env);
 		}
 		if ((input && ft_strcmp(input, "exit") == 0) || !input)
 		{
 			if (input)
 			{
 				free(input);
-				break;
+				break ;
 			}
 			break ;
 		}
-		printf("%s\n", input);//test
+		printf("%s\n", input);
 	}
 }
 
