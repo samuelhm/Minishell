@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parse_chr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
+/*   By: linyao <linyao@student.42barcelona.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:36:43 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/21 19:11:05 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/09/21 21:26:41 by linyao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../inc/minishell.h"
+#include "../../inc/env.h"
 
 void	move_over(char **str)
 {

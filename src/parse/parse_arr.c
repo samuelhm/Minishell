@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parse_arr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
+/*   By: linyao <linyao@student.42barcelona.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 17:22:27 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/21 17:00:52 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/09/21 21:24:45 by linyao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../inc/minishell.h"
+#include "../../inc/env.h"
 
 void	store_to_array(char ***array, char **arr)
 {
