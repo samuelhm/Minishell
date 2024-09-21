@@ -6,12 +6,11 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 21:12:36 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/21 18:12:17 by linyao           ###   ########.fr       */
+/*   Updated: 2024/09/21 19:12:56 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 void	free_array(char **arrays)
 {
@@ -43,7 +42,7 @@ int	count_arrays(char **arrays)
 
 static bool	comply_rule(char *bf, char *af, char *mark)
 {
-	if (ft_strcmp(bf, mark) == 0 && ft_strcmp(af, LESS_S)  == 0)
+	if (ft_strcmp(bf, mark) == 0 && ft_strcmp(af, LESS_S) == 0)
 		return (printf("Token next to another <\n"), false);
 	if (ft_strcmp(bf, mark) == 0 && ft_strcmp(af, MORE_S) == 0)
 		return (printf("Token next to another >\n"), false);
@@ -51,7 +50,7 @@ static bool	comply_rule(char *bf, char *af, char *mark)
 		return (printf("Token next to another <<\n"), false);
 	if (ft_strcmp(bf, mark) == 0 && ft_strcmp(af, DOUBLE_MORE) == 0)
 		return (printf("Token next to another >>\n"), false);
-	if (ft_strcmp(bf, mark)== 0 && ft_strcmp(af, PIPE_S)  == 0)
+	if (ft_strcmp(bf, mark) == 0 && ft_strcmp(af, PIPE_S) == 0)
 		return (printf("Token next to another |\n"), false);
 	return (true);
 }

@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_arr1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: linyao <linyao@student.42barcelona.co      +#+  +:+       +#+        */
+/*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:03:37 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/21 17:27:07 by linyao           ###   ########.fr       */
+/*   Updated: 2024/09/21 18:55:45 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/minishell.h"
-#include "../../inc/env.h"
+#include "minishell.h"
 
 //To remove the quotes in the elements of two-dimensional arrays
 static void	process_quote(char **s, char **new)
