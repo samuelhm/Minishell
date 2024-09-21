@@ -6,7 +6,7 @@
 #    By: linyao <linyao@student.42barcelona.co      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/13 17:48:46 by linyao            #+#    #+#              #
-#    Updated: 2024/08/28 12:52:22 by linyao           ###   ########.fr        #
+#    Updated: 2024/09/14 15:17:01 by linyao           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRC = ft_atoi.c  ft_memchr.c ft_split.c ft_strncmp.c \
       ft_isascii.c ft_putchar_fd.c ft_strlcat.c ft_tolower.c \
       ft_isdigit.c ft_putendl_fd.c ft_strlcpy.c ft_toupper.c \
       ft_isprint.c ft_putnbr_fd.c ft_strlen.c \
+	ft_strcmp.c ft_getinx.c ft_realloc.c \
       ft_itoa.c ft_putstr_fd.c ft_strmapi.c ft_printf.c ft_convert.c ft_convert2.c \
 		get_next_line.c get_next_line_utils.c
 
