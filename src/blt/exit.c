@@ -6,16 +6,18 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 13:09:50 by shurtado          #+#    #+#             */
-/*   Updated: 2024/09/21 16:19:17 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/09/21 17:17:41 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int blt_exit(char **av)
+//temporal (void)exit_code becouse !Werror flag
+int	blt_exit(char **av)
 {
 	int	exit_code;
 
+	(void)exit_code;
 	exit_code = 0;
 	if (av[1])
 	{
