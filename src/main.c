@@ -6,7 +6,7 @@
 /*   By: linyao <linyao@student.42barcelona.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:17:34 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/21 21:31:51 by linyao           ###   ########.fr       */
+/*   Updated: 2024/09/22 21:27:48 by linyao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 int	main(int ac, char **av, char **env)
 {
+	char	*input;
 	t_ms	ms;
 
 	(void)av;

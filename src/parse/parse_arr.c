@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_arr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: linyao <linyao@student.42barcelona.com>    +#+  +:+       +#+        */
+/*   By: linyao <linyao@student.42barcelona.co      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 17:22:27 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/21 21:24:45 by linyao           ###   ########.fr       */
+/*   Updated: 2024/09/19 17:22:26 by linyao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ void	store_to_array(char ***array, char **arr)
 }
 
 //To append a string to a two-dimensional array
-//Every element in the two-dimensional array is a parsed unit of
+//Every element in the two-dimensional array is a parsed unit of 
 //a shell command line
 bool	add_array(char ***array, char *s)
 {
-	int		count;
+	int	count;
 	char	**new_arrays;
 
 	count = 0;

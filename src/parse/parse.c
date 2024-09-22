@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: linyao <linyao@student.42barcelona.com>    +#+  +:+       +#+        */
+/*   By: linyao <linyao@student.42barcelona.co      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:20:41 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/21 21:29:07 by linyao           ###   ########.fr       */
+/*   Updated: 2024/09/22 15:51:53 by linyao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ bool	check_quote(char *s)
 	return (single_quote_close && double_quote_close);
 }
 
-void	split_into_arrays(char ***new, char *input)
+void	split_into_arrays(t_hash *env, char ***new, char *input)
 {
 	char	*str;
 	char	*new_arr;
@@ -103,7 +103,7 @@ void	split_into_arrays(char ***new, char *input)
 			move_over(&str);
 		}
 		handle_special(&new_array, &new_arr, &str);
-		handle_quote(&new_array, &new_arr, &str, input);
+		handle_quote(env, &new_array, &new_arr, &str, input);
 		if (is_ordinary(*str))
 			append_char(&new_arr, *str);
 		str++;
@@ -113,7 +113,7 @@ void	split_into_arrays(char ***new, char *input)
 	free(input);
 }
 
-char	**split_av(char *input)
+char	**split_av(t_hash *env, char *input)
 {
 	char	**new;
 
@@ -125,35 +125,46 @@ char	**split_av(char *input)
 		return (NULL);
 	}
 	new = NULL;
-	split_into_arrays(&new, input);
+	split_into_arrays(env, &new, input);
 	if (!is_compliance(new))
 		return (free_array(new), NULL);
 	return (new);
 }
 /*
-int main(void)
+int main(int ac, char **av, char **env)
 {
-	char	input[] = " 	infile << ls | grep &USER 'hello world' >	 \"$PWD\" >>  output.txt ";
-	char	**res;
-	res = split_av(input);
+	char	input[] = " 	infile << ls | grep $HOME 'hello world' >	 \"$PWD\" >>  output.txt ";
+	char	**res1;
+	char    **res;
+	t_ms	ms;
+
+	(void)av;
+	(void)ac;
+	init_env(&ms, env);
+	res1 = split_av(ms.env, input);
+	for (int i = 0; res1[i] != NULL; i++)
+        	printf("%s\n", res1[i]);
+	res = process_av(res1, ms.env);
 	for (int i = 0; res[i] != NULL; i++)
 	{
 		printf("%s\n", res[i]);
 		free(res[i]);
 	}
 	free(res);
+*/
 //	char	arr[3][10];
-/
+/*
 	bool	b;
 	b = check_quote("This \"is\' a \' test\" for\' \"something\"");
 	if (b)
 		printf("valid");
 	else
 		printf("invalid");
-/
+*/
 //	arr = split_av("This \'is \" a \'test for \"something");
 //	for (int i = 0; i < 3; i++)
 //		printf("%s\n", arr[1]);
+/*
 	return (0);
 }
 */

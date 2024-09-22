@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 13:09:54 by shurtado          #+#    #+#             */
-/*   Updated: 2024/09/21 19:22:41 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/09/21 16:40:40 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	blt_pwd(void)
 {
-	char	*cwd[PATH_MAX];
+	char	cwd[_PC_PATH_MAX];
 
 	if (getcwd(cwd, sizeof(cwd)) != NULL)
 	{

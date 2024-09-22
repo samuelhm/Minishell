@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_arr1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: linyao <linyao@student.42barcelona.com>    +#+  +:+       +#+        */
+/*   By: linyao <linyao@student.42barcelona.co      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:03:37 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/21 21:25:47 by linyao           ###   ########.fr       */
+/*   Updated: 2024/09/22 16:52:02 by linyao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@
 static void	process_quote(char **s, char **new)
 {
 	(*s)++;
-	while (**s != S_QUOTE && **s != D_QUOTE)
+	while (**s && **s != S_QUOTE && **s != D_QUOTE)
 		append_char(new, *(*s)++);
-	(*s)++;
+	if (**s == S_QUOTE || **s == D_QUOTE)
+		(*s)++;
 }
 
 //To deal with the case there is $ syntax without any quote
@@ -28,7 +29,7 @@ static void	process_quote(char **s, char **new)
 static void	process_ordinary(char **s, t_hash *env, char **new)
 {
 	if (**s == '$' && *(*s + 1) && *(*s + 1) != '$')
-		check_handle_dollar(new, s, ' ');
+		check_handle_dollar(env, new, s, ' ');
 	else
 		append_char(new, **s);
 	(*s)++;
@@ -63,7 +64,7 @@ char	**process_av(char **av, t_hash *env)
 		return (NULL);
 	while (av[i])
 	{
-		if (!ft_strcmp(av[i], "\'\'") && !ft_strcmp(av[i], "\"\""))
+		if (ft_strcmp(av[i], "\'\'") != 0 && ft_strcmp(av[i], "\"\"") != 0)
 		{
 			str_pro = process_analyze(av[i], env);
 			add_array(&res, str_pro);

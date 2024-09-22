@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: linyao <linyao@student.42barcelona.com>    +#+  +:+       +#+        */
+/*   By: linyao <linyao@student.42barcelona.co      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 16:10:50 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/21 21:21:55 by linyao           ###   ########.fr       */
+/*   Updated: 2024/09/14 16:58:53 by linyao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ bool	assign_hash(t_hash *en, char *key, char *value)
 
 void	init_env(t_ms *ms, char **env)
 {
-	int		i;
-	int		key_len;
+	int	i;
+	int	key_len;
 	char	*key;
 
 	ms->env = init_hash();

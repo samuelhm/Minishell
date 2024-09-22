@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_chr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: linyao <linyao@student.42barcelona.com>    +#+  +:+       +#+        */
+/*   By: linyao <linyao@student.42barcelona.co      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:36:43 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/21 21:26:41 by linyao           ###   ########.fr       */
+/*   Updated: 2024/09/22 16:27:43 by linyao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,18 +57,21 @@ void	handle_special(char ***array, char **arr, char **c)
 	}
 }
 
-void	check_handle_dollar(char **arr, char **c, char ch)
+//To handle the case there is $ in double quotes with non-zero ch
+//To handle the case there is $ without any quote with ch of space
+void	check_handle_dollar(t_hash *env, char **arr, char **c, char ch)
 {
 	char	*key;
 	char	*env_val;
 
-	if ((ch == D_QUOTE && **c == '$') || (ch = ' ' && **c == '$'))
+	if ((ch == D_QUOTE && **c == '$') || (ch == ' ' && **c == '$'))
 	{
 		(*c)++;
 		key = extract_key(*c);
 		if (key)
 		{
-			env_val = getenv(key);
+//			env_val = getenv(key);
+			env_val = lookup_hash(env, key);
 			if (env_val)
 				append_str(arr, env_val);
 			free(key);
@@ -83,7 +86,8 @@ void	check_handle_dollar(char **arr, char **c, char ch)
 	}
 }
 
-void	handle_quote(char ***array, char **arr, char **c, char *start)
+void	handle_quote(t_hash *env, char ***array, char **arr, \
+										char **c, char *start)
 {
 	char	ch;
 
@@ -98,7 +102,7 @@ void	handle_quote(char ***array, char **arr, char **c, char *start)
 	append_char(arr, **c);
 	(*c)++;
 	while (**c && **c != ch)
-		check_handle_dollar(arr, c, ch);
+		check_handle_dollar(env, arr, c, ch);
 	append_char(arr, **c);
 	(*c)++;
 	if (*(*c) && *(*c) == ' ' && *arr != NULL)
