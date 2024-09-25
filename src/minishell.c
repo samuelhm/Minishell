@@ -6,7 +6,7 @@
 /*   By: linyao <linyao@student.42barcelona.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 12:37:25 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/22 13:24:12 by linyao           ###   ########.fr       */
+/*   Updated: 2024/09/25 17:13:22 by linyao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ void	realize_shell(t_ms *ms)
 				continue ;
 			free(input);
 			input = NULL;
-			ms->av = process_av(ms->av, ms->env);//
+			ms->av = process_av(ms->av, ms->env);
+			ms->inf = get_infile_path(&ms->av);//
+			do_execs(ms->av, ms->env, ms->raw_env);//
 		}
 		if ((input && ft_strcmp(input, "exit") == 0) || !input)
 		{
