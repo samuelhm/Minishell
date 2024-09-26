@@ -1,43 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   execs.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/15 12:37:25 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/26 19:27:02 by shurtado         ###   ########.fr       */
+/*   Created: 2024/09/25 20:04:36 by shurtado          #+#    #+#             */
+/*   Updated: 2024/09/26 19:30:29 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	init_ms(t_ms *ms, char **env)
+int	process_line(t_ms *ms)
 {
-	init_env(ms, env);
-	ms->raw_env = env;
-}
-
-void	realize_shell(t_ms *ms)
-{
-	char	*input;
-
-	while (1)
-	{
-		input = readline(PROMPT);
-		if (input && *input)
-		{
-			add_history(input);
-			ms->av = split_av(ms->env, input);
-			if (!ms->av)
-				continue ;
-			free(input);
-			input = NULL;
-			ms->av = process_av(ms->av, ms->env);
-			process_line(ms);
-
-//			ms->inf = get_infile_path(&ms->av);
-		}
-	}
+	if (has_any_redirect(ms->av))
+		do_redirection(ms->av);
+	if (has_pipe(ms->av))
+		return (0);
+	if (is_builtin(ms->av))
+		exec_builtin(ms);
+	return (0);
 }
 

@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_chr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: linyao <linyao@student.42barcelona.co      +#+  +:+       +#+        */
+/*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:36:43 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/22 16:27:43 by linyao           ###   ########.fr       */
+/*   Updated: 2024/09/25 20:29:30 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/minishell.h"
-#include "../../inc/env.h"
+#include "minishell.h"
 
 void	move_over(char **str)
 {
@@ -70,7 +69,6 @@ void	check_handle_dollar(t_hash *env, char **arr, char **c, char ch)
 		key = extract_key(*c);
 		if (key)
 		{
-//			env_val = getenv(key);
 			env_val = lookup_hash(env, key);
 			if (env_val)
 				append_str(arr, env_val);

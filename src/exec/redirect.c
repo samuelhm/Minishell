@@ -1,43 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/15 12:37:25 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/26 19:27:02 by shurtado         ###   ########.fr       */
+/*   Created: 2024/09/25 21:07:00 by shurtado          #+#    #+#             */
+/*   Updated: 2024/09/26 19:31:27 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	init_ms(t_ms *ms, char **env)
+int	handle_redirection(char *file, int flags, int std_fd)
 {
-	init_env(ms, env);
-	ms->raw_env = env;
-}
+	int	fd;
 
-void	realize_shell(t_ms *ms)
-{
-	char	*input;
-
-	while (1)
+	fd = open(file, flags, 0644);
 	{
-		input = readline(PROMPT);
-		if (input && *input)
-		{
-			add_history(input);
-			ms->av = split_av(ms->env, input);
-			if (!ms->av)
-				continue ;
-			free(input);
-			input = NULL;
-			ms->av = process_av(ms->av, ms->env);
-			process_line(ms);
-
-//			ms->inf = get_infile_path(&ms->av);
-		}
+		perror("open");
+		return (-1);
 	}
+	if (dup2(fd, std_fd) == -1)
+	{
+		perror("dup2");
+		return (-1);
+	}
+	close(fd);
+	return (0);
 }
 
+int	do_redirection(char **av)
+{
+	(void) *(*av);
+	return (0);
+}

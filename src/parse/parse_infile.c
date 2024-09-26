@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_infile.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: linyao <linyao@student.42barcelona.co      +#+  +:+       +#+        */
+/*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:02:43 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/25 17:13:13 by linyao           ###   ########.fr       */
+/*   Updated: 2024/09/25 20:02:22 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/env.h"
-#include "../../inc/minishell.h"
+#include "minishell.h"
 
 // extract the infile part from the two-dimensional array
 // remove the element about infile from the array

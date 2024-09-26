@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: linyao <linyao@student.42barcelona.co      +#+  +:+       +#+        */
+/*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 13:10:06 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/14 16:55:54 by linyao           ###   ########.fr       */
+/*   Updated: 2024/09/25 19:56:40 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/env.h"
-#include "../../inc/minishell.h"
+#include "minishell.h"
 
 unsigned int	hash_function(char *key)
 {

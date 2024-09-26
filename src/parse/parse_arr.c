@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_arr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: linyao <linyao@student.42barcelona.co      +#+  +:+       +#+        */
+/*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 17:22:27 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/19 17:22:26 by linyao           ###   ########.fr       */
+/*   Updated: 2024/09/25 19:58:03 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/minishell.h"
-#include "../../inc/env.h"
+#include "minishell.h"
 
 void	store_to_array(char ***array, char **arr)
 {
@@ -24,7 +23,7 @@ void	store_to_array(char ***array, char **arr)
 }
 
 //To append a string to a two-dimensional array
-//Every element in the two-dimensional array is a parsed unit of 
+//Every element in the two-dimensional array is a parsed unit of
 //a shell command line
 bool	add_array(char ***array, char *s)
 {
