@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 20:09:31 by shurtado          #+#    #+#             */
-/*   Updated: 2024/09/26 19:29:40 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/09/27 11:42:43 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,10 @@ bool	is_builtin(char **av)
 				!ft_strcmp(av[i], "cd") || !ft_strcmp(av[i], "exit") || \
 				!ft_strcmp(av[i], "export") || !ft_strcmp(av[i], "pwd") || \
 				!ft_strcmp(av[i], "unset"))
-			return (true);
+				{
+					return (true);
+				}
+		i++;
 	}
 	return (false);
 }

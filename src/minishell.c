@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 12:37:25 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/26 19:27:02 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/09/27 11:46:19 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	init_ms(t_ms *ms, char **env)
 {
 	init_env(ms, env);
-	ms->raw_env = env;
 }
 
 void	realize_shell(t_ms *ms)
