@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:14:45 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/26 19:30:10 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/09/27 10:37:36 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,6 @@ bool	has_any_redirect(char **av);
 int		do_redirection(char **av);
 bool	is_builtin(char **av);
 int		exec_builtin(t_ms *ms);
+int		execute_command(char **av, char **env);
 
 #endif
