@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 13:09:45 by shurtado          #+#    #+#             */
-/*   Updated: 2024/09/21 16:37:02 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/09/28 13:16:21 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 int	blt_cd(char **av, t_hash *env)
 {
 	char	*path;
-
+	int		result;
+\
+	result = 0;
 	if (!av[1])
 	{
 		path = lookup_hash(env, "HOME");
@@ -32,7 +34,8 @@ int	blt_cd(char **av, t_hash *env)
 	if (chdir(path) != 0)
 	{
 		perror("cd");
-		return (1);
+		result = 1;
 	}
-	return (0);
+	free(path);
+	return (result);
 }

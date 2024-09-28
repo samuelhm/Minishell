@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 11:24:13 by shurtado          #+#    #+#             */
-/*   Updated: 2024/09/28 12:24:15 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/09/28 13:18:16 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	free_env_arr(char **env)
 	free(env);
 }
 
+//Assign memory, and fill bidimensional array as env
 char	**get_env_arr(t_ms *ms)
 {
 	char	**raw_env;
