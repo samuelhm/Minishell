@@ -6,21 +6,22 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 20:09:31 by shurtado          #+#    #+#             */
-/*   Updated: 2024/09/27 11:42:43 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/09/27 18:08:03 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	execute_command(char **av, char **env)
+
+int	execute_command(char *path, char **args, char **env)
 {
 	pid_t	pid;
 	int		status;
 
 	pid = fork();
 	if (pid == 0)
-	{
-		if (execve(av[0], av, env) == -1)
+	{           // /bin/ls   args[0]ls args[1] -ah args[2] NULL
+		if (execve(path, args, env) == -1)
 		{
 			perror("execve");
 			return (1);
