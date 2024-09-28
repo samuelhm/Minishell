@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 20:09:31 by shurtado          #+#    #+#             */
-/*   Updated: 2024/09/27 18:08:03 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/09/28 11:20:37 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	execute_command(char *path, char **args, char **env)
 
 	pid = fork();
 	if (pid == 0)
-	{           // /bin/ls   args[0]ls args[1] -ah args[2] NULL
+	{
 		if (execve(path, args, env) == -1)
 		{
 			perror("execve");
@@ -48,9 +48,9 @@ bool	is_builtin(char **av)
 				!ft_strcmp(av[i], "cd") || !ft_strcmp(av[i], "exit") || \
 				!ft_strcmp(av[i], "export") || !ft_strcmp(av[i], "pwd") || \
 				!ft_strcmp(av[i], "unset"))
-				{
-					return (true);
-				}
+		{
+			return (true);
+		}
 		i++;
 	}
 	return (false);
@@ -61,19 +61,19 @@ int	exec_builtin(t_ms *ms)
 	char	*blt;
 
 	blt = ms->av[0];
-	if(!strcmp(blt, "echo"))
+	if (!strcmp(blt, "echo"))
 		blt_echo(ms->av);
-	else if(!strcmp(blt, "env"))
+	else if (!strcmp(blt, "env"))
 		blt_env(ms->env);
-	else if(!strcmp(blt, "cd"))
+	else if (!strcmp(blt, "cd"))
 		blt_cd(ms->av, ms->env);
-	else if(!strcmp(blt, "exit"))
+	else if (!strcmp(blt, "exit"))
 		blt_exit(ms->av);
-	else if(!strcmp(blt, "export"))
+	else if (!strcmp(blt, "export"))
 		blt_export(ms->av, ms->env);
-	else if(!strcmp(blt, "pwd"))
+	else if (!strcmp(blt, "pwd"))
 		blt_pwd();
-	else if(!strcmp(blt, "unset"))
+	else if (!strcmp(blt, "unset"))
 		blt_unset(ms->av, ms->env);
 	else
 		return (1);

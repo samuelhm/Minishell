@@ -6,7 +6,7 @@
 #    By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/11 13:53:02 by linyao            #+#    #+#              #
-#    Updated: 2024/09/27 11:23:11 by shurtado         ###   ########.fr        #
+#    Updated: 2024/09/28 11:25:39 by shurtado         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ LIBFT_DIR = $(LIB_DIR)/libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
 # Source + obj
-SRCS_FILES = minishell.c main.c env/env.c env/utils_env.c
+SRCS_FILES = minishell.c main.c env/env.c env/utils_env.c env/make_env_arr.c
 SRCS_FILES += blt/cd.c blt/echo.c blt/blt_env.c blt/exit.c blt/export.c blt/pwd.c blt/unset.c
 SRCS_FILES += parse/parse_arr.c parse/parse_arr1.c parse/parse_chr.c parse/parse_chr1.c parse/parse_utils.c parse/parse.c
 SRCS_FILES += exec/execs.c exec/simple.c exec/redirect.c exec/redirect_checks.c
