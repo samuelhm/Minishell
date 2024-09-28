@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:14:45 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/27 10:37:36 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/09/28 12:25:05 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ typedef struct s_ms
 {
 	char			**av;
 	struct s_hash	*env;
-	char			**raw_env;
 	char			**inf;
 	char			**outf;
 }	t_ms;
@@ -58,6 +57,9 @@ typedef struct s_ms
 void	init_ms(t_ms *ms, char **env);
 void	init_env(t_ms *ms, char **env);
 void	realize_shell(t_ms *ms);
+
+//-------------------env-------------------
+char	**get_env_arr(t_ms *ms);
 
 //------------------parse------------------
 bool	handle_single(bool *s_close, bool *d_close, int *flag);
@@ -102,6 +104,6 @@ bool	has_any_redirect(char **av);
 int		do_redirection(char **av);
 bool	is_builtin(char **av);
 int		exec_builtin(t_ms *ms);
-int		execute_command(char **av, char **env);
+int		execute_command(char *path, char **args, char **env);
 
 #endif

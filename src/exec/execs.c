@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 20:04:36 by shurtado          #+#    #+#             */
-/*   Updated: 2024/09/27 11:22:30 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/09/28 12:27:22 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	process_line(t_ms *ms)
 	}
 	else
 	{
-		execute_command(ms->av, ms->raw_env);
+		execute_command(ft_strjoin("/bin/",ms->av[0]), ms->av, get_env_arr(ms));
 	}
 	return (0);
 }

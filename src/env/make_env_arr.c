@@ -6,19 +6,20 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 11:24:13 by shurtado          #+#    #+#             */
-/*   Updated: 2024/09/28 12:11:04 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/09/28 12:24:15 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+//return how many nodes exist inside env list
 static int	get_lenght(t_hash *env)
 {
 	t_node	*node;
 	int		size;
 
 	size = 0;
-	node = env->slot;
+	node = env->slot[0];
 	while (node)
 	{
 		size++;
@@ -27,6 +28,7 @@ static int	get_lenght(t_hash *env)
 	return (size);
 }
 
+//assign memory for new env line like user=shurtado from key/value list.
 static char	*get_envline(t_node *node)
 {
 	int		size;
@@ -42,7 +44,8 @@ static char	*get_envline(t_node *node)
 	j = 0;
 	while (node->key[i])
 	{
-		result[i] = node->key[i++];
+		result[i] = node->key[i];
+		i++;
 		j++;
 	}
 	result[j++] = '=';
@@ -53,12 +56,13 @@ static char	*get_envline(t_node *node)
 	return (result);
 }
 
+//free array if fail
 void	free_env_arr(char **env)
 {
 	int	i;
 
 	i = 0;
-	if (!env || env[0])
+	if (!env || !env[0])
 		return ;
 	while (env[i])
 		free(env[i++]);
@@ -72,7 +76,7 @@ char	**get_env_arr(t_ms *ms)
 	int		size;
 	t_node	*node;
 
-	node = ms->env->slot;
+	node = ms->env->slot[0];
 	i = 0;
 	size = get_lenght(ms->env);
 	raw_env = ft_calloc(size + 1, sizeof(char *));
