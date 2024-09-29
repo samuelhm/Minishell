@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:14:45 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/28 12:25:05 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/09/29 12:32:03 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ char	**get_infile_path(char ***av);
 
 //Utils
 bool	is_special(const char *s);
+char	**get_env_arr(t_ms *ms);
+void	show_debug(t_ms *ms);
 
 //Built-ins
 int		blt_echo(char **av);

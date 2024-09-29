@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 20:09:31 by shurtado          #+#    #+#             */
-/*   Updated: 2024/09/28 11:20:37 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/09/29 12:33:14 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ bool	is_builtin(char **av)
 		if (!ft_strcmp(av[i], "echo") || !ft_strcmp(av[i], "env") || \
 				!ft_strcmp(av[i], "cd") || !ft_strcmp(av[i], "exit") || \
 				!ft_strcmp(av[i], "export") || !ft_strcmp(av[i], "pwd") || \
-				!ft_strcmp(av[i], "unset"))
+				!ft_strcmp(av[i], "unset") || !ft_strcmp(av[i], "debug"))
 		{
 			return (true);
 		}
@@ -75,6 +75,8 @@ int	exec_builtin(t_ms *ms)
 		blt_pwd();
 	else if (!strcmp(blt, "unset"))
 		blt_unset(ms->av, ms->env);
+	else if (!strcmp(blt, "debug"))
+		show_debug(ms);
 	else
 		return (1);
 	return (0);

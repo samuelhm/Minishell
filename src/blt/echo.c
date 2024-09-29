@@ -36,7 +36,7 @@ int	blt_echo(char **av)
 	if (!av || !av[0])
 		return (0);
 	av++;
-	if (av[0] && strncmp(av[0], "-n", 3) == 0)
+	if (av[0] && !strncmp(av[0], "-n", 3))
 	{
 		n = true;
 		av++;

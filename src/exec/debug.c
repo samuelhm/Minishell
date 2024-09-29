@@ -1,42 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/15 12:37:25 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/29 12:32:05 by shurtado         ###   ########.fr       */
+/*   Created: 2024/09/29 12:27:32 by shurtado          #+#    #+#             */
+/*   Updated: 2024/09/29 12:31:53 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	init_ms(t_ms *ms, char **env)
+void	show_debug(t_ms *ms)
 {
-	init_env(ms, env);
-}
+	int		i;
+	char	**av;
 
-void	realize_shell(t_ms *ms)
-{
-	char	*input;
+	i = 0;
+	av = ms->av;
 
-	while (1)
+	while (av[i])
 	{
-		input = readline(PROMPT);
-		if (input && *input)
-		{
-			add_history(input);
-			ms->av = split_av(ms->env, input);
-			if (!ms->av)
-				continue ;
-			free(input);
-			input = NULL;
-			ms->av = process_av(ms->av, ms->env);
-			process_line(ms);
-
-//			ms->inf = get_infile_path(&ms->av);
-		}
+		printf("av[%d]: %s \n", i, av[i]);
+		i++;
 	}
 }
-

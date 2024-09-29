@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 11:24:13 by shurtado          #+#    #+#             */
-/*   Updated: 2024/09/28 13:18:16 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/09/29 11:41:35 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	get_lenght(t_hash *env)
 	return (size);
 }
 
-//assign memory for new env line like user=shurtado from key/value list.
+//assign memory & data for new env line like user=shurtado from key/value list.
 static char	*get_envline(t_node *node)
 {
 	int		size;

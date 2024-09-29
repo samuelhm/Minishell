@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 15:22:32 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/29 11:01:16 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/09/29 11:44:34 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,5 @@ t_node			*init_list(void);
 bool			add_list(t_node *n, char *key, char *value);
 bool			del_list(t_node *n, char *key);
 bool			del_hash(t_hash *env, char *key);
-char			**get_env_arr(t_ms *ms);
 
 #endif
