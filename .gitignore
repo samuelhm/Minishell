@@ -1,6 +1,5 @@
 # Personal Excludes
 *.swp
-.vscode/
 *.tmp
 *.DS_Store
 minishell

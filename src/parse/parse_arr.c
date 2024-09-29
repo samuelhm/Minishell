@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 17:22:27 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/25 19:58:03 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/09/29 13:38:18 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ bool	add_array(char ***array, char *s)
 		return (false);
 	*array = new_arrays;
 	(*array)[count] = ft_strdup(s);
+	(*array)[count + 1] = NULL;
 	return (true);
 }
 

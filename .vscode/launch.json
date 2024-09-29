@@ -1,0 +1,36 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+	  {
+		"name": "Debug Minishell",
+		"type": "cppdbg",
+		"request": "launch",
+		"program": "${workspaceFolder}/minishell",  // Ruta al binario que se va a ejecutar
+		"args": [],
+		"stopAtEntry": false,
+		"cwd": "${workspaceFolder}",  // El directorio de trabajo
+		"environment": [],
+		"externalConsole": false,     // Mostrar la salida en el terminal de VSCode
+		"MIMode": "gdb",
+		"setupCommands": [
+		  {
+			"description": "Habilitar la impresión automática de variables",
+			"text": "-enable-pretty-printing",
+			"ignoreFailures": true
+		  }
+		],
+		"miDebuggerPath": "/usr/bin/gdb",  // Ruta de gdb, ajusta si es necesario
+		"preLaunchTask": "build",          // Tarea que compila antes de ejecutar
+		"internalConsoleOptions": "openOnSessionStart",
+		"logging": {
+		  "trace": true,  // Puedes habilitar esto para más detalles de depuración
+		  "engineLogging": true,
+		  "programOutput": true,
+		  "exceptions": true
+		},
+		"setupCommands": [
+		  { "text": "set print pretty on" }
+		]
+	  }
+	]
+  }

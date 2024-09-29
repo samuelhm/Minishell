@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 20:04:36 by shurtado          #+#    #+#             */
-/*   Updated: 2024/09/29 12:34:33 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/09/29 13:47:54 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	process_line(t_ms *ms)
 		exec_builtin(ms);
 	else
 	{
-		show_debug(ms);
 		execute_command(path, ms->av, get_env_arr(ms));
 	}
 	free(path);
