@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 20:09:31 by shurtado          #+#    #+#             */
-/*   Updated: 2024/09/29 12:33:14 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/09/30 16:15:31 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	exec_builtin(t_ms *ms)
 	else if (!strcmp(blt, "cd"))
 		blt_cd(ms->av, ms->env);
 	else if (!strcmp(blt, "exit"))
-		blt_exit(ms->av);
+		blt_exit(ms);
 	else if (!strcmp(blt, "export"))
 		blt_export(ms->av, ms->env);
 	else if (!strcmp(blt, "pwd"))

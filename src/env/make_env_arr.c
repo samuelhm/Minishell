@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 11:24:13 by shurtado          #+#    #+#             */
-/*   Updated: 2024/09/29 11:41:35 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/09/30 16:55:25 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,19 @@ static int	get_lenght(t_hash *env)
 {
 	t_node	*node;
 	int		size;
+	int		i;
 
+	i = 0;
 	size = 0;
-	node = env->slot[0];
-	while (node)
+	while (i < HASH_LEN)
 	{
-		size++;
-		node = node->next;
+		node = env->slot[i];
+		while (node)
+		{
+			size++;
+			node = node->next;
+		}
+		i++;
 	}
 	return (size);
 }
@@ -76,23 +82,29 @@ char	**get_env_arr(t_ms *ms)
 	int		i;
 	int		size;
 	t_node	*node;
+	int		j;
 
-	node = ms->env->slot[0];
+	j = 0;
 	i = 0;
 	size = get_lenght(ms->env);
 	raw_env = ft_calloc(size + 1, sizeof(char *));
 	if (!raw_env)
 		return (NULL);
-	while (node)
+	while (j < HASH_LEN)
 	{
-		raw_env[i] = get_envline(node);
-		if (!raw_env[i])
+		node = ms->env->slot[j];
+		while (node)
 		{
-			free_env_arr(raw_env);
-			return (NULL);
+			raw_env[i] = get_envline(node);
+			if (!raw_env[i])
+			{
+				free_env_arr(raw_env);
+				return (NULL);
+			}
+			node = node->next;
+			i++;
 		}
-		node = node->next;
-		i++;
+		j++;
 	}
 	raw_env[i] = NULL;
 	return (raw_env);

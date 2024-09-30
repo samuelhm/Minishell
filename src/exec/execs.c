@@ -6,19 +6,53 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 20:04:36 by shurtado          #+#    #+#             */
-/*   Updated: 2024/09/29 13:47:54 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/09/30 17:52:57 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static char	*getpath(t_hash *env, char *file)
+{
+	char	*path;
+	char	**paths;
+	int		i;
+	char	*temp;
+
+	path = strdup(lookup_hash(env, "PATH"));
+	if (!path)
+		return (NULL);
+	paths = ft_split(path, ':');
+	free (path);
+	i = 0;
+	while (paths[i])
+	{
+		temp = ft_strjoin(paths[i], "/");
+		path = ft_strjoin(temp, file);
+		free(temp);
+		if (!access(path, F_OK | X_OK | R_OK))
+		{
+			free_array(paths);
+			return (path);
+		}
+		free(path);
+		path = NULL;
+		i++;
+	}
+	free_array(paths);
+	return (NULL);
+}
+
 int	process_line(t_ms *ms)
 {
 	char	*path;
 
-	path = ft_strjoin("/bin/", ms->av[0]);
+	path = getpath(ms->env, ms->av[0]);
 	if (!path)
-		return (1);
+	{
+		fprintf(stderr, "minishell: command not found: %s\n", ms->av[0]);
+		return (127);
+	}
 	if (has_any_redirect(ms->av))
 		do_redirection(ms->av);
 	if (is_builtin(ms->av))

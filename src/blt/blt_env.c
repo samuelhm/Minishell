@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 13:09:48 by shurtado          #+#    #+#             */
-/*   Updated: 2024/09/21 17:14:10 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/09/30 16:41:34 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	blt_env(t_hash *env)
 	t_node	*node;
 
 	i = 0;
-	node = NULL;
 	while (i < HASH_LEN)
 	{
 		node = env->slot[i];
