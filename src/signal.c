@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 09:28:31 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/01 10:02:57 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/01 10:08:06 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	init_signals(int mode)
 
 	signal.sa_flags = SA_RESTART | SA_SIGINFO;
 	sigemptyset(&signal.sa_mask);
-	if (mode == 1)
+	if (mode == NORMAL)
 		signal.sa_sigaction = norm_handler;
 	sigaction(SIGINT, &signal, NULL);
 	sigaction(SIGQUIT, &signal, NULL);
