@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 12:37:25 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/30 16:04:35 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/01 09:34:53 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,13 @@ void	realize_shell(t_ms *ms)
 			show_debug(ms);
 			process_line(ms);
 			free_array(ms->av);
-
-//			ms->inf = get_infile_path(&ms->av);
+		}
+		else
+		{
+			free_array(ms->av);
+			//free_env(ms->env);
+			ft_printf("exit\n");
+			exit(0);
 		}
 	}
 }
