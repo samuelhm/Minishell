@@ -6,11 +6,13 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 09:28:31 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/01 09:29:40 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/01 10:02:57 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int 	g_sig;
 
 void	norm_handler(int sig, siginfo_t *info, void *b)
 {
@@ -22,7 +24,7 @@ void	norm_handler(int sig, siginfo_t *info, void *b)
 		rl_replace_line("", 1);
 		rl_on_new_line();
 		rl_redisplay();
-		g_sig_rec = 1;
+		g_sig = 1;
 	}
 	return ;
 }
@@ -44,7 +46,7 @@ int	init_signals(int mode)
 
 	signal.sa_flags = SA_RESTART | SA_SIGINFO;
 	sigemptyset(&signal.sa_mask);
-	if (mode == NORM)
+	if (mode == 1)
 		signal.sa_sigaction = norm_handler;
 	sigaction(SIGINT, &signal, NULL);
 	sigaction(SIGQUIT, &signal, NULL);

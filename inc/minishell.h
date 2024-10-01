@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:14:45 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/01 09:33:03 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/01 09:56:13 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include "env.h"
 # include <fcntl.h>
 # include <signal.h>
+# include <termios.h>
 
 # define PROMPT "\x1b[1;32mminishell\x1b[0m\x1b[1;36m > \x1b[0m"
 # define SINGLE_QUOTE 1
@@ -44,6 +45,9 @@
 # ifndef PATH_MAX
 #  define PATH_MAX 4096
 # endif
+
+# define NORMAL 1
+# define INTERACTIVE 2
 
 struct	s_hash;
 
@@ -110,4 +114,7 @@ bool	is_builtin(char **av);
 int		exec_builtin(t_ms *ms);
 int		execute_command(char *path, char **args, char **env);
 
+//Signals
+int		init_signals(int mode);
+void	do_sigign(int signum);
 #endif
