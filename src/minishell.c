@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 12:37:25 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/01 10:03:40 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/02 11:31:09 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	realize_shell(t_ms *ms)
 		else
 		{
 			free_array(ms->av);
-			//free_env(ms->env);
+			delete_env(ms->env);
 			ft_printf("exit\n");
 			exit(0);
 		}

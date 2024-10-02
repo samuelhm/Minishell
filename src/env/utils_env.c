@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 13:10:06 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/25 19:56:40 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/02 11:57:23 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,10 @@ bool	del_hash(t_hash *env, char *key)
 	if (!env->slot[inx])
 		return (false);
 	if (del_list(env->slot[inx], key))
+	{
+		env->slot[inx] = NULL;
 		return (true);
+	}
 	else
 		return (false);
 }

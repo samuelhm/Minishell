@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:14:45 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/01 09:56:13 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/02 11:31:57 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ bool	is_special(const char *s);
 char	**get_env_arr(t_ms *ms);
 void	show_debug(t_ms *ms);
 void	free_env_arr(char **env);
+void	delete_env(t_hash *env);
 
 //Built-ins
 int		blt_echo(char **av);

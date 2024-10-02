@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 20:04:36 by shurtado          #+#    #+#             */
-/*   Updated: 2024/09/30 17:52:57 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/02 11:37:37 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	process_line(t_ms *ms)
 	char	*path;
 
 	path = getpath(ms->env, ms->av[0]);
-	if (!path)
+	if (!path && !is_builtin(ms->av))
 	{
 		fprintf(stderr, "minishell: command not found: %s\n", ms->av[0]);
 		return (127);
