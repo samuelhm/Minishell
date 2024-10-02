@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 12:37:25 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/02 12:50:53 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/02 14:11:29 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	init_ms(t_ms *ms, char **env)
 void	realize_shell(t_ms *ms)
 {
 	char	*input;
+	int		result;
 
 	while (1)
 	{
@@ -35,7 +36,7 @@ void	realize_shell(t_ms *ms)
 			if (!ms->av)
 				continue ;
 			ms->av = process_av(ms->av, ms->env);
-			process_line(ms);
+			result = process_line(ms);
 			free_array(ms->av);
 		}
 		else
@@ -44,7 +45,7 @@ void	realize_shell(t_ms *ms)
 			delete_env(ms->env);
 			free_array(ms->crude_env);
 			ft_printf("exit\n");
-			exit(0);
+			exit(result);
 		}
 	}
 }
