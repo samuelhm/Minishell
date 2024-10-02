@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 20:04:36 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/02 11:37:37 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/02 12:49:16 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	process_line(t_ms *ms)
 		exec_builtin(ms);
 	else
 	{
-		execute_command(path, ms->av, get_env_arr(ms));
+		execute_command(path, ms->av, ms->crude_env);
 	}
 	free(path);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:14:45 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/02 11:31:57 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/02 12:47:52 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_ms
 {
 	char			**av;
 	struct s_hash	*env;
+	char			**crude_env;
 	char			**inf;
 	char			**outf;
 }	t_ms;
