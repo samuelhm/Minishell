@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   blt_env.c                                          :+:      :+:    :+:   */
+/*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/21 13:09:48 by shurtado          #+#    #+#             */
-/*   Updated: 2024/09/30 16:41:34 by shurtado         ###   ########.fr       */
+/*   Created: 2024/09/29 12:27:32 by shurtado          #+#    #+#             */
+/*   Updated: 2024/09/30 17:30:09 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	blt_env(t_hash *env)
+void	show_debug(t_ms *ms)
 {
 	int		i;
-	t_node	*node;
+	char	**av;
 
 	i = 0;
-	while (i < HASH_LEN)
+	av = ms->av;
+
+	while (av[i])
 	{
-		node = env->slot[i];
-		while (node)
-		{
-			ft_printf("%s=%s\n", node->key, node->value);
-			node = node->next;
-		}
+		printf("av[%d]: %s \n", i, av[i]);
 		i++;
 	}
-	return (0);
 }

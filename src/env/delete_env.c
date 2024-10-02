@@ -1,32 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   blt_env.c                                          :+:      :+:    :+:   */
+/*   delete_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/21 13:09:48 by shurtado          #+#    #+#             */
-/*   Updated: 2024/09/30 16:41:34 by shurtado         ###   ########.fr       */
+/*   Created: 2024/10/02 11:21:45 by shurtado          #+#    #+#             */
+/*   Updated: 2024/10/02 11:32:31 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	blt_env(t_hash *env)
+void	delete_env(t_hash *env)
 {
 	int		i;
-	t_node	*node;
+	t_node	*current;
+	t_node	*tmp;
 
+	if (!env)
+		return ;
 	i = 0;
 	while (i < HASH_LEN)
 	{
-		node = env->slot[i];
-		while (node)
+		current = env->slot[i];
+		while (current)
 		{
-			ft_printf("%s=%s\n", node->key, node->value);
-			node = node->next;
+			tmp = current;
+			free(tmp->key);
+			free(tmp->value);
+			current = current->next;
+			free(tmp);
 		}
 		i++;
 	}
-	return (0);
+	free(env);
 }

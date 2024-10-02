@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 13:09:45 by shurtado          #+#    #+#             */
-/*   Updated: 2024/09/21 16:37:02 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/02 11:41:56 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,11 @@
 int	blt_cd(char **av, t_hash *env)
 {
 	char	*path;
+	int		result;
+	char	buf[PATH_MAX];
+	char	*tmp;
 
+	result = 0;
 	if (!av[1])
 	{
 		path = lookup_hash(env, "HOME");
@@ -26,13 +30,20 @@ int	blt_cd(char **av, t_hash *env)
 		}
 	}
 	else
-	{
 		path = av[1];
-	}
 	if (chdir(path) != 0)
 	{
 		perror("cd");
-		return (1);
+		result = 1;
 	}
-	return (0);
+	if (!result)
+	{
+		tmp = lookup_hash(env, "PWD");
+		getcwd(buf, sizeof(buf));
+		assign_hash(env, "OLDPWD", tmp);
+		assign_hash(env, "PWD", buf);
+	}
+	if (!av[1])
+		free(path);
+	return (result);
 }

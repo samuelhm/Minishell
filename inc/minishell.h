@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:14:45 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/27 10:37:36 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/02 12:47:52 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # include <sys/wait.h>
 # include "env.h"
 # include <fcntl.h>
+# include <signal.h>
+# include <termios.h>
 
 # define PROMPT "\x1b[1;32mminishell\x1b[0m\x1b[1;36m > \x1b[0m"
 # define SINGLE_QUOTE 1
@@ -44,13 +46,16 @@
 #  define PATH_MAX 4096
 # endif
 
+# define NORMAL 1
+# define INTERACTIVE 2
+
 struct	s_hash;
 
 typedef struct s_ms
 {
 	char			**av;
 	struct s_hash	*env;
-	char			**raw_env;
+	char			**crude_env;
 	char			**inf;
 	char			**outf;
 }	t_ms;
@@ -58,6 +63,9 @@ typedef struct s_ms
 void	init_ms(t_ms *ms, char **env);
 void	init_env(t_ms *ms, char **env);
 void	realize_shell(t_ms *ms);
+
+//-------------------env-------------------
+char	**get_env_arr(t_ms *ms);
 
 //------------------parse------------------
 bool	handle_single(bool *s_close, bool *d_close, int *flag);
@@ -83,10 +91,14 @@ char	**get_infile_path(char ***av);
 
 //Utils
 bool	is_special(const char *s);
+char	**get_env_arr(t_ms *ms);
+void	show_debug(t_ms *ms);
+void	free_env_arr(char **env);
+void	delete_env(t_hash *env);
 
 //Built-ins
 int		blt_echo(char **av);
-int		blt_exit(char **av);
+int		blt_exit(t_ms *ms);
 int		blt_cd(char **av, t_hash *env);
 int		blt_pwd(void);
 int		blt_export(char **av, t_hash *env);
@@ -102,6 +114,9 @@ bool	has_any_redirect(char **av);
 int		do_redirection(char **av);
 bool	is_builtin(char **av);
 int		exec_builtin(t_ms *ms);
-int		execute_command(char **av, char **env);
+int		execute_command(char *path, char **args, char **env);
 
+//Signals
+int		init_signals(int mode);
+void	do_sigign(int signum);
 #endif

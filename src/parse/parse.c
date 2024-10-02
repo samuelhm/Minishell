@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:20:41 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/25 19:56:19 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/09/29 18:57:35 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,11 @@ void	split_into_arrays(t_hash *env, char ***new, char *input)
 	if (!input || !new)
 		return ;
 	str = ft_strtrim(input, " \t");
+	if (!str || *str == '\0')
+	{
+		free(str);
+		return ;
+	}
 	input = str;
 	while (*str)
 	{
@@ -105,7 +110,8 @@ void	split_into_arrays(t_hash *env, char ***new, char *input)
 		handle_quote(env, &new_array, &new_arr, &str, input);
 		if (is_ordinary(*str))
 			append_char(&new_arr, *str);
-		str++;
+		if (*str)
+			str++;
 	}
 	store_to_array(&new_array, &new_arr);
 	*new = new_array;
