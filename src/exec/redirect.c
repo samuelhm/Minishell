@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 21:07:00 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/03 16:28:39 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/03 16:52:31 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,19 @@ bool	has_redirection(char **av, char *redir)
 
 bool	setup_redirections(t_ms *ms)
 {
+	int	result;
+
 	ms->fd_in = STDIN_FILENO;
 	ms->fd_out = STDOUT_FILENO;
-	handle_input_redirection(ms);
-	handle_output_trunc_redirection(ms);
-	handle_output_append_redirection(ms);
-	handle_heredoc_redirection(ms);
+	result = 0;
+	result += handle_input_redirection(ms);
+	result += handle_output_trunc_redirection(ms);
+	result += handle_output_append_redirection(ms);
+	result += handle_heredoc_redirection(ms);
+
 	if (ms->fd_in == -1 || ms->fd_out == -1)
 		perror("Error en setup_redirections");
-	return (false);
+	return (result);
 }
 
 char	*get_filename(char **av, char *redir)
