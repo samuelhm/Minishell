@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 12:37:25 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/02 14:11:29 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/03 14:21:35 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,24 @@ void	init_ms(t_ms *ms, char **env)
 	ms->crude_env = get_env_arr(ms);
 }
 
+static void	free_resources(t_ms *ms, int result)
+{
+	if (ms->av)
+		free_array(ms->av);
+	if (ms->env)
+		delete_env(ms->env);
+	if (ms->crude_env)
+		free_array(ms->crude_env);
+	ft_printf("exit\n");
+	exit(result);
+}
+
 void	realize_shell(t_ms *ms)
 {
 	char	*input;
 	int		result;
 
+	result = 0;
 	while (1)
 	{
 		init_signals(NORMAL);
@@ -36,17 +49,11 @@ void	realize_shell(t_ms *ms)
 			if (!ms->av)
 				continue ;
 			ms->av = process_av(ms->av, ms->env);
-			result = process_line(ms);
+			show_debug(ms);
+			//result = process_line(ms);
 			free_array(ms->av);
 		}
 		else
-		{
-			free_array(ms->av);
-			delete_env(ms->env);
-			free_array(ms->crude_env);
-			ft_printf("exit\n");
-			exit(result);
-		}
+			free_resources(ms, result);
 	}
 }
-

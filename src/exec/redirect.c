@@ -6,32 +6,85 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 21:07:00 by shurtado          #+#    #+#             */
-/*   Updated: 2024/09/26 19:31:27 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/02 19:13:40 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	handle_redirection(char *file, int flags, int std_fd)
-{
-	int	fd;
+#define ERRFILE "minishell: syntax error near unexpected token `%s`\n"
 
-	fd = open(file, flags, 0644);
+bool	has_redirection(char **av, char *redir)
+{
+	int	i;
+
+	i = 0;
+	if (!av || !av[0])
+		return (false);
+	while (av[i])
 	{
-		perror("open");
-		return (-1);
+		if (!strcmp(av[i], redir))
+			return (true);
+		i++;
 	}
-	if (dup2(fd, std_fd) == -1)
-	{
-		perror("dup2");
-		return (-1);
-	}
-	close(fd);
-	return (0);
+	return (false);
 }
 
-int	do_redirection(char **av)
+void	setup_redirections(t_ms *ms)
 {
-	(void) *(*av);
-	return (0);
+	ms->fd_in = STDIN_FILENO;
+	ms->fd_out = STDOUT_FILENO;
+	handle_input_redirection(ms);
+	handle_output_trunc_redirection(ms);
+	handle_output_append_redirection(ms);
+	handle_heredoc_redirection(ms);
+	if (ms->fd_in == -1 || ms->fd_out == -1)
+		perror("Error en setup_redirections");
+}
+
+char	*get_filename(char **av, char *redir)
+{
+	int	i;
+
+	i = 0;
+	while (av[i])
+	{
+		if (!strcmp(av[i], redir))
+		{
+			if (av[i + 1])
+				return (strdup(av[i + 1]));
+			else
+			{
+				fprintf(stderr, ERRFILE, redir);
+				return (NULL);
+			}
+		}
+		i++;
+	}
+	return (NULL);
+}
+
+int	handle_heredoc(char *delimiter)
+{
+	int		pipe_fd[2];
+	char	*line;
+
+	if (pipe(pipe_fd) == -1)
+		perror("pipe error on handle_heredoc");
+	while (1)
+	{
+		line = readline("> ");
+		if (!line)
+			break ;
+		if (!strcmp(line, delimiter))
+		{
+			free(line);
+			break ;
+		}
+		ft_putstr_fd(line, pipe_fd[1]);
+		ft_putstr_fd("\n", pipe_fd[1]);
+		free(line);
+	}
+	close(pipe_fd[1]);
+	return (pipe_fd[0]);
 }

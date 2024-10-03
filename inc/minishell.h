@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:14:45 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/02 12:47:52 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/02 19:15:51 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,10 @@ typedef struct s_ms
 	char			**av;
 	struct s_hash	*env;
 	char			**crude_env;
-	char			**inf;
-	char			**outf;
+	int				fd_in;
+	int				fd_out;
+	int				last_pid;
+	int				status;
 }	t_ms;
 
 void	init_ms(t_ms *ms, char **env);
@@ -107,16 +109,25 @@ int		blt_env(t_hash *env);
 
 //Exec
 int		process_line(t_ms *ms);
-bool	has_in_redirect(char **av);
-bool	has_out_redirect(char **av);
 bool	has_pipe(char **av);
-bool	has_any_redirect(char **av);
-int		do_redirection(char **av);
-bool	is_builtin(char **av);
+bool	is_builtin(char *cmd);
 int		exec_builtin(t_ms *ms);
-int		execute_command(char *path, char **args, char **env);
+char	*getpath(t_hash *env, char *file);
+char	*get_filename(char **av, char *redir);
 
 //Signals
 int		init_signals(int mode);
 void	do_sigign(int signum);
+
+//PIPE
+bool	has_redirection(char **av, char *redir);
+void	process_pipe(t_ms *ms, int fd_pipe[2], int is_last);
+void	execute_command(t_ms *ms, char *path);
+void	setup_redirections(t_ms *ms);
+int		wait_for_last_process(t_ms *ms);
+void	handle_input_redirection(t_ms *ms);
+void	handle_output_trunc_redirection(t_ms *ms);
+void	handle_output_append_redirection(t_ms *ms);
+void	handle_heredoc_redirection(t_ms *ms);
+int		handle_heredoc(char *delimiter);
 #endif
