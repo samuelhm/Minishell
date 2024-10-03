@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:14:45 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/02 19:15:51 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/03 16:29:36 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,12 +122,12 @@ void	do_sigign(int signum);
 //PIPE
 bool	has_redirection(char **av, char *redir);
 void	process_pipe(t_ms *ms, int fd_pipe[2], int is_last);
-void	execute_command(t_ms *ms, char *path);
-void	setup_redirections(t_ms *ms);
+void	execute_command(t_ms *ms, char *path, int move);
+bool	setup_redirections(t_ms *ms);
 int		wait_for_last_process(t_ms *ms);
-void	handle_input_redirection(t_ms *ms);
-void	handle_output_trunc_redirection(t_ms *ms);
-void	handle_output_append_redirection(t_ms *ms);
-void	handle_heredoc_redirection(t_ms *ms);
+bool	handle_input_redirection(t_ms *ms);
+bool	handle_output_trunc_redirection(t_ms *ms);
+bool	handle_output_append_redirection(t_ms *ms);
+bool	handle_heredoc_redirection(t_ms *ms);
 int		handle_heredoc(char *delimiter);
 #endif

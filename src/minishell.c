@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 12:37:25 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/03 14:21:35 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/03 15:56:49 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	realize_shell(t_ms *ms)
 				continue ;
 			ms->av = process_av(ms->av, ms->env);
 			show_debug(ms);
-			//result = process_line(ms);
+			result = process_line(ms);
 			free_array(ms->av);
 		}
 		else

@@ -6,11 +6,25 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 20:04:36 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/02 19:11:42 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/03 16:34:58 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+bool	is_last_cmd(char **av)
+{
+	int	i;
+
+	i = 0;
+	while (av[i])
+	{
+		if (has_redirection(av + i, PIPE_S))
+			return (false);
+		i++;
+	}
+	return (true);
+}
 
 char	*getpath(t_hash *env, char *file)
 {
@@ -48,29 +62,32 @@ int	process_line(t_ms *ms)
 	int		fd_pipe[2];
 	int		is_last;
 	char	*path;
+	int		i;
 
 	ms->fd_in = STDIN_FILENO;
 	is_last = 0;
-	while (ms->av)
+	i = 0;
+	while (ms->av[i])
 	{
-		setup_redirections(ms);
-		if (!ms->av[1])
+		if (setup_redirections(ms))
+			i += 2;
+		if (is_last_cmd(ms->av + i))
 			is_last = 1;
-		path = getpath(ms->env, ms->av[0]);
+		path = getpath(ms->env, ms->av[i]);
 		if (!path)
 		{
 			fprintf(stderr, "minishell: command not found: %s\n", ms->av[0]);
 			return (127);
 		}
 		process_pipe(ms, fd_pipe, is_last);
-		execute_command(ms, path);
+		execute_command(ms, path, i);
 		free(path);
-		ms->av++;
+		i += 2;
 	}
 	return (wait_for_last_process(ms));
 }
 
-void	execute_command(t_ms *ms, char *path)
+void	execute_command(t_ms *ms, char *path, int move)
 {
 	pid_t	pid;
 
@@ -83,10 +100,10 @@ void	execute_command(t_ms *ms, char *path)
 			dup2(ms->fd_in, STDIN_FILENO);
 		if (ms->fd_out != STDOUT_FILENO)
 			dup2(ms->fd_out, STDOUT_FILENO);
-		if (is_builtin(ms->av[0]))
+		if (is_builtin(ms->av[move]))
 			exit (exec_builtin(ms));
 		else
-			execve(path, ms->av, ms->crude_env);
+			execve(path, ms->av + move, ms->crude_env);
 	}
 	ms->last_pid = pid;
 }
