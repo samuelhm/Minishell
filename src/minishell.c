@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 12:37:25 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/04 20:49:52 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/04 21:17:23 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ void	free_resources(t_ms *ms, int result)
 		delete_env(ms->env);
 	if (ms->crude_env)
 		free_array(ms->crude_env);
-	if (ms->fd_pipe)
-		clean_pipes(ms->fd_pipe);
 	ft_printf("exit\n");
 	exit(result);
 }
@@ -56,7 +54,9 @@ void	realize_shell(t_ms *ms)
 			ms->av = process_av(ms->av, ms->env);
 			result = process_line(ms);
 			free_array(ms->av);
+			ms->av = NULL;
 			clean_pipes(ms->fd_pipe);
+			ms->fd_pipe = NULL;
 		}
 		else
 			free_resources(ms, result);
