@@ -6,22 +6,22 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:41:03 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/02 19:14:01 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/03 19:42:35 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	process_pipe(t_ms *ms, int fd_pipe[2], int is_last)
+void	process_pipe(int fd_pipe[2], int is_last, int fd_local[2])
 {
 	if (!is_last && pipe(fd_pipe) == -1)
 		perror("Error at process_pipe");
 	if (is_last)
-		ms->fd_out = STDOUT_FILENO;
+		fd_local[1] = STDOUT_FILENO;
 	else
 	{
-		ms->fd_out = fd_pipe[1];
-		ms->fd_in = fd_pipe[0];
+		fd_local[1] = fd_pipe[1];
+		fd_local[0] = fd_pipe[0];
 	}
 }
 

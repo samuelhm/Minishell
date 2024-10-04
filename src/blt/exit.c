@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 13:09:50 by shurtado          #+#    #+#             */
-/*   Updated: 2024/09/30 16:14:08 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/03 17:49:00 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	blt_exit(t_ms *ms)
 			return (1);
 		}
 	}
-	free_array(av);
+	free_resources(ms, ms->status);
 	ft_printf("exit\n");
 	exit(exit_code);
 }

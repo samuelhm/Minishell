@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 20:09:31 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/02 19:13:11 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/04 15:58:06 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,38 @@ int	exec_builtin(t_ms *ms)
 	else
 		return (-1);
 	return (0);
+}
+
+void	execute_simple_comand(t_ms *ms)
+{
+	pid_t	pid;
+	char	*path;
+	int		return_status;
+
+	pid = fork();
+	if (pid == -1)
+		perror("Error no fork at execute_comand");
+	if (pid == 0)
+	{
+		if (!setup_redirections(ms))
+		{
+			perror("Errores en la redirección!");
+			exit(EXIT_FAILURE);
+		}
+		remove_redirections(ms->av);
+		if (is_builtin(ms->av[0]))
+		{
+			exit (exec_builtin(ms));
+		}
+		path = getpath(ms->env, ms->av[0]);
+		if (!path)
+			exit (EXIT_FAILURE);
+		else
+		{
+			return_status = execve(path, ms->av, get_env_arr(ms));
+			free(path);
+			exit(return_status);
+		}
+	}
+	ms->last_pid = pid;
 }

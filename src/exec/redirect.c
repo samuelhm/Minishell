@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 21:07:00 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/03 16:52:31 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/04 15:40:27 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,10 @@ bool	has_redirection(char **av, char *redir)
 
 bool	setup_redirections(t_ms *ms)
 {
-	int	result;
-
-	ms->fd_in = STDIN_FILENO;
-	ms->fd_out = STDOUT_FILENO;
-	result = 0;
-	result += handle_input_redirection(ms);
-	result += handle_output_trunc_redirection(ms);
-	result += handle_output_append_redirection(ms);
-	result += handle_heredoc_redirection(ms);
-
-	if (ms->fd_in == -1 || ms->fd_out == -1)
-		perror("Error en setup_redirections");
-	return (result);
+	return (handle_input_redirection(ms->av) + \
+		handle_heredoc_redirection(ms->av) + \
+		handle_output_trunc_redirection(ms->av) + \
+		handle_output_append_redirection(ms->av));
 }
 
 char	*get_filename(char **av, char *redir)
@@ -75,7 +66,10 @@ int	handle_heredoc(char *delimiter)
 	char	*line;
 
 	if (pipe(pipe_fd) == -1)
+	{
 		perror("pipe error on handle_heredoc");
+		return (-1);
+	}
 	while (1)
 	{
 		line = readline("> ");

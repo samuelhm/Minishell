@@ -14,10 +14,15 @@
 		"MIMode": "gdb",
 		"setupCommands": [
 		  {
-			"description": "Habilitar la impresión automática de variables",
+			"description": "Enable process-follow-fork-mode",
 			"text": "-enable-pretty-printing",
 			"ignoreFailures": true
-		  }
+		  },
+		  {
+			"description": "Ask whether to follow parent or child",
+			"text": "set follow-fork-mode parent",
+			"ignoreFailures": false
+		}
 		],
 		"miDebuggerPath": "/usr/bin/gdb",  // Ruta de gdb, ajusta si es necesario
 		"preLaunchTask": "build",          // Tarea que compila antes de ejecutar
@@ -27,10 +32,7 @@
 		  "engineLogging": true,
 		  "programOutput": true,
 		  "exceptions": true
-		},
-		"setupCommands": [
-		  { "text": "set print pretty on" }
-		]
+		}
 	  }
 	]
   }

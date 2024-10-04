@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:14:45 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/03 16:29:36 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/04 16:02:22 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,12 @@ struct	s_hash;
 typedef struct s_ms
 {
 	char			**av;
+	char			**cmds;
 	struct s_hash	*env;
 	char			**crude_env;
-	int				fd_in;
-	int				fd_out;
 	int				last_pid;
 	int				status;
+	int				**fd_pipe;
 }	t_ms;
 
 void	init_ms(t_ms *ms, char **env);
@@ -97,6 +97,9 @@ char	**get_env_arr(t_ms *ms);
 void	show_debug(t_ms *ms);
 void	free_env_arr(char **env);
 void	delete_env(t_hash *env);
+void	free_resources(t_ms *ms, int result);
+void	process_cmds(t_ms *ms);
+void	remove_redirections(char **av);
 
 //Built-ins
 int		blt_echo(char **av);
@@ -109,11 +112,11 @@ int		blt_env(t_hash *env);
 
 //Exec
 int		process_line(t_ms *ms);
-bool	has_pipe(char **av);
 bool	is_builtin(char *cmd);
 int		exec_builtin(t_ms *ms);
 char	*getpath(t_hash *env, char *file);
 char	*get_filename(char **av, char *redir);
+void	execute_simple_comand(t_ms *ms);
 
 //Signals
 int		init_signals(int mode);
@@ -121,13 +124,13 @@ void	do_sigign(int signum);
 
 //PIPE
 bool	has_redirection(char **av, char *redir);
-void	process_pipe(t_ms *ms, int fd_pipe[2], int is_last);
-void	execute_command(t_ms *ms, char *path, int move);
+void	process_pipe(int fd_pipe[2], int is_last, int fd_local[2]);
+void	execute_command(t_ms *ms, int fd_in, int fd_out);
 bool	setup_redirections(t_ms *ms);
 int		wait_for_last_process(t_ms *ms);
-bool	handle_input_redirection(t_ms *ms);
-bool	handle_output_trunc_redirection(t_ms *ms);
-bool	handle_output_append_redirection(t_ms *ms);
-bool	handle_heredoc_redirection(t_ms *ms);
+bool	handle_input_redirection(char **av);
+bool	handle_output_trunc_redirection(char **av);
+bool	handle_output_append_redirection(char **av);
+bool	handle_heredoc_redirection(char **av);
 int		handle_heredoc(char *delimiter);
 #endif

@@ -6,7 +6,7 @@
 #    By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/11 13:53:02 by linyao            #+#    #+#              #
-#    Updated: 2024/10/02 18:57:36 by shurtado         ###   ########.fr        #
+#    Updated: 2024/10/04 01:20:19 by shurtado         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ LDFLAGS = -L$(LIBFT_DIR) -lreadline -lncurses
 INCLUDES = -I$(INC_DIR) -I$(LIBFT_DIR)
 
 # Debug
-CFLAGS += -g -O0 -fsanitize=address
+CFLAGS += -g -O0
 # Directory
 SRC_DIR = src
 OBJ_DIR = obj
