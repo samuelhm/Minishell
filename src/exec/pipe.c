@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:41:03 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/04 16:24:04 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/04 19:55:37 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	clean_pipes(int **fd_pipe)
 		}
 		free(fd_pipe);
 	}
+	fd_pipe = NULL;
 }
 
 void	init_pipes(t_ms *ms)

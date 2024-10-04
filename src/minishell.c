@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 12:37:25 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/04 19:26:52 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/04 20:02:07 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,14 @@
 void	init_ms(t_ms *ms, char **env)
 {
 	init_env(ms, env);
+	ms->crude_env = NULL;
+	ms->av = NULL;
 	ms->crude_env = get_env_arr(ms);
+	ms->cmds = NULL;
+	ms->fd_pipe = NULL;
 }
 
- void	free_resources(t_ms *ms, int result)
+void	free_resources(t_ms *ms, int result)
 {
 	if (ms->av)
 		free_array(ms->av);
@@ -26,6 +30,10 @@ void	init_ms(t_ms *ms, char **env)
 		delete_env(ms->env);
 	if (ms->crude_env)
 		free_array(ms->crude_env);
+	if (ms->cmds)
+		free_array(ms->crude_env);
+	if (ms->fd_pipe)
+		clean_pipes(ms->fd_pipe);
 	ft_printf("exit\n");
 	exit(result);
 }
@@ -52,6 +60,7 @@ void	realize_shell(t_ms *ms)
 			result = process_line(ms);
 			free_array(ms->av);
 			free_array(ms->cmds);
+			clean_pipes(ms->fd_pipe);
 		}
 		else
 			free_resources(ms, result);
