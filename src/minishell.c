@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 12:37:25 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/04 15:58:09 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/04 19:26:52 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	realize_shell(t_ms *ms)
 	result = 0;
 	while (1)
 	{
-		init_signals(NORMAL);
+		init_signals();
 		input = readline(PROMPT);
 		if (input && *input)
 		{

@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:14:45 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/04 18:57:22 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/04 19:32:21 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,8 +119,8 @@ char	*get_filename(char **av, char *redir);
 void	execute_simple_comand(t_ms *ms);
 
 //Signals
-int		init_signals(int mode);
-void	do_sigign(int signum);
+void	init_signals(void);
+void	set_child_signals(void);
 
 //PIPE
 void	init_pipes(t_ms *ms);

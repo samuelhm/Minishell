@@ -6,49 +6,44 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 09:28:31 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/02 10:47:59 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/04 19:29:32 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	g_sig;
-
-void	norm_handler(int sig, siginfo_t *info, void *b)
+void	handle_signal(int sig)
 {
-	(void) info;
-	(void) b;
 	if (sig == SIGINT)
 	{
-		printf("\n");
-		rl_replace_line("", 1);
 		rl_on_new_line();
+		rl_replace_line("", 0);
+		printf("\n");
 		rl_redisplay();
-		g_sig = 1;
 	}
-	return ;
 }
 
-void	do_sigign(int signum)
+void	set_child_signals(void)
 {
-	struct sigaction	signal;
+	struct sigaction	sa;
 
-	signal.sa_handler = SIG_IGN;
-	signal.sa_flags = SA_RESTART;
-	sigemptyset(&signal.sa_mask);
-	if (sigaction(signum, &signal, NULL) < 0)
-		exit (1);
+	sa.sa_handler = SIG_DFL;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = 0;
+	sigaction(SIGINT, &sa, NULL);
+	sa.sa_handler = SIG_DFL;
+	sigaction(SIGQUIT, &sa, NULL);
+	signal(SIGTSTP, SIG_DFL);
 }
 
-int	init_signals(int mode)
+void	init_signals(void)
 {
-	struct sigaction	signal;
+	struct sigaction	sa;
 
-	signal.sa_flags = SA_RESTART | SA_SIGINFO;
-	sigemptyset(&signal.sa_mask);
-	if (mode == NORMAL)
-		signal.sa_sigaction = norm_handler;
-	sigaction(SIGINT, &signal, NULL);
-	sigaction(SIGQUIT, &signal, NULL);
-	return (0);
+	sa.sa_handler = handle_signal;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = SA_RESTART;
+	sigaction(SIGINT, &sa, NULL);
+	sa.sa_handler = SIG_IGN;
+	sigaction(SIGQUIT, &sa, NULL);
 }
