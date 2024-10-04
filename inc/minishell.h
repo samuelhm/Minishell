@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:14:45 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/04 20:49:35 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/04 21:11:28 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ bool	has_redirection(char **av, char *redir);
 void	process_pipe(int fd_pipe[2], int is_last, int fd_local[2]);
 void	execute_command(t_ms *ms, int fd_in, int fd_out, char **cmd);
 char	**get_cmd(t_ms *ms);
-bool	setup_redirections(t_ms *ms);
+bool	setup_redirections(char **cmd);
 int		wait_for_last_process(t_ms *ms);
 bool	handle_input_redirection(char **av);
 bool	handle_output_trunc_redirection(char **av);

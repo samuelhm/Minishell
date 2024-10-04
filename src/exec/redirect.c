@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 21:07:00 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/04 15:40:27 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/04 21:11:31 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ bool	has_redirection(char **av, char *redir)
 	return (false);
 }
 
-bool	setup_redirections(t_ms *ms)
+bool	setup_redirections(char **cmd)
 {
-	return (handle_input_redirection(ms->av) + \
-		handle_heredoc_redirection(ms->av) + \
-		handle_output_trunc_redirection(ms->av) + \
-		handle_output_append_redirection(ms->av));
+	return (handle_input_redirection(cmd) + \
+		handle_heredoc_redirection(cmd) + \
+		handle_output_trunc_redirection(cmd) + \
+		handle_output_append_redirection(cmd));
 }
 
 char	*get_filename(char **av, char *redir)

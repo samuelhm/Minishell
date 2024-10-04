@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 20:09:31 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/04 19:38:01 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/04 21:12:08 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	execute_simple_comand(t_ms *ms)
 	if (pid == 0)
 	{
 		set_child_signals();
-		if (!setup_redirections(ms))
+		if (!setup_redirections(ms->av))
 		{
 			perror("Errores en la redirección!");
 			exit(EXIT_FAILURE);

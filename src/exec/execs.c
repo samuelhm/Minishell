@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 20:04:36 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/04 20:55:19 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/04 21:11:44 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,8 +156,8 @@ void	execute_command(t_ms *ms, int fd_in, int fd_out, char **cmd)
 			dup2(fd_out, STDOUT_FILENO);
 			close(fd_out);
 		}
-		setup_redirections(ms);
-		remove_redirections(ms->av);
+		if (setup_redirections(cmd))
+			remove_redirections(cmd);
 		if (is_builtin(cmd[0]))
 			exit (exec_builtin(cmd, ms->env));
 		if (!path)
@@ -168,15 +168,17 @@ void	execute_command(t_ms *ms, int fd_in, int fd_out, char **cmd)
 			exit(EXIT_FAILURE);
 		}
 	}
-	if (pid != 0)
-	{
-		if (path)
-			free(path);
-		if (fd_in != STDIN_FILENO)
-			close(fd_in);
-		if (fd_out != STDOUT_FILENO)
-			close(fd_out);
-	}
+//	if (pid != 0)
+//	{
+//		if (path)
+//			free(path);
+//		if (fd_in != STDIN_FILENO)
+//			close(fd_in);
+//		if (fd_out != STDOUT_FILENO)
+//			close(fd_out);
+//	}
+	if (path)
+		free(path);
 	ms->last_pid = pid;
 }
 
