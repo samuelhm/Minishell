@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:50:34 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/04 15:43:45 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/04 17:50:26 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	remove_redirections(char **av)
 	int		j;
 
 	i = 0;
-	while (av[i])
+	while (av[i] && strcmp(av[i], PIPE_S))
 	{
 		if (is_special(av[i]))
 		{

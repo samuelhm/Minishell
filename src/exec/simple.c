@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 20:09:31 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/04 15:58:06 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/04 17:37:25 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,27 +24,23 @@ bool	is_builtin(char *cmd)
 	return (false);
 }
 
-int	exec_builtin(t_ms *ms)
+int	exec_builtin(char **cmd, t_hash *env)
 {
 	char	*blt;
 
-	blt = ms->av[0];
+	blt = cmd[0];
 	if (!strcmp(blt, "echo"))
-		return (blt_echo(ms->av));
+		return (blt_echo(cmd));
 	else if (!strcmp(blt, "env"))
-		return (blt_env(ms->env));
+		return (blt_env(env));
 	else if (!strcmp(blt, "cd"))
-		return (blt_cd(ms->av, ms->env));
-	else if (!strcmp(blt, "exit"))
-		return (blt_exit(ms));
+		return (blt_cd(cmd, env));
 	else if (!strcmp(blt, "export"))
-		return (blt_export(ms->av, ms->env));
+		return (blt_export(cmd, env));
 	else if (!strcmp(blt, "pwd"))
 		return (blt_pwd());
 	else if (!strcmp(blt, "unset"))
-		return (blt_unset(ms->av, ms->env));
-	else if (!strcmp(blt, "debug"))
-		show_debug(ms);
+		return (blt_unset(cmd, env));
 	else
 		return (-1);
 	return (0);
@@ -54,11 +50,15 @@ void	execute_simple_comand(t_ms *ms)
 {
 	pid_t	pid;
 	char	*path;
-	int		return_status;
 
+	path = getpath(ms->env, ms->av[0]);
 	pid = fork();
 	if (pid == -1)
+	{
+		if (path)
+			free(path);
 		perror("Error no fork at execute_comand");
+	}
 	if (pid == 0)
 	{
 		if (!setup_redirections(ms))
@@ -68,18 +68,19 @@ void	execute_simple_comand(t_ms *ms)
 		}
 		remove_redirections(ms->av);
 		if (is_builtin(ms->av[0]))
-		{
-			exit (exec_builtin(ms));
-		}
-		path = getpath(ms->env, ms->av[0]);
+			exit (exec_builtin(ms->av, ms->env));
 		if (!path)
 			exit (EXIT_FAILURE);
 		else
 		{
-			return_status = execve(path, ms->av, get_env_arr(ms));
-			free(path);
-			exit(return_status);
+			execve(path, ms->av, ms->crude_env);
+			perror("EXECVE FAIL");
+			if (path)
+				free(path);
+			exit(EXIT_FAILURE);
 		}
 	}
+	if (path)
+		free(path);
 	ms->last_pid = pid;
 }
