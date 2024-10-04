@@ -6,11 +6,19 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 20:04:36 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/04 19:57:41 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/04 20:55:19 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int count_av_elements(char **av)
+{
+	int count = 0;
+	while (av[count])
+		count++;
+	return count;
+}
 
 char	**get_cmd(t_ms *ms)
 {
@@ -33,15 +41,24 @@ char	**get_cmd(t_ms *ms)
 	cmd[j] = NULL;
 	if (ms->av[i] && strcmp(ms->av[i], PIPE_S) == 0)
 		i++;
+	// Copiar los elementos restantes después de la pipe al principio de ms->av
+	if (ms->av[i])
+		memmove(ms->av, &ms->av[i], (count_av_elements(&ms->av[i]) + 1) * sizeof(char *));
+	// count_av_elements cuenta los elementos restantes hasta NULL
+
+	// Limpiar el final de ms->av después de mover
 	j = 0;
-	while (ms->av[i])
-	{
-		free(ms->av[j]);
-		ms->av[j] = ms->av[i];
+	while (ms->av[j])
 		j++;
-		i++;
+
+	// Liberar y asegurar que el final de ms->av es NULL
+	while (ms->av[j])
+	{
+		free(ms->av[j]);  // Liberar las posiciones sobrantes
+		ms->av[j] = NULL; // Asegurarse de que se marquen como NULL
+		j++;
 	}
-	ms->av[j] = NULL;
+
 	return (cmd);
 }
 
@@ -95,7 +112,7 @@ int	process_line(t_ms *ms)
 				execute_command(ms, STDIN_FILENO, ms->fd_pipe[0][1], cmd);
 				close(ms->fd_pipe[0][1]);
 			}
-			else if (ms->fd_pipe[pipi + 1] != NULL)
+			else if (ms->fd_pipe[pipi] != NULL)
 			{
 				execute_command(ms, ms->fd_pipe[pipi -1][0], ms->fd_pipe[pipi][1], cmd);
 				close(ms->fd_pipe[pipi -1][0]);

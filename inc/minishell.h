@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:14:45 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/04 19:32:21 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/04 20:49:35 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ struct	s_hash;
 typedef struct s_ms
 {
 	char			**av;
-	char			**cmds;
 	struct s_hash	*env;
 	char			**crude_env;
 	int				last_pid;
