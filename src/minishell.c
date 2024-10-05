@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 12:37:25 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/04 21:17:23 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/05 17:41:23 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,14 @@ void	realize_shell(t_ms *ms)
 			if (!ms->av)
 				continue ;
 			ms->av = process_av(ms->av, ms->env);
+			if (!strcmp(ms->av[0], "exit"))
+			{
+				if (ms->av[1])
+					result = ft_atoi(ms->av[1]);
+				else
+					result = 0;
+				free_resources(ms, result);
+			}
 			result = process_line(ms);
 			free_array(ms->av);
 			ms->av = NULL;
