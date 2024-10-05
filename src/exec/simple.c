@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 20:09:31 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/04 21:12:08 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/05 17:29:03 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,15 @@ void	execute_simple_comand(t_ms *ms)
 		if (is_builtin(ms->av[0]))
 			exit (exec_builtin(ms->av, ms->env));
 		if (!path)
+		{
+			execve(ms->av[0], ms->av, ms->crude_env);
+			perror(ms->av[0]);
 			exit (EXIT_FAILURE);
+		}
 		else
 		{
 			execve(path, ms->av, ms->crude_env);
-			perror("EXECVE FAIL");
-			if (path)
-				free(path);
+			perror(ms->av[0]);
 			exit(EXIT_FAILURE);
 		}
 	}
