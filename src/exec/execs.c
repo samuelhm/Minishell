@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 20:04:36 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/05 17:29:14 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/06 16:33:31 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,10 @@ char	*getpath(t_hash *env, char *file)
 	int		i;
 	char	*temp;
 
-	path = strdup(lookup_hash(env, "PATH"));
+	if (lookup_hash(env, "PATH") == NULL)
+		path = NULL;
+	else
+		path = strdup(lookup_hash(env, "PATH"));
 	if (!path)
 		return (NULL);
 	paths = ft_split(path, ':');
@@ -159,7 +162,7 @@ void	execute_command(t_ms *ms, int fd_in, int fd_out, char **cmd)
 		if (setup_redirections(cmd))
 			remove_redirections(cmd);
 		if (is_builtin(cmd[0]))
-			exit (exec_builtin(cmd, ms->env));
+			exit (exec_builtin(cmd, ms->env, &ms->crude_env));
 		if (!path)
 		{
 			execve(cmd[0], cmd, ms->crude_env);

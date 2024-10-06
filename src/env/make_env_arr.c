@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 11:24:13 by shurtado          #+#    #+#             */
-/*   Updated: 2024/09/30 16:55:25 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/06 16:21:45 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	free_env_arr(char **env)
 }
 
 //Assign memory, and fill bidimensional array as env
-char	**get_env_arr(t_ms *ms)
+char	**get_env_arr(t_hash *env)
 {
 	char	**raw_env;
 	int		i;
@@ -86,13 +86,13 @@ char	**get_env_arr(t_ms *ms)
 
 	j = 0;
 	i = 0;
-	size = get_lenght(ms->env);
+	size = get_lenght(env);
 	raw_env = ft_calloc(size + 1, sizeof(char *));
 	if (!raw_env)
 		return (NULL);
 	while (j < HASH_LEN)
 	{
-		node = ms->env->slot[j];
+		node = env->slot[j];
 		while (node)
 		{
 			raw_env[i] = get_envline(node);

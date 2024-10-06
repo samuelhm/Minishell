@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 13:09:57 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/06 13:46:57 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/06 15:47:52 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	blt_unset(char **av, t_hash *env)
 		ft_printf("unset: not enough arguments\n");
 		return (1);
 	}
-
 	while (av[i])
 	{
 		del_hash(env, av[i]);

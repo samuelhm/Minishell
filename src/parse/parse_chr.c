@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:36:43 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/25 20:29:30 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/06 15:26:54 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,14 @@ void	check_handle_dollar(t_hash *env, char **arr, char **c, char ch)
 	}
 }
 
-void	handle_quote(t_hash *env, char ***array, char **arr, \
-										char **c, char *start)
+void	handle_quote(t_hash *env, char ***array, char **arr, t_q q_data)
 {
 	char	ch;
+	char	**c;
+	char	*start;
 
+	c = q_data.c;
+	start = q_data.start;
 	if (**c == S_QUOTE)
 		ch = S_QUOTE;
 	else if (**c == D_QUOTE)

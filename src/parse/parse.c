@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:20:41 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/29 18:57:35 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/06 15:29:46 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ void	split_into_arrays(t_hash *env, char ***new, char *input)
 	char	*str;
 	char	*new_arr;
 	char	**new_array;
+	t_q		q_data;
 
 	new_arr = NULL;
 	new_array = NULL;
@@ -107,7 +108,9 @@ void	split_into_arrays(t_hash *env, char ***new, char *input)
 			move_over(&str);
 		}
 		handle_special(&new_array, &new_arr, &str);
-		handle_quote(env, &new_array, &new_arr, &str, input);
+		q_data.c = &str;
+		q_data.start = input;
+		handle_quote(env, &new_array, &new_arr, q_data);
 		if (is_ordinary(*str))
 			append_char(&new_arr, *str);
 		if (*str)

@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:14:45 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/06 14:38:18 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/06 16:24:16 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,6 @@
 #  define PATH_MAX 4096
 # endif
 
-# define NORMAL 1
-# define INTERACTIVE 2
-
 struct	s_hash;
 
 typedef struct s_ms
@@ -64,12 +61,18 @@ typedef struct s_ms
 	int				**fd_pipe;
 }	t_ms;
 
+typedef struct s_q
+{
+	char	**c;
+	char	*start;
+}	t_q;
+
 void	init_ms(t_ms *ms, char **env);
 void	init_env(t_ms *ms, char **env);
 void	realize_shell(t_ms *ms);
 
 //-------------------env-------------------
-char	**get_env_arr(t_ms *ms);
+char	**get_env_arr(t_hash *env);
 
 //------------------parse------------------
 bool	handle_single(bool *s_close, bool *d_close, int *flag);
@@ -84,7 +87,7 @@ bool	append_char(char **arr, char c);
 void	move_over(char **str);
 char	*extract_key(const char *str);
 void	handle_special(char ***array, char **arr, char **c);
-void	handle_quote(t_hash *env, char ***array, char **arr, char **c, char *start);
+void	handle_quote(t_hash *env, char ***array, char **arr, t_q q);
 bool	is_ordinary(char c);
 bool	is_compliance(char **arrays);
 void	free_array(char **arrays);
@@ -95,7 +98,6 @@ char	**get_infile_path(char ***av);
 
 //Utils
 bool	is_special(const char *s);
-char	**get_env_arr(t_ms *ms);
 void	show_debug(t_ms *ms);
 void	free_env_arr(char **env);
 void	delete_env(t_hash *env);
@@ -108,7 +110,7 @@ int		blt_echo(char **av);
 int		blt_exit(t_ms *ms);
 int		blt_cd(char **av, t_hash *env);
 int		blt_pwd(void);
-int		blt_export(char **av, t_hash *env);
+int		blt_export(char **av, t_hash *env, char ***crude);
 int		blt_unset(char **av, t_hash *env);
 int		blt_env(t_hash *env);
 bool	has_builtin(char **cmd);
@@ -116,7 +118,7 @@ bool	is_builtin(char *cmd);
 
 //Exec
 int		process_line(t_ms *ms);
-int		exec_builtin(char **cmd, t_hash *env);
+int		exec_builtin(char **cmd, t_hash *env, char ***crude);
 char	*getpath(t_hash *env, char *file);
 char	*get_filename(char **av, char *redir);
 void	execute_simple_comand(t_ms *ms);

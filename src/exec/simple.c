@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 20:09:31 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/06 14:38:48 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/06 16:25:41 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ bool	is_builtin(char *cmd)
 	return (false);
 }
 
-int	exec_builtin(char **cmd, t_hash *env)
+int	exec_builtin(char **cmd, t_hash *env, char ***crude)
 {
 	char	*blt;
 
@@ -50,7 +50,7 @@ int	exec_builtin(char **cmd, t_hash *env)
 	else if (!strcmp(blt, "cd"))
 		return (blt_cd(cmd, env));
 	else if (!strcmp(blt, "export"))
-		return (blt_export(cmd, env));
+		return (blt_export(cmd, env, crude));
 	else if (!strcmp(blt, "pwd"))
 		return (blt_pwd());
 	else if (!strcmp(blt, "unset"))
@@ -69,7 +69,7 @@ void	execute_simple_comand(t_ms *ms)
 	{
 		setup_redirections(ms->av);
 		remove_redirections(ms->av);
-		exec_builtin(ms->av, ms->env);
+		exec_builtin(ms->av, ms->env, &ms->crude_env);
 		return ;
 	}
 	init_signals(CHILD);
