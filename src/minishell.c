@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 12:37:25 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/05 17:41:23 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/06 14:02:29 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,17 @@ void	realize_shell(t_ms *ms)
 	int		result;
 
 	result = 0;
+	init_signals();
 	while (1)
 	{
-		init_signals();
 		input = readline(PROMPT);
-		if (input && *input)
+		if (input)
 		{
+			if (!*input)
+			{
+				free(input);
+				continue ;
+			}
 			add_history(input);
 			ms->av = split_av(ms->env, input);
 			free(input);
