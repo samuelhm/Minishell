@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 20:09:31 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/06 13:37:16 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/06 14:38:48 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	execute_simple_comand(t_ms *ms)
 		exec_builtin(ms->av, ms->env);
 		return ;
 	}
+	init_signals(CHILD);
 	path = getpath(ms->env, ms->av[0]);
 	pid = fork();
 	if (pid == -1)

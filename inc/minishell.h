@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:14:45 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/06 13:32:22 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/06 14:38:18 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@
 # define MORE_S ">"
 # define LESS_S "<"
 # define PIPE_S "|"
+
+# define NORMAL 0
+# define CHILD 1
 
 # ifndef PATH_MAX
 #  define PATH_MAX 4096
@@ -119,8 +122,9 @@ char	*get_filename(char **av, char *redir);
 void	execute_simple_comand(t_ms *ms);
 
 //Signals
-void	init_signals(void);
+void	init_signals(int mode);
 void	set_child_signals(void);
+void	handle_signal(int sig);
 
 //PIPE
 void	init_pipes(t_ms *ms);
