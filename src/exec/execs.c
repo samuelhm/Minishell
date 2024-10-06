@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 20:04:36 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/06 16:33:31 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/06 16:37:27 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ char	**get_cmd(t_ms *ms)
 	int		i;
 	int		j;
 	char	**cmd;
+	int		num;
 
 	i = 0;
 	while (ms->av[i] && strcmp(ms->av[i], PIPE_S) != 0)
@@ -41,21 +42,18 @@ char	**get_cmd(t_ms *ms)
 	cmd[j] = NULL;
 	if (ms->av[i] && strcmp(ms->av[i], PIPE_S) == 0)
 		i++;
-	// Copiar los elementos restantes después de la pipe al principio de ms->av
 	if (ms->av[i])
-		memmove(ms->av, &ms->av[i], (count_av_elements(&ms->av[i]) + 1) * sizeof(char *));
-	// count_av_elements cuenta los elementos restantes hasta NULL
-
-	// Limpiar el final de ms->av después de mover
+	{
+		num = count_av_elements(&ms->av[i]) + 1;
+		memmove(ms->av, &ms->av[i], num * sizeof(char *));
+	}
 	j = 0;
 	while (ms->av[j])
 		j++;
-
-	// Liberar y asegurar que el final de ms->av es NULL
 	while (ms->av[j])
 	{
-		free(ms->av[j]);  // Liberar las posiciones sobrantes
-		ms->av[j] = NULL; // Asegurarse de que se marquen como NULL
+		free(ms->av[j]);
+		ms->av[j] = NULL;
 		j++;
 	}
 
@@ -176,15 +174,6 @@ void	execute_command(t_ms *ms, int fd_in, int fd_out, char **cmd)
 			exit(EXIT_FAILURE);
 		}
 	}
-//	if (pid != 0)
-//	{
-//		if (path)
-//			free(path);
-//		if (fd_in != STDIN_FILENO)
-//			close(fd_in);
-//		if (fd_out != STDOUT_FILENO)
-//			close(fd_out);
-//	}
 	if (path)
 		free(path);
 	ms->last_pid = pid;
