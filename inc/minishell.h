@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:14:45 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/06 16:24:16 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/06 16:45:30 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ void	init_env(t_ms *ms, char **env);
 void	realize_shell(t_ms *ms);
 
 //-------------------env-------------------
-char	**get_env_arr(t_hash *env);
+char	**get_env_arr(t_hash *env, int i, int j);
+bool	free_node(t_node **n, t_node *cur);
 
 //------------------parse------------------
 bool	handle_single(bool *s_close, bool *d_close, int *flag);
@@ -142,4 +143,5 @@ bool	handle_output_trunc_redirection(char **av);
 bool	handle_output_append_redirection(char **av);
 bool	handle_heredoc_redirection(char **av);
 int		handle_heredoc(char *delimiter);
+
 #endif

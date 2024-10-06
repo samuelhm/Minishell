@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 12:37:25 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/06 16:21:58 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/06 16:45:43 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	init_ms(t_ms *ms, char **env)
 	init_env(ms, env);
 	ms->crude_env = NULL;
 	ms->av = NULL;
-	ms->crude_env = get_env_arr(ms->env);
+	ms->crude_env = get_env_arr(ms->env, 0, 0);
 	ms->fd_pipe = NULL;
 }
 

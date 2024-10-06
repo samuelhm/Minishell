@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 16:10:50 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/25 19:56:46 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/06 16:39:18 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ bool	assign_hash(t_hash *en, char *key, char *value)
 
 void	init_env(t_ms *ms, char **env)
 {
-	int	i;
-	int	key_len;
+	int		i;
+	int		key_len;
 	char	*key;
 
 	ms->env = init_hash();

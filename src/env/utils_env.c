@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 13:10:06 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/02 11:57:23 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/06 16:41:30 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,22 +70,13 @@ bool	del_list(t_node *n, char *key)
 	cur = n;
 	pre = NULL;
 	if (ft_strcmp(cur->key, key) == 0)
-	{
-		n = cur->next;
-		free(cur->key);
-		free(cur->value);
-		free(cur);
-		return (true);
-	}
+		return (free_node(&n, cur));
 	while (cur)
 	{
 		if (ft_strcmp(cur->key, key) == 0)
 		{
 			pre->next = cur->next;
-			free(cur->key);
-			free(cur->value);
-			free(cur);
-			return (true);
+			return (free_node(&pre->next, cur));
 		}
 		pre = cur;
 		cur = cur->next;

@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:45 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/02 11:32:31 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/06 16:41:30 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,15 @@ void	delete_env(t_hash *env)
 		i++;
 	}
 	free(env);
+}
+
+bool	free_node(t_node **n, t_node *cur)
+{
+	if (!cur || !n)
+		return (false);
+	*n = cur->next;
+	free(cur->key);
+	free(cur->value);
+	free(cur);
+	return (true);
 }
