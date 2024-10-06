@@ -6,11 +6,25 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 20:09:31 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/05 17:29:03 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/06 13:37:16 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+bool	has_builtin(char **cmd)
+{
+	int	i;
+
+	i = 0;
+	while (cmd[i])
+	{
+		if (is_builtin(cmd[i]))
+			return (true);
+		i++;
+	}
+	return (false);
+}
 
 bool	is_builtin(char *cmd)
 {
@@ -51,6 +65,13 @@ void	execute_simple_comand(t_ms *ms)
 	pid_t	pid;
 	char	*path;
 
+	if (has_builtin(ms->av))
+	{
+		setup_redirections(ms->av);
+		remove_redirections(ms->av);
+		exec_builtin(ms->av, ms->env);
+		return ;
+	}
 	path = getpath(ms->env, ms->av[0]);
 	pid = fork();
 	if (pid == -1)
@@ -68,20 +89,12 @@ void	execute_simple_comand(t_ms *ms)
 			exit(EXIT_FAILURE);
 		}
 		remove_redirections(ms->av);
-		if (is_builtin(ms->av[0]))
-			exit (exec_builtin(ms->av, ms->env));
 		if (!path)
-		{
 			execve(ms->av[0], ms->av, ms->crude_env);
-			perror(ms->av[0]);
-			exit (EXIT_FAILURE);
-		}
 		else
-		{
 			execve(path, ms->av, ms->crude_env);
-			perror(ms->av[0]);
-			exit(EXIT_FAILURE);
-		}
+		perror(ms->av[0]);
+		exit(EXIT_FAILURE);
 	}
 	if (path)
 		free(path);

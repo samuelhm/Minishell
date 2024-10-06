@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:14:45 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/04 21:11:28 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/06 13:32:22 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,11 @@ int		blt_pwd(void);
 int		blt_export(char **av, t_hash *env);
 int		blt_unset(char **av, t_hash *env);
 int		blt_env(t_hash *env);
+bool	has_builtin(char **cmd);
+bool	is_builtin(char *cmd);
 
 //Exec
 int		process_line(t_ms *ms);
-bool	is_builtin(char *cmd);
 int		exec_builtin(char **cmd, t_hash *env);
 char	*getpath(t_hash *env, char *file);
 char	*get_filename(char **av, char *redir);
