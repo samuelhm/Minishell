@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 13:09:52 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/06 16:23:28 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/06 16:38:18 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ int	blt_export(char **av, t_hash *env, char ***crude)
 	crude_env = *crude;
 	if (!av[1])
 		return (print_exported_vars(env));
-
 	result = assign_export_vars(av, env);
 	if (!result)
 	{
