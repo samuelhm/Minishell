@@ -6,7 +6,7 @@
 #    By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/11 13:53:02 by linyao            #+#    #+#              #
-#    Updated: 2024/10/07 19:29:59 by shurtado         ###   ########.fr        #
+#    Updated: 2024/10/07 19:58:48 by shurtado         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 SRCS_FILES = minishell.c main.c env/env.c env/utils_env.c env/make_env_arr.c signal.c env/delete_env.c
 SRCS_FILES += blt/cd.c blt/echo.c blt/blt_env.c blt/exit.c blt/export.c blt/pwd.c blt/unset.c
 SRCS_FILES += parse/parse_arr.c parse/parse_arr1.c parse/parse_chr.c parse/parse_chr1.c parse/parse_utils.c parse/parse.c
-SRCS_FILES += exec/execs.c exec/simple.c exec/redirect.c exec/pipe.c exec/redir_util.c exec/exec_utils.c
+SRCS_FILES += exec/execs.c exec/simple.c exec/redirect.c exec/pipe.c exec/redir_util.c exec/exec_utils.c exec/exec_s.c exec/process.c exec/cmd.c
 SRCS = $(addprefix $(SRC_DIR)/,$(SRCS_FILES))
 
 OBJS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))

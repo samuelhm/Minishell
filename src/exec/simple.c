@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 20:09:31 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/07 17:37:41 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/07 19:41:25 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,55 +58,4 @@ int	exec_builtin(char **cmd, t_hash *env, char ***crude)
 	else
 		return (-1);
 	return (0);
-}
-
-void	execute_simple_comand(t_ms *ms)
-{
-	pid_t	pid;
-	char	*path;
-	int		save;
-
-	if (has_builtin(ms->av))
-	{
-		save = dup(STDOUT_FILENO);
-		setup_redirections(ms->av);
-		remove_redirections(ms->av);
-		ms->status = exec_builtin(ms->av, ms->env, &ms->crude_env);
-		dup2(save, STDOUT_FILENO);
-		close(save);
-		return ;
-	}
-	init_signals(CHILD);
-	path = getpath(ms->env, ms->av[0]);
-	pid = fork();
-	if (pid == -1)
-	{
-		if (path)
-			free(path);
-		perror("Error no fork at execute_comand");
-	}
-	if (pid == 0)
-	{
-		set_child_signals();
-		if (!setup_redirections(ms->av))
-		{
-			perror("Errores en la redirección!");
-			exit(EXIT_FAILURE);
-		}
-		remove_redirections(ms->av);
-		if (!path)
-		{
-			ft_printf("%s: no se encontró la orden\n", ms->av[0]);
-			exit(127);
-		}
-		else
-		{
-			(execve(path, ms->av, ms->crude_env));
-			perror("EXECVE FAIL");
-			exit(EXIT_FAILURE);
-		}
-	}
-	if (path)
-		free(path);
-	ms->last_pid = pid;
 }

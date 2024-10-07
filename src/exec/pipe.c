@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:41:03 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/07 18:11:48 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/07 19:36:23 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,5 @@ int	wait_for_last_process(t_ms *ms)
 		exit_code = WTERMSIG(status) + 128;
 	else
 		exit_code = -1;
-
 	return (exit_code);
 }
