@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 12:37:25 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/06 16:45:43 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/07 13:35:26 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,23 +62,20 @@ static int	process_input(t_ms *ms, int *result)
 		if (ms->av[1])
 			*result = ft_atoi(ms->av[1]);
 		else
-			*result = 0;
+			*result = ms->status;
 		free_resources(ms, *result);
 	}
-	return (0);
+	return (*result);
 }
 
 void	realize_shell(t_ms *ms)
 {
-	int	result;
-
-	result = 0;
 	while (1)
 	{
 		init_signals(NORMAL);
-		if (process_input(ms, &result))
+		if (process_input(ms, &ms->status))
 			continue ;
-		result = process_line(ms);
+		ms->status = process_line(ms);
 		free_array(ms->av);
 		ms->av = NULL;
 		clean_pipes(ms->fd_pipe);

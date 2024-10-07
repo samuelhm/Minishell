@@ -6,7 +6,7 @@
 #    By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/11 13:53:02 by linyao            #+#    #+#              #
-#    Updated: 2024/10/06 16:47:15 by shurtado         ###   ########.fr        #
+#    Updated: 2024/10/07 13:01:00 by shurtado         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 CC = gcc
 TARGET = minishell
 CFLAGS = -Wall -Wextra -Werror
-LDFLAGS = -L$(LIBFT_DIR) -lreadline -lncurses
+LDFLAGS = -L$(LIBFT_DIR) -lreadline
 INCLUDES = -I$(INC_DIR) -I$(LIBFT_DIR)
 
 # Debug

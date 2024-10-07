@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 20:04:36 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/07 12:50:32 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/07 13:25:17 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,15 +151,15 @@ void	execute_command(t_ms *ms, int fd_in, int fd_out, char **cmd)
 			exit (exec_builtin(cmd, ms->env, &ms->crude_env));
 		if (!path)
 		{
-			execve(cmd[0], cmd, ms->crude_env);
+			ms->status = execve(cmd[0], cmd, ms->crude_env);
 			perror(cmd[0]);
-			exit (EXIT_FAILURE);
+			exit (ms->status);
 		}
 		else
 		{
-			execve(path, cmd, ms->crude_env);
+			ms->status = execve(path, cmd, ms->crude_env);
 			perror(cmd[0]);
-			exit(EXIT_FAILURE);
+			exit(ms->status);
 		}
 	}
 	if (path)

@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 20:09:31 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/07 12:49:56 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/07 14:07:17 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	execute_simple_comand(t_ms *ms)
 		save = dup(STDOUT_FILENO);
 		setup_redirections(ms->av);
 		remove_redirections(ms->av);
-		exec_builtin(ms->av, ms->env, &ms->crude_env);
+		ms->status = exec_builtin(ms->av, ms->env, &ms->crude_env);
 		dup2(save, STDOUT_FILENO);
 		close(save);
 		return ;
@@ -95,11 +95,12 @@ void	execute_simple_comand(t_ms *ms)
 		}
 		remove_redirections(ms->av);
 		if (!path)
-			execve(ms->av[0], ms->av, ms->crude_env);
+		{
+			exit (execve(ms->av[0], ms->av, ms->crude_env));
+			perror(ms->av[0]);
+		}
 		else
-			execve(path, ms->av, ms->crude_env);
-		perror(ms->av[0]);
-		exit(EXIT_FAILURE);
+			exit (execve(path, ms->av, ms->crude_env));
 	}
 	if (path)
 		free(path);
