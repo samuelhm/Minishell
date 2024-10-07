@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 17:22:27 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/29 13:38:18 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/07 15:25:51 by linyao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	store_to_array(char ***array, char **arr)
 //a shell command line
 bool	add_array(char ***array, char *s)
 {
-	int	count;
+	int		count;
 	char	**new_arrays;
 
 	count = 0;

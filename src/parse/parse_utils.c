@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 21:12:36 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/04 19:55:14 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/07 15:28:17 by linyao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	count_arrays(char **arrays)
 
 static bool	comply_rule(char *bf, char *af, char *mark)
 {
-	if (ft_strcmp(bf, mark) == 0 && ft_strcmp(af, LESS_S)  == 0)
+	if (ft_strcmp(bf, mark) == 0 && ft_strcmp(af, LESS_S) == 0)
 		return (printf("Token next to another <\n"), false);
 	if (ft_strcmp(bf, mark) == 0 && ft_strcmp(af, MORE_S) == 0)
 		return (printf("Token next to another >\n"), false);
@@ -51,7 +51,7 @@ static bool	comply_rule(char *bf, char *af, char *mark)
 		return (printf("Token next to another <<\n"), false);
 	if (ft_strcmp(bf, mark) == 0 && ft_strcmp(af, DOUBLE_MORE) == 0)
 		return (printf("Token next to another >>\n"), false);
-	if (ft_strcmp(bf, mark)== 0 && ft_strcmp(af, PIPE_S)  == 0)
+	if (ft_strcmp(bf, mark) == 0 && ft_strcmp(af, PIPE_S) == 0)
 		return (printf("Token next to another |\n"), false);
 	return (true);
 }

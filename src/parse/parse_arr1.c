@@ -6,12 +6,11 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:03:37 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/04 14:35:37 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/07 15:26:36 by linyao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 //To remove the quotes in the elements of two-dimensional arrays
 static void	process_quote(char **s, char **new)
