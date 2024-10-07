@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:14:45 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/07 11:33:30 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/07 17:24:56 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ typedef struct s_q
 
 void	init_ms(t_ms *ms, char **env);
 void	init_env(t_ms *ms, char **env);
-void	realize_shell(t_ms *ms);
+int		realize_shell(t_ms *ms);
 
 //-------------------env-------------------
 char	**get_env_arr(t_hash *env, int i, int j);
@@ -102,7 +102,7 @@ bool	is_special(const char *s);
 void	show_debug(t_ms *ms);
 void	free_env_arr(char **env);
 void	delete_env(t_hash *env);
-void	free_resources(t_ms *ms, int result);
+void	free_resources(t_ms *ms);
 void	process_cmds(t_ms *ms);
 void	remove_redirections(char **av);
 

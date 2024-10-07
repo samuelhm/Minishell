@@ -1,13 +1,0 @@
-hola
-[?2004h[1;32mminishell[0m[1;36m > [0m
-[?2004l[?2004h[1;32mminishell[0m[1;36m > [0mg^C[?2004l
-[1;32mminishell[0m[1;36m > [0m[?2004h^C[?2004l
-[1;32mminishell[0m[1;36m > [0m[?2004h^C[?2004l
-[1;32mminishell[0m[1;36m > [0m[?2004her^C[?2004l
-[1;32mminishell[0m[1;36m > [0m[?2004h^C[?2004l
-[1;32mminishell[0m[1;36m > [0m[?2004h^C[?2004l
-[1;32mminishell[0m[1;36m > [0m[?2004h^C[?2004l
-[1;32mminishell[0m[1;36m > [0m[?2004h^C[?2004l
-[1;32mminishell[0m[1;36m > [0m[?2004h^C[?2004l
-[1;32mminishell[0m[1;36m > [0m[?2004h[?2004l
-exit

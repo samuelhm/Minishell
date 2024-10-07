@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:17:34 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/04 20:01:47 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/07 17:14:47 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,5 @@ int	main(int ac, char **av, char **env)
 	if (ac != 1)
 		return (printf("Incorrect number of argument\n"), 1);
 	init_ms(&ms, env);
-	realize_shell(&ms);
-	return (0);
+	return (realize_shell(&ms));
 }

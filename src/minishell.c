@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 12:37:25 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/07 13:35:26 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/07 17:29:17 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	init_ms(t_ms *ms, char **env)
 	ms->fd_pipe = NULL;
 }
 
-void	free_resources(t_ms *ms, int result)
+void	free_resources(t_ms *ms)
 {
 	if (ms->av)
 		free_array(ms->av);
@@ -30,7 +30,6 @@ void	free_resources(t_ms *ms, int result)
 	if (ms->crude_env)
 		free_array(ms->crude_env);
 	ft_printf("exit\n");
-	exit(result);
 }
 
 static int	res_prompt(char *input)
@@ -42,13 +41,16 @@ static int	res_prompt(char *input)
 	return (1);
 }
 
-static int	process_input(t_ms *ms, int *result)
+static int	process_input(t_ms *ms)
 {
 	char	*input;
 
 	input = readline(PROMPT);
 	if (!input)
-		free_resources(ms, 0);
+	{
+		free_resources(ms);
+		exit(0);
+	}
 	if (!*input)
 		return (res_prompt(input));
 	add_history(input);
@@ -60,20 +62,19 @@ static int	process_input(t_ms *ms, int *result)
 	if (!strcmp(ms->av[0], "exit"))
 	{
 		if (ms->av[1])
-			*result = ft_atoi(ms->av[1]);
-		else
-			*result = ms->status;
-		free_resources(ms, *result);
+			ms->status = ft_atoi(ms->av[1]);
+		free_resources(ms);
+		exit(ms->status);
 	}
-	return (*result);
+	return (0);
 }
 
-void	realize_shell(t_ms *ms)
+int	realize_shell(t_ms *ms)
 {
 	while (1)
 	{
 		init_signals(NORMAL);
-		if (process_input(ms, &ms->status))
+		if (process_input(ms))
 			continue ;
 		ms->status = process_line(ms);
 		free_array(ms->av);

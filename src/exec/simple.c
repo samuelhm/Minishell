@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 20:09:31 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/07 14:07:17 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/07 17:37:41 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,15 @@ void	execute_simple_comand(t_ms *ms)
 		remove_redirections(ms->av);
 		if (!path)
 		{
-			exit (execve(ms->av[0], ms->av, ms->crude_env));
-			perror(ms->av[0]);
+			ft_printf("%s: no se encontró la orden\n", ms->av[0]);
+			exit(127);
 		}
 		else
-			exit (execve(path, ms->av, ms->crude_env));
+		{
+			(execve(path, ms->av, ms->crude_env));
+			perror("EXECVE FAIL");
+			exit(EXIT_FAILURE);
+		}
 	}
 	if (path)
 		free(path);

@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:41:03 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/07 13:59:35 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/07 17:43:25 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,16 @@ void	process_pipe(int fd_pipe[2], int is_last, int fd_local[2])
 
 int	wait_for_last_process(t_ms *ms)
 {
-	int	result;
+	int		status;
+	int		exit_code;
 
+	waitpid(ms->last_pid, &status, 0);
+	if (WIFEXITED(status))
+		exit_code = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		exit_code = WTERMSIG(status) + 128;
+	else
+		exit_code = -1;
 
-	waitpid(ms->last_pid, &result, 0);
-	ms->status = WIFEXITED(ms->status);
-	if (ms->status == 255)
-		return (127);
-	return (ms->status);
+	return (exit_code);
 }

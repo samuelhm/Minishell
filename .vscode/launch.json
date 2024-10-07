@@ -10,7 +10,7 @@
 		"stopAtEntry": false,
 		"cwd": "${workspaceFolder}",  // El directorio de trabajo
 		"environment": [],
-		"externalConsole": true,     // Mostrar la salida en el terminal de VSCode
+		"externalConsole": false,     // Mostrar la salida en el terminal de VSCode
 		"MIMode": "gdb",
 		"setupCommands": [
 		  {
