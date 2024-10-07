@@ -6,34 +6,32 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 20:04:36 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/06 16:37:27 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/07 11:33:33 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int count_av_elements(char **av)
+int	count_av_elements(char **av)
 {
-	int count = 0;
+	int	count;
+
+	count = 0;
 	while (av[count])
 		count++;
-	return count;
+	return (count);
 }
 
-char	**get_cmd(t_ms *ms)
+char	**get_cmd(t_ms *ms, int i, int j)
 {
-	int		i;
-	int		j;
 	char	**cmd;
 	int		num;
 
-	i = 0;
 	while (ms->av[i] && strcmp(ms->av[i], PIPE_S) != 0)
 		i++;
 	cmd = malloc(sizeof(char *) * (i + 1));
 	if (!cmd)
 		return (NULL);
-	j = 0;
 	while (j < i)
 	{
 		cmd[j] = strdup(ms->av[j]);
@@ -47,16 +45,6 @@ char	**get_cmd(t_ms *ms)
 		num = count_av_elements(&ms->av[i]) + 1;
 		memmove(ms->av, &ms->av[i], num * sizeof(char *));
 	}
-	j = 0;
-	while (ms->av[j])
-		j++;
-	while (ms->av[j])
-	{
-		free(ms->av[j]);
-		ms->av[j] = NULL;
-		j++;
-	}
-
 	return (cmd);
 }
 
@@ -105,7 +93,7 @@ int	process_line(t_ms *ms)
 	else
 	{
 		init_pipes(ms);
-		cmd = get_cmd(ms);
+		cmd = get_cmd(ms, 0, 0);
 		while (ms->fd_pipe[pipi])
 		{
 			if (pipi == 0)
@@ -121,7 +109,7 @@ int	process_line(t_ms *ms)
 			}
 			pipi++;
 			free_array(cmd);
-			cmd = get_cmd(ms);
+			cmd = get_cmd(ms, 0, 0);
 		}
 		execute_command(ms, ms->fd_pipe[pipi -1][0], STDOUT_FILENO, cmd);
 		close(ms->fd_pipe[pipi -1][0]);
