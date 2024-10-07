@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 20:09:31 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/06 16:25:41 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/07 12:49:56 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,16 @@ void	execute_simple_comand(t_ms *ms)
 {
 	pid_t	pid;
 	char	*path;
+	int		save;
 
 	if (has_builtin(ms->av))
 	{
+		save = dup(STDOUT_FILENO);
 		setup_redirections(ms->av);
 		remove_redirections(ms->av);
 		exec_builtin(ms->av, ms->env, &ms->crude_env);
+		dup2(save, STDOUT_FILENO);
+		close(save);
 		return ;
 	}
 	init_signals(CHILD);

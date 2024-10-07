@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 20:04:36 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/07 11:33:33 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/07 12:50:32 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,8 @@ void	execute_command(t_ms *ms, int fd_in, int fd_out, char **cmd)
 	if (pid == 0)
 	{
 		set_child_signals();
+		if (setup_redirections(cmd))
+			remove_redirections(cmd);
 		if (fd_in != STDIN_FILENO)
 		{
 			dup2(fd_in, STDIN_FILENO);
@@ -145,8 +147,6 @@ void	execute_command(t_ms *ms, int fd_in, int fd_out, char **cmd)
 			dup2(fd_out, STDOUT_FILENO);
 			close(fd_out);
 		}
-		if (setup_redirections(cmd))
-			remove_redirections(cmd);
 		if (is_builtin(cmd[0]))
 			exit (exec_builtin(cmd, ms->env, &ms->crude_env));
 		if (!path)
