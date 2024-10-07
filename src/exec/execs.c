@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 20:04:36 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/07 17:41:47 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/07 18:15:25 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,12 +98,12 @@ int	process_line(t_ms *ms)
 		{
 			if (pipi == 0)
 			{
-				execute_command(ms, STDIN_FILENO, ms->fd_pipe[0][1], cmd);
+				exe_cmd(ms, STDIN_FILENO, ms->fd_pipe[0][1], cmd);
 				close(ms->fd_pipe[0][1]);
 			}
 			else if (ms->fd_pipe[pipi] != NULL)
 			{
-				execute_command(ms, ms->fd_pipe[pipi -1][0], ms->fd_pipe[pipi][1], cmd);
+				exe_cmd(ms, ms->fd_pipe[pipi -1][0], ms->fd_pipe[pipi][1], cmd);
 				close(ms->fd_pipe[pipi -1][0]);
 				close(ms->fd_pipe[pipi][1]);
 			}
@@ -111,7 +111,7 @@ int	process_line(t_ms *ms)
 			free_array(cmd);
 			cmd = get_cmd(ms, 0, 0);
 		}
-		execute_command(ms, ms->fd_pipe[pipi -1][0], STDOUT_FILENO, cmd);
+		exe_cmd(ms, ms->fd_pipe[pipi -1][0], STDOUT_FILENO, cmd);
 		close(ms->fd_pipe[pipi -1][0]);
 		free_array(cmd);
 	}
@@ -119,7 +119,7 @@ int	process_line(t_ms *ms)
 }
 
 
-void	execute_command(t_ms *ms, int fd_in, int fd_out, char **cmd)
+void	exe_cmd(t_ms *ms, int fd_in, int fd_out, char **cmd)
 {
 	pid_t	pid;
 	char	*path;
