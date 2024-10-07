@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:41:03 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/07 17:43:25 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/07 18:11:48 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,24 @@ void	clean_pipes(int **fd_pipe)
 	fd_pipe = NULL;
 }
 
+static void	alloc_pipes(t_ms *ms, int pipe_count)
+{
+	int	i;
+
+	i = 0;
+	while (i < pipe_count)
+	{
+		ms->fd_pipe[i] = malloc(sizeof(int) * 2);
+		if (pipe(ms->fd_pipe[i]) == -1)
+		{
+			perror("Error creando pipe");
+			clean_pipes(ms->fd_pipe);
+		}
+		i++;
+	}
+	ms->fd_pipe[pipe_count] = NULL;
+}
+
 void	init_pipes(t_ms *ms)
 {
 	int	i;
@@ -48,18 +66,7 @@ void	init_pipes(t_ms *ms)
 		perror("Error al asignar memoria para pipes");
 		return ;
 	}
-	i = 0;
-	while (i < pipe_count)
-	{
-		ms->fd_pipe[i] = malloc(sizeof(int) * 2);
-		if (pipe(ms->fd_pipe[i]) == -1)
-		{
-			perror("Error creando pipe");
-			clean_pipes(ms->fd_pipe);
-		}
-		i++;
-	}
-	ms->fd_pipe[pipe_count] = NULL;
+	alloc_pipes(ms, pipe_count);
 }
 
 void	process_pipe(int fd_pipe[2], int is_last, int fd_local[2])
