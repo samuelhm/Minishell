@@ -6,7 +6,7 @@
 #    By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/11 13:53:02 by linyao            #+#    #+#              #
-#    Updated: 2024/10/07 19:58:48 by shurtado         ###   ########.fr        #
+#    Updated: 2024/10/08 13:40:36 by shurtado         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ LDFLAGS = -L$(LIBFT_DIR) -lreadline
 INCLUDES = -I$(INC_DIR) -I$(LIBFT_DIR)
 
 # Debug
-CFLAGS += -g -O0
+#CFLAGS += -g -O0
 # Directory
 SRC_DIR = src
 OBJ_DIR = obj
