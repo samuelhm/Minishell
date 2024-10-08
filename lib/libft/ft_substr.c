@@ -6,35 +6,36 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 15:28:43 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/29 13:55:10 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/08 11:21:28 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 //#include <stdio.h>
 
-char    *ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-    char    *str;
-    size_t  i;
-    size_t  s_len;
+	char	*str;
+	size_t	i;
+	size_t	s_len;
 
-    if (!s)
-        return (NULL);
-    s_len = ft_strlen(s);
-    if (start >= s_len)
-        return (ft_strdup(""));  // Si el índice de inicio es mayor que la longitud de la cadena, devuelve una cadena vacía
-    if (len > s_len - start)
-        len = s_len - start;  // Ajusta len para que no exceda el tamaño de la cadena
-    str = malloc(len + 1);
-    if (!str)
-        return (NULL);
-    i = 0;
-    while (i < len && s[start])  // Asegura que no accedamos fuera de los límites
-        str[i++] = s[start++];
-    str[i] = '\0';
-    return (str);
+	if (!s)
+		return (NULL);
+	s_len = ft_strlen(s);
+	if (start >= s_len)
+		return (ft_strdup(""));
+	if (len > s_len - start)
+		len = s_len - start;
+	str = malloc(len + 1);
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (i < len && s[start])
+		str[i++] = s[start++];
+	str[i] = '\0';
+	return (str);
 }
+
 /*
 {
 	char			*str;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: linyao <linyao@student.42barcelona.com>    +#+  +:+       +#+        */
+/*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 12:43:11 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/14 15:16:04 by linyao           ###   ########.fr       */
+/*   Updated: 2024/10/08 11:27:57 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	ft_lstclear(t_list **lst, void (*del)(void*));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 int		ft_strcmp(const char *s1, const char *s2);
-size_t  ft_getinx(const char *str, int c);
-void    *ft_realloc(void *ptr, size_t old_size, size_t new_size);
+size_t	ft_getinx(const char *str, int c);
+void	*ft_realloc(void *ptr, size_t old_size, size_t new_size);
 
 #endif
