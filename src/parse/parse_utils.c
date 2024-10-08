@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 21:12:36 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/07 15:28:17 by linyao           ###   ########.fr       */
+/*   Updated: 2024/10/08 11:43:56 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,13 @@ bool	is_compliance(char **as)
 		i++;
 	}
 	return (true);
+}
+
+void	renovar_array(char ***new_array, char **new_arr, char **str)
+{
+	if ((**str == ' ' || **str == '\t') && *new_arr)
+	{
+		store_to_array(new_array, new_arr);
+		move_over(str);
+	}
 }

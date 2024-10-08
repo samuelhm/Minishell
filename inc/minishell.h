@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:14:45 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/07 20:05:16 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/08 12:41:32 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,6 @@ typedef struct s_ms
 	int				**fd_pipe;
 }	t_ms;
 
-typedef struct s_q
-{
-	char	**c;
-	char	*start;
-}	t_q;
-
 void	init_ms(t_ms *ms, char **env);
 void	init_env(t_ms *ms, char **env);
 int		realize_shell(t_ms *ms);
@@ -88,7 +82,7 @@ bool	append_char(char **arr, char c);
 void	move_over(char **str);
 char	*extract_key(const char *str);
 void	handle_special(char ***array, char **arr, char **c);
-void	handle_quote(t_hash *env, char ***array, char **arr, t_q q);
+void	handle_quote(t_hash *env, char ***array, char **arr, char **c);
 bool	is_ordinary(char c);
 bool	is_compliance(char **arrays);
 void	free_array(char **arrays);
@@ -96,6 +90,8 @@ int		count_arrays(char **arrays);
 char	**process_av(char **av, struct s_hash *env);
 void	check_handle_dollar(t_hash *env, char **arr, char **c, char ch);
 char	**get_infile_path(char ***av);
+void	renovar_array(char ***new_array, char **new_arr, char **str);
+void	initarrays(char **new_arr, char ***new_array);
 
 //Utils
 bool	is_special(const char *s);

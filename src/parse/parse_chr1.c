@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 15:44:46 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/25 19:58:03 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/08 11:50:34 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,10 @@ bool	is_ordinary(char c)
 					&& c != S_QUOTE && c != D_QUOTE)
 		return (true);
 	return (false);
+}
+
+void	initarrays(char **new_arr, char ***new_array)
+{
+	*new_arr = NULL;
+	*new_array = NULL;
 }

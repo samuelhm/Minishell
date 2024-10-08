@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:20:41 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/06 15:29:46 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/08 11:50:45 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,30 +87,20 @@ void	split_into_arrays(t_hash *env, char ***new, char *input)
 	char	*str;
 	char	*new_arr;
 	char	**new_array;
-	t_q		q_data;
 
-	new_arr = NULL;
-	new_array = NULL;
+	initarrays(&new_arr, &new_array);
 	if (!input || !new)
 		return ;
 	str = ft_strtrim(input, " \t");
-	if (!str || *str == '\0')
-	{
-		free(str);
-		return ;
-	}
 	input = str;
 	while (*str)
 	{
-		if ((*str == ' ' || *str == '\t') && new_arr)
-		{
-			store_to_array(&new_array, &new_arr);
-			move_over(&str);
-		}
+		renovar_array(&new_array, &new_arr, &str);
 		handle_special(&new_array, &new_arr, &str);
-		q_data.c = &str;
-		q_data.start = input;
-		handle_quote(env, &new_array, &new_arr, q_data);
+		if (str == input && (*str == S_QUOTE || *str == D_QUOTE))
+			return ((void)(ft_printf("Wrong command format\n"), 0));
+		else
+			handle_quote(env, &new_array, &new_arr, &str);
 		if (is_ordinary(*str))
 			append_char(&new_arr, *str);
 		if (*str)

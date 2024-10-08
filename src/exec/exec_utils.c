@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:16:28 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/07 20:29:08 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/08 12:41:49 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,7 @@ void	exe_cmd(t_ms *ms, int fd_in, int fd_out, char **cmd)
 		perror("Error no fork at execute_comand");
 	}
 	if (pid == 0)
-	{
 		exe_child(ms, fd_in_out, cmd, path);
-	}
 	if (path)
 		free(path);
 	ms->last_pid = pid;

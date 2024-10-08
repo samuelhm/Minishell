@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 09:28:31 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/07 13:53:35 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/08 12:35:53 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,7 @@ void	handle_signal(int sig)
 void	handle_signal_b(int sig)
 {
 	if (sig == SIGINT)
-	{
 		printf("\n");
-	}
 }
 
 void	set_child_signals(void)
@@ -48,7 +46,7 @@ void	init_signals(int mode)
 {
 	struct sigaction	sa;
 
-	if (mode == 0)
+	if (mode == NORMAL)
 	{
 		sa.sa_handler = handle_signal;
 		sigemptyset(&sa.sa_mask);
@@ -57,7 +55,7 @@ void	init_signals(int mode)
 		sa.sa_handler = SIG_IGN;
 		sigaction(SIGQUIT, &sa, NULL);
 	}
-	else if (mode == 1)
+	else if (mode == CHILD)
 	{
 		sa.sa_handler = handle_signal_b;
 		sigemptyset(&sa.sa_mask);
