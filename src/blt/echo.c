@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 13:04:27 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/06 13:51:38 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/08 16:28:48 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 bool	is_special(const char *s)
 {
 	if (
-		!strncmp(s, DOUBLE_MORE, ft_strlen(s)) || \
-		!strncmp(s, DOUBLE_LESS, ft_strlen(s)) || \
-		!strncmp(s, MORE_S, ft_strlen(s)) || \
-		!strncmp(s, LESS_S, ft_strlen(s)) || \
-		!strncmp(s, PIPE_S, ft_strlen(s)))
+		!ft_strcmp(s, DOUBLE_MORE) || \
+		!ft_strcmp(s, DOUBLE_LESS) || \
+		!ft_strcmp(s, MORE_S) || \
+		!ft_strcmp(s, LESS_S) || \
+		!ft_strcmp(s, PIPE_S))
 		return (true);
 	return (false);
 }
