@@ -2,7 +2,9 @@
 *.swp
 *.tmp
 *.DS_Store
+.vscore/
 minishell
+.vscore
 # Prerequisites
 *.d
 
