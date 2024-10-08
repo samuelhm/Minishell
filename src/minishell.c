@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 12:37:25 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/08 16:02:44 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/08 16:49:15 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,9 @@ static int	process_input(t_ms *ms)
 	if (!ms->av)
 		return (1);
 	ms->av = process_av(ms->av, ms->env);
-	if (!strcmp(ms->av[0], "exit"))
+	if (!ft_strcmp(ms->av[0], "exit"))
 	{
-		if (ms->av[1])
-			ms->status = ft_atoi(ms->av[1]);
-		free_resources(ms);
-		exit(ms->status);
+		check_exit_args(ms);
 	}
 	return (0);
 }

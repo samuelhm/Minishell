@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:14:45 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/08 12:41:32 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/08 16:48:45 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include <signal.h>
 # include <termios.h>
 
+# define EXITERR "minishell: exit: %s: numeric argument required\n"
 # define PROMPT "\x1b[1;32mminishell\x1b[0m\x1b[1;36m > \x1b[0m"
 # define SINGLE_QUOTE 1
 # define DOUBLE_QUOTE 2
@@ -101,6 +102,7 @@ void	delete_env(t_hash *env);
 void	free_resources(t_ms *ms);
 void	process_cmds(t_ms *ms);
 void	remove_redirections(char **av);
+void	check_exit_args(t_ms *ms);
 
 //Built-ins
 int		blt_echo(char **av);
