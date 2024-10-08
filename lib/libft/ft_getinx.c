@@ -6,7 +6,7 @@
 /*   By: linyao <linyao@student.42barcelona.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 12:18:12 by linyao            #+#    #+#             */
-/*   Updated: 2024/09/15 12:18:17 by linyao           ###   ########.fr       */
+/*   Updated: 2024/10/08 11:24:49 by linyao           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,3 @@ size_t	ft_getinx(const char *str, int c)
 		return (ptr - str);
 	return (-1);
 }
-
