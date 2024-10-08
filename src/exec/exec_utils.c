@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:16:28 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/08 12:41:49 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/08 15:44:44 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,11 @@ char	*getpath(t_hash *env, char *file)
 	char	**paths;
 	char	*path;
 
+	if (access(file, F_OK | X_OK | R_OK) == 0)
+	{
+		path = ft_strdup(file);
+		return (path);
+	}
 	path = get_path_from_env(env);
 	if (!path)
 		return (NULL);
