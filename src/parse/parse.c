@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:20:41 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/08 15:57:01 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/09 15:09:38 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,7 @@ void	split_into_arrays(t_hash *env, char ***new, char *input)
 	{
 		renovar_array(&new_array, &new_arr, &str);
 		handle_special(&new_array, &new_arr, &str);
-		if (str == input && (*str == S_QUOTE || *str == D_QUOTE))
-			return ((void)(ft_printf("Wrong command format\n"), 0));
-		else
-			handle_quote(env, &new_array, &new_arr, &str);
+		handle_quote(env, &new_array, &new_arr, &str);
 		if (is_ordinary(*str))
 			append_char(&new_arr, *str);
 		if (*str)

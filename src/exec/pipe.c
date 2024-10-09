@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:41:03 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/07 19:36:23 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/09 13:30:40 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,21 @@ int	wait_for_last_process(t_ms *ms)
 {
 	int		status;
 	int		exit_code;
+	char	*temp;
 
 	waitpid(ms->last_pid, &status, 0);
 	if (WIFEXITED(status))
+	{
 		exit_code = WEXITSTATUS(status);
+	}
 	else if (WIFSIGNALED(status))
 		exit_code = WTERMSIG(status) + 128;
 	else
 		exit_code = -1;
+	temp = ft_itoa(exit_code);
+	if (!temp)
+		return (exit_code);
+	assign_hash(ms->env, "?", temp);
+	free(temp);
 	return (exit_code);
 }

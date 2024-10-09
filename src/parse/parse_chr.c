@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 16:36:43 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/08 11:40:12 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/09 15:14:56 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@ char	*extract_key(const char *str)
 	size_t	len;
 
 	len = 0;
-	if (!ft_isalpha(str[0]) && str[0] != '_')
+	if (!ft_isalpha(str[0]) && str[0] != '_' && str[0] != '?')
 		return (NULL);
-	while (str[len] && (ft_isalnum(str[len]) || str[len] == '_'))
+	while (str[len] && (ft_isalnum(str[len]) || str[len] == '_' \
+			|| str[len] == '?'))
 		len++;
 	return (ft_substr(str, 0, len));
 }
