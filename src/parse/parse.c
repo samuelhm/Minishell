@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:20:41 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/09 15:09:38 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/11 15:50:44 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	split_into_arrays(t_hash *env, char ***new, char *input)
 		handle_quote(env, &new_array, &new_arr, &str);
 		if (is_ordinary(*str))
 			append_char(&new_arr, *str);
-		if (*str)
+		if (*str && *str != '\'' && *str != '\"')
 			str++;
 	}
 	store_to_array(&new_array, &new_arr);
