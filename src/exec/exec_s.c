@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:40:42 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/08 17:20:13 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/11 15:21:18 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,10 @@ void	execute_simple_comand(t_ms *ms)
 		return ;
 	}
 	init_signals(CHILD);
-	path = getpath(ms->env, ms->av[0]);
+	if (!strcmp(ms->av[0], DOUBLE_LESS))
+		path = getpath(ms->env, ms->av[2]);
+	else
+		path = getpath(ms->env, ms->av[0]);
 	pid = fork();
 	if (pid == 0)
 		handle_child_process(ms, path);

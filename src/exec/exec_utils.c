@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:16:28 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/08 16:09:12 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/11 15:16:49 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,10 @@ void	exe_cmd(t_ms *ms, int fd_in, int fd_out, char **cmd)
 
 	fd_in_out[0] = fd_in;
 	fd_in_out[1] = fd_out;
-	path = getpath(ms->env, cmd[0]);
+	if (!strcmp(cmd[0], DOUBLE_LESS))
+		path = getpath(ms->env, cmd[2]);
+	else
+		path = getpath(ms->env, cmd[0]);
 	pid = fork();
 	if (pid == -1)
 	{
