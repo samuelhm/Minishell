@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 13:09:52 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/12 18:20:04 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/12 19:45:15 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,13 @@ static int	assign_single_var(char *arg, t_hash *env)
 		free(pair[0]);
 		free(pair[1]);
 	}
-	else
+	else if (equal_sign)
 	{
-		if (equal_sign)
-		{
-			pair[0] = ft_strdup(arg);
-			if (!pair[0])
-				return (1);
-			assign_hash(env, pair[0], "");
-			free(pair[0]);
-		}
+		pair[0] = ft_strdup(arg);
+		if (!pair[0])
+			return (1);
+		assign_hash(env, pair[0], "");
+		free(pair[0]);
 	}
 	return (0);
 }
