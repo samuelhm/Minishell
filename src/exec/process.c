@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:43:05 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/11 15:14:37 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/12 15:37:03 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ int	process_line(t_ms *ms)
 	if (!has_redirection(ms->av, PIPE_S))
 	{
 		execute_simple_comand(ms);
-		ms->status = wait_for_last_process(ms);
+		if (!is_builtin(ms->av[0]))
+			ms->status = wait_for_last_process(ms);
 		return (ms->status);
 	}
 	init_pipes(ms);
