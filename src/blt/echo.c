@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 13:04:27 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/08 16:28:48 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/12 19:08:28 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	blt_echo(char **av)
 	if (!av || !av[0])
 		return (0);
 	av++;
-	if (av[0] && !strncmp(av[0], "-n", 2))
+ 	if (av[0] && !strncmp(av[0], "-n", 2))
 	{
 		n = true;
 		av++;

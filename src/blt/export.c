@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 13:09:52 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/06 16:45:56 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/12 18:20:04 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	assign_single_var(char *arg, t_hash *env)
 	char	*equal_sign;
 
 	equal_sign = ft_strchr(arg, '=');
-	if (equal_sign)
+	if (equal_sign && equal_sign[1] != ' ')
 	{
 		pair[0] = ft_substr(arg, 0, equal_sign - arg);
 		pair[1] = ft_strdup(equal_sign + 1);
@@ -50,11 +50,14 @@ static int	assign_single_var(char *arg, t_hash *env)
 	}
 	else
 	{
-		pair[0] = ft_strdup(arg);
-		if (!pair[0])
-			return (1);
-		assign_hash(env, pair[0], "");
-		free(pair[0]);
+		if (equal_sign)
+		{
+			pair[0] = ft_strdup(arg);
+			if (!pair[0])
+				return (1);
+			assign_hash(env, pair[0], "");
+			free(pair[0]);
+		}
 	}
 	return (0);
 }
@@ -77,16 +80,14 @@ static int	assign_export_vars(char **av, t_hash *env)
 int	blt_export(char **av, t_hash *env, char ***crude)
 {
 	int		result;
-	char	**crude_env;
 
-	crude_env = *crude;
 	if (!av[1])
 		return (print_exported_vars(env));
 	result = assign_export_vars(av, env);
 	if (!result)
 	{
-		free_array(crude_env);
-		crude_env = get_env_arr(env, 0, 0);
+		free_array(*crude);
+		*crude = get_env_arr(env, 0, 0);
 	}
 	return (result);
 }

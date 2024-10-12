@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:58:35 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/07 20:17:08 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/12 19:37:57 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ void	free_av_entries(t_ms *ms, int limit)
 void	update_av_after_pipe(t_ms *ms, int i_end)
 {
 	if (ms->av[i_end] && strcmp(ms->av[i_end], PIPE_S) == 0)
+	{
+		free(ms->av[i_end]);
 		i_end++;
+	}
 	free_av_entries(ms, i_end);
 	shift_av_entries(ms, i_end);
 }

@@ -6,14 +6,14 @@
 #    By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/11 13:53:02 by linyao            #+#    #+#              #
-#    Updated: 2024/10/08 15:57:25 by shurtado         ###   ########.fr        #
+#    Updated: 2024/10/12 18:44:50 by shurtado         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #Config
 CC = gcc
 TARGET = minishell
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address 
 LDFLAGS = -L$(LIBFT_DIR) -lreadline
 INCLUDES = -I$(INC_DIR) -I$(LIBFT_DIR)
 
