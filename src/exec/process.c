@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:43:05 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/12 19:27:37 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/13 21:32:41 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,20 @@ int	execute_piped_commands(t_ms *ms)
 {
 	int		pipi;
 	char	**cmd;
+	char	**av;
 
+	av = ms->av;
 	pipi = 0;
-	cmd = get_cmd(ms);
+	cmd = get_cmd(av);
+	while (strcmp(*av, PIPE_S))
+		av++;
+	av++;
 	while (ms->fd_pipe[pipi])
 	{
 		execute_pipe_segment(ms, pipi, cmd);
 		pipi++;
 		free_array(cmd);
-		cmd = get_cmd(ms);
+		cmd = get_cmd(av);
 	}
 	execute_final_command(ms, pipi, cmd);
 	free_array(cmd);
