@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:43:05 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/13 22:11:32 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/14 12:40:45 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,30 @@ int	execute_piped_commands(t_ms *ms)
 	return (wait_for_last_process(ms));
 }
 
+static bool	sintax_ok(char **av)
+{
+	int	i;
+
+	i = 0;
+	while (av[i])
+	{
+		if (is_special(av[i]) && av[i + 1])
+		{
+			if (is_special(av[i + 1]))
+			{
+				ft_printf(SINTAXERROR, av[i + 1]);
+				return (false);
+			}
+		}
+		i++;
+	}
+	return (true);
+}
+
 int	process_line(t_ms *ms)
 {
+	if (!sintax_ok(ms->av))
+		return (2);
 	if (!has_redirection(ms->av, PIPE_S))
 	{
 		execute_simple_comand(ms);

@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:14:45 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/14 12:00:56 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/14 12:41:54 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 
 # define EXITERR "minishell: exit: %s: numeric argument required\n"
 # define PROMPT "\x1b[1;32mminishell\x1b[0m\x1b[1;36m > \x1b[0m"
+# define SINTAXERROR "minishell: syntax error near unexpected token %s\n"
 # define SINGLE_QUOTE 1
 # define DOUBLE_QUOTE 2
 # define MORE '>'
