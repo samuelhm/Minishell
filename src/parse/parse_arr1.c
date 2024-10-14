@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 15:03:37 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/08 16:30:36 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/14 12:04:16 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,26 @@ char	**process_av(char **av, t_hash *env)
 	}
 	free_array(av);
 	return (res);
+}
+
+void	handle_quote_first(t_hash *env, char ***array, char **arr, char **c)
+{
+	char	ch;
+
+	if (**c == S_QUOTE)
+		ch = S_QUOTE;
+	else if (**c == D_QUOTE)
+		ch = D_QUOTE;
+	else
+		return ;
+	if (*arr != NULL)
+		store_to_array(array, arr);
+	append_char(arr, **c);
+	(*c)++;
+	while (**c && **c != ch)
+		check_handle_dollar(env, arr, c, ch);
+	append_char(arr, **c);
+	(*c)++;
+	if (*(*c) && *(*c) == ' ' && *arr != NULL)
+		store_to_array(array, arr);
 }

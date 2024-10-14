@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:20:41 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/11 15:50:44 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/14 12:01:39 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ bool	check_quote(char *s)
 	return (single_quote_close && double_quote_close);
 }
 
-void	split_into_arrays(t_hash *env, char ***new, char *input)
+void	split_into_arrays(t_hash *env, char ***new, char *input, int i)
 {
 	char	*str;
 	char	*new_arr;
@@ -97,7 +97,10 @@ void	split_into_arrays(t_hash *env, char ***new, char *input)
 	{
 		renovar_array(&new_array, &new_arr, &str);
 		handle_special(&new_array, &new_arr, &str);
-		handle_quote(env, &new_array, &new_arr, &str);
+		if (!i++)
+			handle_quote_first(env, &new_array, &new_arr, &str);
+		else
+			handle_quote(env, &new_array, &new_arr, &str);
 		if (is_ordinary(*str))
 			append_char(&new_arr, *str);
 		if (*str && *str != '\'' && *str != '\"')
@@ -120,7 +123,7 @@ char	**split_av(t_hash *env, char *input)
 		return (NULL);
 	}
 	new = NULL;
-	split_into_arrays(env, &new, input);
+	split_into_arrays(env, &new, input, 0);
 	if (!is_compliance(new))
 		return (free_array(new), NULL);
 	return (new);

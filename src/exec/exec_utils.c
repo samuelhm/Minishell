@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:16:28 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/12 19:28:40 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/14 12:03:11 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ static void	exe_child(t_ms *ms, int fd_in_out[2], char **cmd, char *path)
 		exit(exec_builtin(cmd, ms->env, &ms->crude_env));
 	if (!path)
 	{
-		ft_printf("%s: no se encontró la orden\n", ms->av[0]);
+		write(2, cmd[0], ft_strlen(cmd[0]));
+		write(2, ": command not found.\n", 22);
 		exit(127);
 	}
 	execve(path, cmd, ms->crude_env);

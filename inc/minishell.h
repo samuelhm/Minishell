@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:14:45 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/13 22:03:00 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/14 12:00:56 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ bool	free_node(t_node **n, t_node *cur);
 bool	handle_single(bool *s_close, bool *d_close, int *flag);
 bool	handle_double(bool *s_close, bool *d_close, int *flag);
 bool	check_quote(char *s);
-void	split_into_arrays(t_hash *env, char ***new, char *input);
+void	split_into_arrays(t_hash *env, char ***new, char *input, int i);
 char	**split_av(t_hash *env, char *input);
 void	store_to_array(char ***array, char **arr);
 bool	add_array(char ***array, char *s);
@@ -93,6 +93,7 @@ void	check_handle_dollar(t_hash *env, char **arr, char **c, char ch);
 char	**get_infile_path(char ***av);
 void	renovar_array(char ***new_array, char **new_arr, char **str);
 void	initarrays(char **new_arr, char ***new_array);
+void	handle_quote_first(t_hash *env, char ***array, char **arr, char **c);
 
 //Utils
 bool	is_special(const char *s);

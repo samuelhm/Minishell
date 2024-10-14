@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:40:42 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/11 15:59:30 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/14 11:04:07 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ static void	handle_child_process(t_ms *ms, char *path)
 		exit(EXIT_FAILURE);
 	}
 	remove_redirections(ms->av);
-	if (!path)
+	if (!path || !strcmp(path, "/"))
 	{
 		ft_printf("%s: no se encontró la orden\n", ms->av[0]);
 		exit(127);
 	}
 	execve(path, ms->av, ms->crude_env);
-	perror("EXECVE FAIL");
+	perror("File not exist or");
 	exit(EXIT_FAILURE);
 }
 
