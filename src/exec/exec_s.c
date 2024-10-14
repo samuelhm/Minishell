@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:40:42 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/14 11:04:07 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/14 21:20:57 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static void	handle_child_process(t_ms *ms, char *path)
 	remove_redirections(ms->av);
 	if (!path || !strcmp(path, "/"))
 	{
-		ft_printf("%s: no se encontró la orden\n", ms->av[0]);
+		if (ms->av[0])
+			ft_printf("%s: no se encontró la orden\n", ms->av[0]);
 		exit(127);
 	}
 	execve(path, ms->av, ms->crude_env);
@@ -57,7 +58,9 @@ void	execute_simple_comand(t_ms *ms)
 	pid_t	pid;
 	char	*path;
 	int		save[2];
+	char	**avpath;
 
+	avpath = ms->av;
 	if (has_builtin(ms->av))
 	{
 		save[0] = dup(STDOUT_FILENO);
@@ -69,10 +72,13 @@ void	execute_simple_comand(t_ms *ms)
 		return ;
 	}
 	init_signals(CHILD);
-	if (!strcmp(ms->av[0], DOUBLE_LESS))
-		path = getpath(ms->env, ms->av[2]);
-	else
-		path = getpath(ms->env, ms->av[0]);
+	while (!strcmp(avpath[0], DOUBLE_LESS))
+		if (avpath[2])
+			avpath += 2;
+		else
+			break ;
+	if (avpath[0])
+		path = getpath(ms->env, avpath[0]);
 	pid = fork();
 	if (pid == 0)
 		handle_child_process(ms, path);
