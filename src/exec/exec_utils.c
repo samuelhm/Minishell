@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:16:28 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/15 14:37:18 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/15 19:20:17 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ void	exe_cmd(t_ms *ms, int fd_in, int fd_out, char **cmd)
 
 	fd_in_out[0] = fd_in;
 	fd_in_out[1] = fd_out;
-
 	pid = fork();
 	if (pid == -1)
 		perror("Error no fork at execute_comand");

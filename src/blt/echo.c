@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 13:04:27 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/14 20:02:10 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/15 19:19:32 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static bool	all_is_n(const char *s)
 	else
 		return (false);
 }
+
 int	blt_echo(char **av)
 {
 	bool	n;
