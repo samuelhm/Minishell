@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:16:28 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/14 12:03:11 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/15 14:37:18 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,20 @@ char	*getpath(t_hash *env, char *file)
 	return (path);
 }
 
-static void	exe_child(t_ms *ms, int fd_in_out[2], char **cmd, char *path)
+static void	exe_child(t_ms *ms, int fd_in_out[2], char **cmd)
 {
+	char	*path;
+	char	**cmdcp;
+
+	cmdcp = cmd;
+	while (!strcmp(cmdcp[0], DOUBLE_LESS))
+	{
+		if (cmdcp[2])
+			cmdcp += 2;
+		else
+			break ;
+	}
+	path = getpath(ms->env, cmdcp[0]);
 	set_child_signals();
 	if (setup_redirections(cmd))
 		remove_redirections(cmd);
@@ -91,25 +103,15 @@ static void	exe_child(t_ms *ms, int fd_in_out[2], char **cmd, char *path)
 void	exe_cmd(t_ms *ms, int fd_in, int fd_out, char **cmd)
 {
 	pid_t	pid;
-	char	*path;
 	int		fd_in_out[2];
 
 	fd_in_out[0] = fd_in;
 	fd_in_out[1] = fd_out;
-	if (!strcmp(cmd[0], DOUBLE_LESS))
-		path = getpath(ms->env, cmd[2]);
-	else
-		path = getpath(ms->env, cmd[0]);
+
 	pid = fork();
 	if (pid == -1)
-	{
-		if (path)
-			free(path);
 		perror("Error no fork at execute_comand");
-	}
 	if (pid == 0)
-		exe_child(ms, fd_in_out, cmd, path);
-	if (path)
-		free(path);
+		exe_child(ms, fd_in_out, cmd);
 	ms->last_pid = pid;
 }

@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 21:07:00 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/04 21:11:31 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/15 14:58:48 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*get_filename(char **av, char *redir)
 		if (!strcmp(av[i], redir))
 		{
 			if (av[i + 1])
-				return (strdup(av[i + 1]));
+				return (ft_strdup(av[i + 1]));
 			else
 			{
 				fprintf(stderr, ERRFILE, redir);

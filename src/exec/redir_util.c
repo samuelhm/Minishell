@@ -6,29 +6,65 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:50:34 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/14 20:58:29 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/15 15:14:07 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+bool	handle_heredoc_redirection(char **av)
+{
+	int		fd_in;
+	char	*filename;
+	char	**av2;
+
+	av2 = av;
+	while (has_redirection(av2, "<<"))
+	{
+		filename = get_filename(av2, "<<");
+		fd_in = handle_heredoc(filename);
+		free(filename);
+		if (fd_in == -1)
+			return (false);
+		if (!has_redirection(av2 + 2, "<<"))
+			dup2(fd_in, STDIN_FILENO);
+		close(fd_in);
+		av2 += 2;
+	}
+	if (has_redirection(av, "<<"))
+		return (true);
+	return (false);
+}
+
 bool	handle_input_redirection(char **av)
 {
 	int		fd_in;
 	char	*filename;
+	char	**av2;
 
-	if (has_redirection(av, "<"))
+	av2 = av;
+	while (has_redirection(av2, "<"))
 	{
-		filename = get_filename(av, "<");
+		filename = get_filename(av2, "<");
 		fd_in = open(filename, O_RDONLY);
-		free(filename);
 		if (fd_in == -1)
+		{
+			write(2, filename, strlen(filename));
+			free(filename);
+			write(2, ": no such file or directory\n", 29);
+			exit(1);
 			return (false);
+		}
+		free(filename);
+		if (!has_redirection(av2 + 2, "<"))
+			dup2(fd_in, STDIN_FILENO);
 		dup2(fd_in, STDIN_FILENO);
 		close(fd_in);
-		return (true);
+		av2 += 2;
 	}
-	return (true);
+	if (has_redirection(av, "<"))
+		return (true);
+	return (false);
 }
 
 bool	handle_output_trunc_redirection(char **av)
@@ -66,30 +102,6 @@ bool	handle_output_append_redirection(char **av)
 		close(fd_out);
 		return (true);
 	}
-	return (false);
-}
-
-bool	handle_heredoc_redirection(char **av)
-{
-	int		fd_in;
-	char	*filename;
-	char	**av2;
-
-	av2 = av;
-	while (has_redirection(av2, "<<"))
-	{
-		filename = get_filename(av2, "<<");
-		fd_in = handle_heredoc(filename);
-		free(filename);
-		if (fd_in == -1)
-			return (false);
-		if (!has_redirection(av2 +2, "<<"))
-			dup2(fd_in, STDIN_FILENO);
-		close(fd_in);
-		av2 += 2;
-	}
-	if (has_redirection(av, "<<"))
-		return (true);
 	return (false);
 }
 

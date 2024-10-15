@@ -20,7 +20,7 @@
 		  },
 		  {
 			"description": "Ask whether to follow parent or child",
-			"text": "set follow-fork-mode parent",
+			"text": "set follow-fork-mode child",
 			"ignoreFailures": false
 		}
 		],
