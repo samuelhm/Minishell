@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:50:34 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/15 19:20:42 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/15 19:46:11 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,14 @@ bool	handle_heredoc_redirection(char **av)
 	return (false);
 }
 
+void	exit_error_redir(char **filename)
+{
+	write(2, *filename, strlen(*filename));
+	free(*filename);
+	write(2, ": no such file or directory\n", 29);
+	exit(1);
+}
+
 bool	handle_input_redirection(char **av)
 {
 	int		fd_in;
@@ -48,7 +56,7 @@ bool	handle_input_redirection(char **av)
 		filename = get_filename(av2, "<");
 		fd_in = open(filename, O_RDONLY);
 		if (fd_in == -1)
-			exit_error_redir(filename);
+			exit_error_redir(&filename);
 		free(filename);
 		if (!has_redirection(av2 + 2, "<"))
 			dup2(fd_in, STDIN_FILENO);
