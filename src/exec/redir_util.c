@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:50:34 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/15 15:43:28 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/15 16:18:39 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,15 +78,19 @@ static char	*get_next_output(char **av)
 	return (NULL);
 }
 
-bool	handle_output_redirection(char **av)
+bool	handle_output_redirection(char **avo)
 {
 	int		fd_out;
 	char	*filename;
 	char	*next;
+	char	**av;
 
+	av = avo;
 	while (has_redirection(av, MORE_S) || has_redirection(av, DOUBLE_MORE))
 	{
 		next = get_next_output(av);
+		while (strcmp(av[0], next))
+			av++;
 		filename = get_filename(av, next);
 		if (!strcmp(next, ">"))
 			fd_out = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
@@ -108,10 +112,7 @@ bool	handle_output_redirection(char **av)
 		close(fd_out);
 		av++;
 	}
-	if (has_redirection(av + 2, MORE_S) || \
-		has_redirection(av + 2, DOUBLE_MORE))
-		return (true);
-	return (false);
+	return (true);
 }
 
 void	remove_redirections(char **av)
