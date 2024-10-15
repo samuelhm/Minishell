@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:14:45 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/15 20:19:16 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/15 21:38:26 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,5 +151,9 @@ bool	handle_input_redirection(char **av);
 bool	handle_output_redirection(char **av);
 bool	handle_heredoc_redirection(char **av);
 int		handle_heredoc(char *delimiter);
+
+
+///parse2
+bool	check_p2quotes(char *s);
 
 #endif
