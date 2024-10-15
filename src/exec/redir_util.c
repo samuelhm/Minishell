@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:50:34 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/15 19:55:40 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/15 20:24:34 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,33 @@ static char	*get_next_output(char **av)
 	return (NULL);
 }
 
+bool	handle_single_redirection(char ***av, char *next, int *fd_out)
+{
+	char	*filename;
+
+	filename = get_filename(*av, next);
+	if (!strcmp(next, ">"))
+		*fd_out = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	else if (!strcmp(next, ">>"))
+		*fd_out = open(filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	else
+		*fd_out = -1;
+	if (*fd_out == -1)
+	{
+		write(2, "No se puede crear o modificar: ", 31);
+		write(2, filename, ft_strlen(filename));
+		write(2, "\n", 1);
+		free(filename);
+		exit(1);
+	}
+	free(filename);
+	return (!has_redirection(*av + 2, MORE_S) && \
+		!has_redirection(*av + 2, DOUBLE_MORE));
+}
+
 bool	handle_output_redirection(char **avo)
 {
 	int		fd_out;
-	char	*filename;
 	char	*next;
 	char	**av;
 
@@ -85,54 +108,10 @@ bool	handle_output_redirection(char **avo)
 		next = get_next_output(av);
 		while (strcmp(av[0], next))
 			av++;
-		filename = get_filename(av, next);
-		if (!strcmp(next, ">"))
-			fd_out = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		else if (!strcmp(next, ">>"))
-			fd_out = open(filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
-		else
-			fd_out = -1;
-		if (fd_out == -1)
-		{
-			write(2, "No se puede crear o modificar: ", 31);
-			write(2, filename, ft_strlen(filename));
-			write(2, "\n", 1);
-			free(filename);
-			exit(1);
-		}
-		if (!has_redirection(av + 2, MORE_S) && \
-			!has_redirection(av + 2, DOUBLE_MORE))
+		if (handle_single_redirection(&av, next, &fd_out))
 			dup2(fd_out, STDOUT_FILENO);
 		close(fd_out);
 		av++;
-		if (filename)
-			free(filename);
 	}
 	return (true);
-}
-
-void	remove_redirections(char **av)
-{
-	int		i;
-	int		j;
-
-	i = 0;
-	while (av[i] && ft_strcmp(av[i], PIPE_S) != 0)
-	{
-		if (is_special(av[i]))
-		{
-			j = i;
-			free(av[i]);
-			free(av[i + 1]);
-			while (av[j + 2])
-			{
-				av[j] = av[j + 2];
-				j++;
-			}
-			av[j] = NULL;
-			av[j + 1] = NULL;
-		}
-		else
-			i++;
-	}
 }

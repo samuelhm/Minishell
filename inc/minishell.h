@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:14:45 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/15 19:55:03 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/15 20:19:16 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,8 @@ int		find_pipe_position(char **av);
 char	**allocate_command_array(int size);
 int		find_pipe_position(char **av);
 void	exit_error_redir(char **filename);
+void	move_std(int **fd);
+void	err_child(char **cmd);
 
 //Signals
 void	init_signals(int mode);

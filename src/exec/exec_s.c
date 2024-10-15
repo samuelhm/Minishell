@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:40:42 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/15 15:05:13 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/15 20:06:28 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,22 +53,28 @@ static void	restore_fd_redir(int (*save)[])
 	close((*save)[1]);
 }
 
+static void	execbuiltin(t_ms *ms)
+{
+	int	save[2];
+
+	save[0] = dup(STDOUT_FILENO);
+	save[1] = dup(STDIN_FILENO);
+	setup_redirections(ms->av);
+	remove_redirections(ms->av);
+	ms->status = exec_builtin(ms->av, ms->env, &ms->crude_env);
+	restore_fd_redir(&save);
+}
+
 void	execute_simple_comand(t_ms *ms)
 {
 	pid_t	pid;
 	char	*path;
-	int		save[2];
 	char	**avpath;
 
 	avpath = ms->av;
 	if (has_builtin(ms->av))
 	{
-		save[0] = dup(STDOUT_FILENO);
-		save[1] = dup(STDIN_FILENO);
-		setup_redirections(ms->av);
-		remove_redirections(ms->av);
-		ms->status = exec_builtin(ms->av, ms->env, &ms->crude_env);
-		restore_fd_redir(&save);
+		execbuiltin(ms);
 		return ;
 	}
 	init_signals(CHILD);

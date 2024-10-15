@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:16:28 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/15 19:20:17 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/15 20:19:29 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,24 +79,11 @@ static void	exe_child(t_ms *ms, int fd_in_out[2], char **cmd)
 	set_child_signals();
 	if (setup_redirections(cmd))
 		remove_redirections(cmd);
-	if (fd_in_out[0] != STDIN_FILENO)
-	{
-		dup2(fd_in_out[0], STDIN_FILENO);
-		close(fd_in_out[0]);
-	}
-	if (fd_in_out[1] != STDOUT_FILENO)
-	{
-		dup2(fd_in_out[1], STDOUT_FILENO);
-		close(fd_in_out[1]);
-	}
+	move_std(&fd_in_out);
 	if (is_builtin(cmd[0]))
 		exit(exec_builtin(cmd, ms->env, &ms->crude_env));
 	if (!path)
-	{
-		write(2, cmd[0], ft_strlen(cmd[0]));
-		write(2, ": command not found.\n", 22);
-		exit(127);
-	}
+		err_child(cmd);
 	execve(path, cmd, ms->crude_env);
 }
 
