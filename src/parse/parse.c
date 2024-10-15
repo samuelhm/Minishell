@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:20:41 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/14 12:01:39 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/15 22:34:03 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,11 +117,11 @@ char	**split_av(t_hash *env, char *input)
 
 	if (!input || !input[0])
 		return (NULL);
-	if (!check_quote(input))
-	{
-		perror("These quotes don't match.");
-		return (NULL);
-	}
+	//if (!check_quote(input))
+	//{
+	//	perror("These quotes don't match.");
+	//	return (NULL);
+	//}
 	new = NULL;
 	split_into_arrays(env, &new, input, 0);
 	if (!is_compliance(new))

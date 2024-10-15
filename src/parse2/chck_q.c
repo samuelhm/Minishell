@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pav.c                                              :+:      :+:    :+:   */
+/*   chck_q.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 21:04:52 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/15 21:31:51 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/15 22:15:40 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,8 @@ bool	check_p2quotes(char *s)
 {
 	char	*init;
 	char	*final;
-	int		i;
 	char	first;
 
-	i = 0;
 	if (!strchr(s, '\'') && !strchr(s, '\"'))
 		return (true);
 	first = get_first_quote(s);
