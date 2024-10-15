@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:58:35 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/13 21:32:41 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/15 19:55:40 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,12 @@ char	**get_cmd(char **av)
 		return (NULL);
 	copy_arguments(av, cmd, i_end);
 	return (cmd);
+}
+
+void	exit_error_redir(char **filename)
+{
+	write(2, *filename, strlen(*filename));
+	free(*filename);
+	write(2, ": no such file or directory\n", 29);
+	exit(1);
 }
