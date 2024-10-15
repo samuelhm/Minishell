@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:50:34 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/15 15:14:07 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/15 15:43:28 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,41 +67,50 @@ bool	handle_input_redirection(char **av)
 	return (false);
 }
 
-bool	handle_output_trunc_redirection(char **av)
+static char	*get_next_output(char **av)
 {
-	int		fd_out;
-	char	*filename;
-
-	if (has_redirection(av, ">"))
+	while (av)
 	{
-		filename = get_filename(av, ">");
-		fd_out = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		free(filename);
-		if (fd_out == -1)
-			return (false);
-		dup2(fd_out, STDOUT_FILENO);
-		close(fd_out);
-		return (true);
+		if (!strcmp(av[0], MORE_S) || !strcmp(av[0], DOUBLE_MORE))
+			return (av[0]);
+		av++;
 	}
-	return (true);
+	return (NULL);
 }
 
-bool	handle_output_append_redirection(char **av)
+bool	handle_output_redirection(char **av)
 {
 	int		fd_out;
 	char	*filename;
+	char	*next;
 
-	if (has_redirection(av, ">>"))
+	while (has_redirection(av, MORE_S) || has_redirection(av, DOUBLE_MORE))
 	{
-		filename = get_filename(av, ">>");
-		fd_out = open(filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		next = get_next_output(av);
+		filename = get_filename(av, next);
+		if (!strcmp(next, ">"))
+			fd_out = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		else if (!strcmp(next, ">>"))
+			fd_out = open(filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		else
+			fd_out = -1;
 		free(filename);
 		if (fd_out == -1)
-			return (false);
-		dup2(fd_out, STDOUT_FILENO);
+		{
+			write(2, "No se puede crear o modificar: ", 31);
+			write(2, filename, ft_strlen(filename));
+			write(2, "\n", 1);
+			exit(1);
+		}
+		if (!has_redirection(av + 2, MORE_S) && \
+			!has_redirection(av + 2, DOUBLE_MORE))
+			dup2(fd_out, STDOUT_FILENO);
 		close(fd_out);
-		return (true);
+		av++;
 	}
+	if (has_redirection(av + 2, MORE_S) || \
+		has_redirection(av + 2, DOUBLE_MORE))
+		return (true);
 	return (false);
 }
 

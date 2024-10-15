@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:14:45 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/14 12:41:54 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/15 15:44:24 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@
 
 # define NORMAL 0
 # define CHILD 1
+
+# define TRUNCATE 0
+# define APPEND 1
 
 # ifndef PATH_MAX
 #  define PATH_MAX 4096
@@ -142,8 +145,7 @@ char	**get_cmd(char **av);
 bool	setup_redirections(char **cmd);
 int		wait_for_last_process(t_ms *ms);
 bool	handle_input_redirection(char **av);
-bool	handle_output_trunc_redirection(char **av);
-bool	handle_output_append_redirection(char **av);
+bool	handle_output_redirection(char **av);
 bool	handle_heredoc_redirection(char **av);
 int		handle_heredoc(char *delimiter);
 
