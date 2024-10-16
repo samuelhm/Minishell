@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:40:42 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/15 20:06:28 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/16 11:43:25 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ static void	execbuiltin(t_ms *ms)
 
 	save[0] = dup(STDOUT_FILENO);
 	save[1] = dup(STDIN_FILENO);
-	setup_redirections(ms->av);
+	if (!setup_redirections(ms->av))
+		return ;
 	remove_redirections(ms->av);
 	ms->status = exec_builtin(ms->av, ms->env, &ms->crude_env);
 	restore_fd_redir(&save);

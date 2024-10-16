@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:50:34 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/15 20:24:34 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/16 11:38:40 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,7 @@ bool	handle_heredoc_redirection(char **av)
 		close(fd_in);
 		av2 += 2;
 	}
-	if (has_redirection(av, "<<"))
-		return (true);
-	return (false);
+	return (true);
 }
 
 bool	handle_input_redirection(char **av)
@@ -48,7 +46,10 @@ bool	handle_input_redirection(char **av)
 		filename = get_filename(av2, "<");
 		fd_in = open(filename, O_RDONLY);
 		if (fd_in == -1)
+		{
 			exit_error_redir(&filename);
+			return (false);
+		}
 		free(filename);
 		if (!has_redirection(av2 + 2, "<"))
 			dup2(fd_in, STDIN_FILENO);
@@ -56,9 +57,7 @@ bool	handle_input_redirection(char **av)
 		close(fd_in);
 		av2 += 2;
 	}
-	if (has_redirection(av, "<"))
-		return (true);
-	return (false);
+	return (true);
 }
 
 static char	*get_next_output(char **av)
@@ -89,11 +88,13 @@ bool	handle_single_redirection(char ***av, char *next, int *fd_out)
 		write(2, filename, ft_strlen(filename));
 		write(2, "\n", 1);
 		free(filename);
-		exit(1);
+		return (false);
 	}
 	free(filename);
-	return (!has_redirection(*av + 2, MORE_S) && \
-		!has_redirection(*av + 2, DOUBLE_MORE));
+	if (!has_redirection(*av + 2, MORE_S) && \
+		!has_redirection(*av + 2, DOUBLE_MORE))
+		dup2(*fd_out, STDOUT_FILENO);
+	return (true);
 }
 
 bool	handle_output_redirection(char **avo)
@@ -108,8 +109,8 @@ bool	handle_output_redirection(char **avo)
 		next = get_next_output(av);
 		while (strcmp(av[0], next))
 			av++;
-		if (handle_single_redirection(&av, next, &fd_out))
-			dup2(fd_out, STDOUT_FILENO);
+		if (!handle_single_redirection(&av, next, &fd_out))
+			return (false);
 		close(fd_out);
 		av++;
 	}
