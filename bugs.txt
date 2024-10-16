@@ -1,0 +1,6 @@
+1- no podemos agregar variables sin valor en el export 
+2- env no muestra variables vacias de export.
+3- cuando haccemos un cat | ls el primer hijo no se cierra correctamente
+4- cuando hacemos un heredoc y usamos la senyal cierra el heredoc ejemplo << lol control + \   (cambiar senal iniciar despues de heredoc
+5- cuando hacemos un unset PWD heneral SEGV.
+6- holiiiiiiiiii > fool | ls << a | << b | << c (error de sintaxis en minishell).
