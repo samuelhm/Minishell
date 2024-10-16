@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 23:58:47 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/16 02:38:03 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/16 04:42:20 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,8 @@ void	swap_word(char *word, char **s, char *init, int i)
 	int		k;
 	char	tmp[900];
 
-	while ((*s)[i] != *init)
-	{
+	while ((*s)[++i] != *init)
 		tmp[i] = (*s)[i];
-		i++;
-	}
 	k = -1;
 	while (word && word[++k])
 	{
@@ -82,7 +79,7 @@ void	manage_dolar(char **s, t_hash *env)
 		if ((*s)[i] == '$' && !in_single_q)
 		{
 			word = get_word((*s) + i, env);
-			swap_word(word, s, (*s) + i, 0);
+			swap_word(word, s, (*s) + i, -1);
 			if (!strcmp(word, "") || !strcmp(word, "$"))
 				free(word);
 		}
@@ -90,7 +87,6 @@ void	manage_dolar(char **s, t_hash *env)
 			break ;
 		i++;
 	}
-
 }
 
 void	expand_dolar(char **av, t_hash *env)

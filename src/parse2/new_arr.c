@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 01:24:36 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/16 03:17:10 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/16 04:37:11 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ static char	**allocate_new_av(char **av, int *new_size)
 	new_av = malloc(sizeof(char *) * (*new_size + 1));
 	if (!new_av)
 		return (NULL);
-
 	return (new_av);
 }
 
