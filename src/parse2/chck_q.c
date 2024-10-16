@@ -6,11 +6,28 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 21:04:52 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/15 22:15:40 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/16 01:24:55 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+bool	all_quote_ok(char **av)
+{
+	int	i;
+
+	i = 0;
+	while (av[i])
+	{
+		if (!check_p2quotes(av[i]))
+		{
+			perror("ERROR, no se aceptan comillas abiertas\n");
+			return (false);
+		}
+		i++;
+	}
+	return (true);
+}
 
 static char	get_first_quote(char *s)
 {

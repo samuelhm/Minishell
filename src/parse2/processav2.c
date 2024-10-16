@@ -6,28 +6,11 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 21:35:24 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/16 00:48:00 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/16 02:44:18 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static bool	all_quote_ok(char **av)
-{
-	int	i;
-
-	i = 0;
-	while (av[i])
-	{
-		if (!check_p2quotes(av[i]))
-		{
-			perror("ERROR, no se aceptan comillas abiertas\n");
-			return (false);
-		}
-		i++;
-	}
-	return (true);
-}
 
 void	remove_fquotes(char **s, int i, int j)
 {
@@ -42,7 +25,10 @@ void	remove_fquotes(char **s, int i, int j)
 		if (((*s)[i] == '\'' && (qc == 0 || qc == '\'')) || \
 			((*s)[i] == '\"' && (qc == 0 || qc == '\"')))
 		{
-			qc = (*s)[i];
+			if (q == false)
+				qc = (*s)[i];
+			else if (qc == (*s)[i])
+				qc = 0;
 			q = !q;
 			i++;
 			continue ;
@@ -67,61 +53,25 @@ void	check_fquotes(char **av)
 	}
 }
 
-char	**create_new_av(char **av)
+void	move_av(char **av)
 {
 	int		i;
 	int		j;
-	char	**new_av;
-	char	*pos;
 
-	// Primer paso: calcular el tamaño que tendrá new_av
-	int		new_size = 0;
-	for (i = 0; av[i]; i++)
-	{
-		pos = strchr(av[i], '^');
-		if (pos)
-			new_size += 2;  // Si encontramos ^, añadimos 2 elementos
-		else
-			new_size += 1;  // Si no, solo añadimos 1
-	}
-
-	// Asignar memoria para new_av con el tamaño correcto
-	new_av = malloc(sizeof(char *) * (new_size + 1));  // +1 para NULL al final
-	if (!new_av)
-		return (NULL);
-
-	// Segundo paso: llenar new_av
+	i = 0;
 	j = 0;
-	for (i = 0; av[i]; i++)
+	while (av[i])
 	{
-		pos = strchr(av[i], '^');
-		if (!pos)
+		if (av[i][0] != '\0')
 		{
-			// Si no hay ^, copiamos la cadena tal cual
-			new_av[j] = strdup(av[i]);
-			if (!new_av[j])
-				return (NULL);  // Manejar el error de asignación de memoria
+			av[j] = av[i];
 			j++;
 		}
 		else
-		{
-			// Si hay ^, dividimos la cadena en dos
-			int len_before = pos - av[i];  // Longitud antes de ^
-			new_av[j] = strndup(av[i], len_before);  // Copiar parte antes de ^
-			if (!new_av[j])
-				return (NULL);  // Manejar el error de asignación de memoria
-			j++;
-
-			// Copiar la parte después de ^
-			new_av[j] = strdup(pos + 1);
-			if (!new_av[j])
-				return (NULL);  // Manejar el error de asignación de memoria
-			j++;
-		}
+			free(av[i]);
+		i++;
 	}
-	new_av[j] = NULL;  // Terminar el array con NULL
-
-	return (new_av);
+	av[j] = NULL;
 }
 
 char	**process(char **av, t_hash *env)
@@ -136,7 +86,8 @@ char	**process(char **av, t_hash *env)
 	}
 	expand_dolar(av, env);
 	check_fquotes(av);
-	new_av = create_new_av(av);
+	move_av(av);
+	new_av = create_new_av(av, 0, 0, 0);
 	if (!new_av)
 	{
 		perror("Error creando new_av");

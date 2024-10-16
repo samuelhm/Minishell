@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 12:37:25 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/16 00:52:11 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/16 01:39:47 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ static int	process_input(t_ms *ms)
 	if (!ms->av)
 		return (1);
 	ms->av = process(ms->av, ms->env);
+	for (int i = 0; ms->av[i]; i++)
+		printf("av[%d]: %s\n",i, ms->av[i]);
 	if (!ft_strcmp(ms->av[0], "exit"))
 	{
 		check_exit_args(ms);

@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:14:45 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/16 00:00:04 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/16 01:26:21 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,9 +156,11 @@ int		handle_heredoc(char *delimiter);
 ///parse2
 bool	check_p2quotes(char *s);
 char	**process(char **av, t_hash *env);
-void	swap_word(char *word, char **s, char *init);
+void	swap_word(char *word, char **s, char *init, int i);
 char	*get_word(char *sinit, t_hash *env);
 void	manage_dolar(char **s, t_hash *env);
 void	expand_dolar(char **av, t_hash *env);
+bool	all_quote_ok(char **av);
+char	**create_new_av(char **av, int i, int j, int new_size);
 
 #endif

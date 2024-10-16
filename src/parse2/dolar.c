@@ -6,45 +6,40 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 23:58:47 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/16 00:54:09 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/16 02:38:03 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	swap_word(char *word, char **s, char *init)
+void	swap_word(char *word, char **s, char *init, int i)
 {
-	int		i;
 	int		k;
 	char	tmp[900];
 
-	i = 0;
 	while ((*s)[i] != *init)
 	{
 		tmp[i] = (*s)[i];
 		i++;
 	}
-	k = 0;
-	while (word[k])
+	k = -1;
+	while (word && word[++k])
 	{
 		if (word[k] == ' ')
-			tmp[i] = '^';
+			tmp[i++] = '^';
 		else
-			tmp[i] = word[k];
-		i++;
-		k++;
+			tmp[i++] = word[k];
 	}
 	while (*init && *init != ' ')
 		init++;
 	while (*init)
-	{
-		tmp[i] = *init;
-		i++;
-		init++;
-	}
+		tmp[i++] = *init++;
 	tmp[i] = '\0';
 	free(*s);
-	*s = ft_strdup(tmp);
+	if (tmp[0])
+		*s = ft_strdup(tmp);
+	else
+		*s = ft_strdup("");
 }
 
 char	*get_word(char *sinit, t_hash *env)
@@ -68,8 +63,7 @@ char	*get_word(char *sinit, t_hash *env)
 	free(key);
 	if (word)
 		return (word);
-	else
-		return (ft_strdup(""));
+	return (ft_strdup(""));
 }
 
 void	manage_dolar(char **s, t_hash *env)
@@ -88,8 +82,12 @@ void	manage_dolar(char **s, t_hash *env)
 		if ((*s)[i] == '$' && !in_single_q)
 		{
 			word = get_word((*s) + i, env);
-			swap_word(word, s, (*s) + i);
+			swap_word(word, s, (*s) + i, 0);
+			if (!strcmp(word, "") || !strcmp(word, "$"))
+				free(word);
 		}
+		if ((*s)[i] == '\0')
+			break ;
 		i++;
 	}
 
