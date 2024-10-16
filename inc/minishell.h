@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:14:45 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/16 01:26:21 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/16 03:14:44 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,5 +162,8 @@ void	manage_dolar(char **s, t_hash *env);
 void	expand_dolar(char **av, t_hash *env);
 bool	all_quote_ok(char **av);
 char	**create_new_av(char **av, int i, int j, int new_size);
+char	**split_input(char *input, int i, int j);
+bool	is_separator(char c);
+char	**free_newav(char **array, int size);
 
 #endif

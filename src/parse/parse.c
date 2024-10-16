@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:20:41 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/15 22:34:03 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/16 02:53:07 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ void	split_into_arrays(t_hash *env, char ***new, char *input, int i)
 	char	*new_arr;
 	char	**new_array;
 
+	(void)env;
+	(void)i;
 	initarrays(&new_arr, &new_array);
 	if (!input || !new)
 		return ;
@@ -97,12 +99,12 @@ void	split_into_arrays(t_hash *env, char ***new, char *input, int i)
 	{
 		renovar_array(&new_array, &new_arr, &str);
 		handle_special(&new_array, &new_arr, &str);
-		if (!i++)
-			handle_quote_first(env, &new_array, &new_arr, &str);
-		else
-			handle_quote(env, &new_array, &new_arr, &str);
-		if (is_ordinary(*str))
-			append_char(&new_arr, *str);
+		//if (!i++)
+		//	handle_quote_first(env, &new_array, &new_arr, &str);
+		//else
+		//	handle_quote(env, &new_array, &new_arr, &str);
+		//if (is_ordinary(*str))
+		append_char(&new_arr, *str);
 		if (*str && *str != '\'' && *str != '\"')
 			str++;
 	}

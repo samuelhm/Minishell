@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 21:04:52 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/16 01:24:55 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/16 03:33:17 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ bool	all_quote_ok(char **av)
 	{
 		if (!check_p2quotes(av[i]))
 		{
-			perror("ERROR, no se aceptan comillas abiertas\n");
+			ft_putstr_fd("ERROR, no se aceptan comillas abiertas\n", 2);
 			return (false);
 		}
 		i++;
@@ -64,4 +64,9 @@ bool	check_p2quotes(char *s)
 		return (check_p2quotes(final + 1));
 	else
 		return (true);
+}
+
+bool	is_separator(char c)
+{
+	return (c == ' ' || c == '>' || c == '<' || c == '|');
 }

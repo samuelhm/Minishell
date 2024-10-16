@@ -6,13 +6,13 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 01:24:36 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/16 01:36:23 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/16 03:17:10 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	**free_newav(char **array, int size)
+char	**free_newav(char **array, int size)
 {
 	int	i;
 
