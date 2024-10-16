@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 13:09:52 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/12 19:45:15 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/16 13:18:20 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,42 @@ static int	print_exported_vars(t_hash *env)
 	return (0);
 }
 
+bool	check_key(char *arg)
+{
+	int		i;
+
+	i = 0;
+	if (!ft_isalpha(arg[0]) && arg[0] != '_')
+	{
+		ft_putstr_fd("Not valid identifier\n", 2);
+		return (false);
+	}
+	while (arg[i++])
+	{
+		if (!ft_isalnum(arg[i]) && arg[i] != '_')
+		{
+			if (arg[i] != '=')
+			{
+				ft_putstr_fd("Not valid identifier\n", 2);
+				return (false);
+			}
+			else
+				break ;
+		}
+	}
+	return (true);
+}
+
 //pair[0] is key, pair[1] is value
 static int	assign_single_var(char *arg, t_hash *env)
 {
 	char	*pair[2];
 	char	*equal_sign;
 
+	if (!check_key(arg))
+		return (1);
 	equal_sign = ft_strchr(arg, '=');
-	if (equal_sign && equal_sign[1] != ' ')
+	if (equal_sign)
 	{
 		pair[0] = ft_substr(arg, 0, equal_sign - arg);
 		pair[1] = ft_strdup(equal_sign + 1);
@@ -47,14 +75,6 @@ static int	assign_single_var(char *arg, t_hash *env)
 		assign_hash(env, pair[0], pair[1]);
 		free(pair[0]);
 		free(pair[1]);
-	}
-	else if (equal_sign)
-	{
-		pair[0] = ft_strdup(arg);
-		if (!pair[0])
-			return (1);
-		assign_hash(env, pair[0], "");
-		free(pair[0]);
 	}
 	return (0);
 }
