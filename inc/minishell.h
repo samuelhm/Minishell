@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:14:45 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/16 04:36:13 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/16 15:21:26 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	delete_env(t_hash *env);
 void	free_resources(t_ms *ms);
 void	process_cmds(t_ms *ms);
 void	remove_redirections(char **av);
-void	check_exit_args(t_ms *ms);
+int		check_exit_args(t_ms *ms);
 
 //Built-ins
 int		blt_echo(char **av);

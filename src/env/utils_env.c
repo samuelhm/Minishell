@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 13:10:06 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/06 16:41:30 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/16 15:34:45 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ unsigned int	hash_function(char *key)
 	unsigned int	h;
 
 	h = 0;
-	while (*key)
+	while (key && *key)
 		h = h * 31 + *key++;
 	return (h % HASH_LEN);
 }

@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 23:58:47 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/16 04:42:20 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/16 15:38:52 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*get_word(char *sinit, t_hash *env)
 		tmp[i - 1] = sinit[i];
 		i++;
 	}
-	if (i == 1)
+	if (i == 1 || !strcmp(sinit, "$\""))
 		return (ft_strdup("$"));
 	tmp[i - 1] = '\0';
 	key = extract_key(tmp);

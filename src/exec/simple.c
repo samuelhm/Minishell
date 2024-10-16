@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 20:09:31 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/12 15:34:53 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/16 15:30:02 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,22 +76,25 @@ static int	all_digits(const char *str)
 	return (1);
 }
 
-void	check_exit_args(t_ms *ms)
+int	check_exit_args(t_ms *ms)
 {
 	if (ms->av[1])
 	{
 		if (ms->av[2])
 		{
 			ft_printf("exit: too many arguments\n");
-			exit (1);
+			free_array(ms->av);
+			return (1);
 		}
 		if (!all_digits(ms->av[1]))
 		{
 			ft_printf(EXITERR, ms->av[1]);
+			free_resources(ms);
 			exit (2);
 		}
 		ms->status = ft_atoi(ms->av[1]);
 	}
 	free_resources(ms);
 	exit(ms->status);
+	return (0);
 }
