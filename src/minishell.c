@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 12:37:25 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/16 03:34:31 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/16 04:14:54 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,18 @@ static int	res_prompt(char *input)
 	free(input);
 	rl_on_new_line();
 	rl_replace_line("", 0);
-	rl_redisplay();
 	return (1);
 }
 
 static int	process_input(t_ms *ms)
 {
 	char	*input;
+	char	*trimmed;
 
 	input = readline(PROMPT);
+	trimmed = ft_strtrim(input, " \t");
+	free (input);
+	input = trimmed;
 	if (!input)
 	{
 		free_resources(ms);
@@ -59,9 +62,9 @@ static int	process_input(t_ms *ms)
 	ms->av = split_input(input, 0, 0);
 	free(input);
 	ms->av = process(ms->av, ms->env);
-	if (!ms->av)
+	if (!ms->av || !ms->av[0])
 		return (1);
-	if (!ft_strcmp(ms->av[0], "exit"))
+	if (ms->av[0] && !ft_strcmp(ms->av[0], "exit"))
 	{
 		check_exit_args(ms);
 	}

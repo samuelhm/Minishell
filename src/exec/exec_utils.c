@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:16:28 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/15 20:19:29 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/16 03:50:27 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static void	exe_child(t_ms *ms, int fd_in_out[2], char **cmd)
 	char	**cmdcp;
 
 	cmdcp = cmd;
-	while (!strcmp(cmdcp[0], DOUBLE_LESS))
+	while (!strcmp(cmdcp[0], DOUBLE_LESS) || !strcmp(cmdcp[0], LESS_S))
 	{
 		if (cmdcp[2])
 			cmdcp += 2;

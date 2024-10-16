@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 21:12:36 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/08 11:43:56 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/16 04:26:04 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	free_array(char **arrays)
 	int	i;
 
 	i = 0;
-	if (!arrays || !*arrays)
+	if (!arrays && !*arrays)
 		return ;
 	while (arrays[i])
 	{

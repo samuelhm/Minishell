@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 21:35:24 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/16 02:44:18 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/16 04:29:19 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,14 @@ char	**process(char **av, t_hash *env)
 	new_av = create_new_av(av, 0, 0, 0);
 	if (!new_av)
 	{
-		perror("Error creando new_av");
 		free_array(av);
 		return (NULL);
 	}
 	free_array(av);
+	if (!new_av[0] && new_av)
+	{
+		free(new_av);
+		new_av = NULL;
+	}
 	return (new_av);
 }
