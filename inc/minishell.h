@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:14:45 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/16 15:21:26 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/16 16:48:51 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,5 +164,7 @@ char	**create_new_av(char **av, int i, int j, int new_size);
 char	**split_input(char *input, int i, int j);
 bool	is_separator(char c);
 char	**free_newav(char **array, int size);
+int		count_delimiters(char *av, char delimiter);
+int		count_new_size(char **av);
 
 #endif

@@ -6,67 +6,77 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 01:24:36 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/16 04:37:11 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/16 16:48:21 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**free_newav(char **array, int size)
+int	count_delimiters(char *av, char delimiter)
 {
+	int	count;
 	int	i;
 
 	i = 0;
-	while (i < size)
+	count = 0;
+	while (av[i])
 	{
-		free(array[i]);
+		if (av[i] == delimiter)
+			count++;
 		i++;
 	}
-	free(array);
-	return (NULL);
+	return (count);
 }
 
 static char	**allocate_new_av(char **av, int *new_size)
 {
-	int		i;
-	char	*pos;
 	char	**new_av;
 
-	i = 0;
-	while (av[i])
-	{
-		pos = strchr(av[i], '^');
-		if (pos)
-			*new_size += 2;
-		else
-			*new_size += 1;
-		i++;
-	}
+	*new_size = count_new_size(av);
 	new_av = malloc(sizeof(char *) * (*new_size + 1));
 	if (!new_av)
 		return (NULL);
 	return (new_av);
 }
 
+int	count_tokens(char *av, char delimiter)
+{
+	int	count;
+
+	count = 1;
+	while (*av)
+	{
+		if (*av == delimiter)
+			count++;
+		av++;
+	}
+	return (count);
+}
+
 static char	**split_and_assign(char **new_av, char *av, char *pos, int *j)
 {
-	if (!pos)
+	int	token_count;
+	int	i;
+
+	i = 0;
+	token_count = count_tokens(av, '^');
+	while (i < token_count)
 	{
-		new_av[*j] = strdup(av);
-		if (!new_av[*j])
-			return (free_newav(new_av, *j));
-		(*j)++;
-	}
-	else
-	{
+		pos = strchr(av, '^');
+		if (!pos)
+		{
+			new_av[*j] = strdup(av);
+			if (!new_av[*j])
+				return (free_newav(new_av, *j));
+			(*j)++;
+			break ;
+		}
 		new_av[*j] = strndup(av, pos - av);
 		if (!new_av[*j])
 			return (free_newav(new_av, *j));
 		(*j)++;
-		new_av[*j] = strdup(pos + 1);
-		if (!new_av[*j])
-			return (free_newav(new_av, *j));
-		(*j)++;
+		av = pos + 1;
+		i++;
 	}
 	return (new_av);
 }
@@ -82,7 +92,7 @@ char	**create_new_av(char **av, int i, int j, int new_size)
 	i = 0;
 	while (av[i])
 	{
-		pos = strchr(av[i], '^');
+		pos = ft_strchr(av[i], '^');
 		new_av = split_and_assign(new_av, av[i], pos, &j);
 		if (!new_av)
 			return (NULL);
