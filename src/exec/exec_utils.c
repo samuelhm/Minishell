@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:16:28 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/17 19:22:43 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/17 20:15:53 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,5 +101,5 @@ void	exe_cmd(t_ms *ms, int fd_in, int fd_out, char **cmd)
 	if (pid == 0)
 		exe_child(ms, fd_in_out, cmd);
 	ms->last_pid = pid;
-	ft_lstadd_front(&ms->pidlst, ((void *)(intptr_t)pid));
+	ft_lstadd_front(&ms->pidlst, ft_lstnew((void *)(intptr_t)pid));
 }

@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:40:42 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/17 18:07:07 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/17 19:36:41 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static void	handle_parent_process(t_ms *ms, char *path, pid_t pid)
 	if (path)
 		free(path);
 	ms->last_pid = pid;
+	ft_lstadd_front(&ms->pidlst, ft_lstnew((void *)(intptr_t)pid));
 }
 
 static void	restore_fd_redir(int (*save)[])

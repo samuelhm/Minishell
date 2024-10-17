@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:41:03 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/17 19:29:25 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/17 19:41:58 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ int	wait_for_last_process(t_ms *ms)
 		waitpid((pid_t)(intptr_t)ms->pidlst->content, &status, 0);
 		node = node->next;
 	}
+	wait(NULL);
 	ft_lstclear(&ms->pidlst, NULL);
 	if (WIFEXITED(status))
 	{
