@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 12:37:25 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/16 15:46:15 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/17 19:17:04 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	init_ms(t_ms *ms, char **env)
 	ms->fd_pipe = NULL;
 	ms->last_pid = 0;
 	ms->status = 0;
+	ms->pidlst = NULL;
 }
 
 void	free_resources(t_ms *ms)

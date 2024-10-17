@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:14:45 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/17 17:37:46 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/17 19:20:21 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_ms
 	int				last_pid;
 	int				status;
 	int				**fd_pipe;
+	t_list			*pidlst;
 }	t_ms;
 
 void	init_ms(t_ms *ms, char **env);
