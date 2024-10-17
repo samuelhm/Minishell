@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 13:09:52 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/16 13:18:20 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/17 18:48:34 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ static int	print_exported_vars(t_hash *env)
 		node = env->slot[i];
 		while (node)
 		{
-			ft_printf("declare -x %s=\"%s\"\n", node->key, node->value);
+			if (node->value[0] != '\0')
+				ft_printf("declare -x %s=\"%s\"\n", node->key, node->value);
+			else
+				ft_printf("declare -x %s\n", node->key);
 			node = node->next;
 		}
 		i++;
@@ -43,7 +46,7 @@ bool	check_key(char *arg)
 	}
 	while (arg[i++])
 	{
-		if (!ft_isalnum(arg[i]) && arg[i] != '_')
+		if (!ft_isalnum(arg[i]) && arg[i] != '_' && arg[i] != '\0')
 		{
 			if (arg[i] != '=')
 			{
@@ -75,6 +78,10 @@ static int	assign_single_var(char *arg, t_hash *env)
 		assign_hash(env, pair[0], pair[1]);
 		free(pair[0]);
 		free(pair[1]);
+	}
+	else
+	{
+		assign_hash(env, arg, "");
 	}
 	return (0);
 }
