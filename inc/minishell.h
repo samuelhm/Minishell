@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:14:45 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/16 16:48:51 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/17 17:37:46 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,5 +166,6 @@ bool	is_separator(char c);
 char	**free_newav(char **array, int size);
 int		count_delimiters(char *av, char delimiter);
 int		count_new_size(char **av);
+bool	is_redirection(char *s);
 
 #endif
