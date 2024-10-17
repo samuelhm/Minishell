@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:43:05 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/14 12:40:45 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/17 17:36:41 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,21 @@ int	execute_piped_commands(t_ms *ms)
 
 static bool	sintax_ok(char **av)
 {
-	int	i;
+	int		i;
+	char	*special;
 
 	i = 0;
 	while (av[i])
 	{
 		if (is_special(av[i]) && av[i + 1])
 		{
-			if (is_special(av[i + 1]))
+			special = av[i];
+			if (!(ft_strcmp(av[i], av[i + 1])))
+			{
+				ft_printf(SINTAXERROR, av[i + 1]);
+				return (false);
+			}
+			if (is_redirection(special) && is_redirection(av[i + 1]))
 			{
 				ft_printf(SINTAXERROR, av[i + 1]);
 				return (false);
