@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:40:42 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/16 11:43:25 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/17 18:07:07 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 static void	handle_child_process(t_ms *ms, char *path)
 {
-	set_child_signals();
+
 	if (!setup_redirections(ms->av))
 	{
 		perror("Errores en la redirección!");
 		exit(EXIT_FAILURE);
 	}
+	set_child_signals();
 	remove_redirections(ms->av);
 	if (!path || !strcmp(path, "/"))
 	{

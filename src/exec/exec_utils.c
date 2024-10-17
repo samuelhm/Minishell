@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:16:28 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/16 11:54:29 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/17 18:04:35 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,10 @@ static void	exe_child(t_ms *ms, int fd_in_out[2], char **cmd)
 			break ;
 	}
 	path = getpath(ms->env, cmdcp[0]);
-	set_child_signals();
 	if (!setup_redirections(cmd))
 		exit (EXIT_FAILURE);
 	remove_redirections(cmd);
+	set_child_signals();
 	move_std(&fd_in_out);
 	if (is_builtin(cmd[0]))
 		exit(exec_builtin(cmd, ms->env, &ms->crude_env));
