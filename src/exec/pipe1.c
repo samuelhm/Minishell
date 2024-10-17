@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 20:17:43 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/15 20:24:23 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/17 18:58:53 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	move_std(int **fd)
 
 void	err_child(char **cmd)
 {
+	if (!cmd || !cmd[0])
+		exit(127);
 	write(2, cmd[0], ft_strlen(cmd[0]));
 	write(2, ": command not found.\n", 22);
 	exit(127);

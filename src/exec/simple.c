@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 20:09:31 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/16 15:30:02 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/17 18:56:04 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ bool	has_builtin(char **cmd)
 
 bool	is_builtin(char *cmd)
 {
+	if (!cmd || !cmd[0])
+		return (false);
 	if (!ft_strcmp(cmd, "echo") || !ft_strcmp(cmd, "env") || \
 			!ft_strcmp(cmd, "cd") || !ft_strcmp(cmd, "exit") || \
 			!ft_strcmp(cmd, "export") || !ft_strcmp(cmd, "pwd") || \
