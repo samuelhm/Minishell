@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 13:10:06 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/16 15:34:45 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/17 12:12:58 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,10 @@ bool	add_list(t_node *n, char *key, char *value)
 	if (!n->key)
 	{
 		n->key = ft_strdup(key);
-		n->value = ft_strdup(value);
+		if (value)
+			n->value = ft_strdup(value);
+		else
+			n->value = ft_strdup("");
 		return (true);
 	}
 	cur = n;
