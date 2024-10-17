@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:43:05 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/17 17:36:41 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/17 17:50:37 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	execute_piped_commands(t_ms *ms)
 		pipi++;
 		free_array(cmd);
 		cmd = get_cmd(av);
+		waitpid(ms->last_pid, NULL, 0);
 	}
 	execute_final_command(ms, pipi, cmd);
 	free_array(cmd);
