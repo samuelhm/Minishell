@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:14:45 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/17 19:20:21 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/18 02:21:35 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <fcntl.h>
 # include <signal.h>
 # include <termios.h>
+# include <stdint.h>
 
 # define EXITERR "minishell: exit: %s: numeric argument required\n"
 # define PROMPT "\x1b[1;32mminishell\x1b[0m\x1b[1;36m > \x1b[0m"
@@ -126,13 +127,12 @@ int		process_line(t_ms *ms);
 int		exec_builtin(char **cmd, t_hash *env, char ***crude);
 char	*getpath(t_hash *env, char *file);
 char	*get_filename(char **av, char *redir);
-void	execute_simple_comand(t_ms *ms);
 int		find_pipe_position(char **av);
 char	**allocate_command_array(int size);
 int		find_pipe_position(char **av);
 void	exit_error_redir(char **filename);
-void	move_std(int **fd);
 void	err_child(char **cmd);
+char	*find_executable_path(char **paths, char *file);
 
 //Signals
 void	init_signals(int mode);
@@ -152,6 +152,7 @@ bool	handle_input_redirection(char **av);
 bool	handle_output_redirection(char **av);
 bool	handle_heredoc_redirection(char **av);
 int		handle_heredoc(char *delimiter);
+bool	is_ptyin_interactive(char *cmd);
 
 ///parse2
 bool	check_p2quotes(char *s);

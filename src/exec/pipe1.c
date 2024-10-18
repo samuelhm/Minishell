@@ -6,28 +6,11 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 20:17:43 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/17 18:58:53 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/18 02:06:07 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	move_std(int **fd)
-{
-	int	*fd_in_out;
-
-	fd_in_out = *fd;
-	if (fd_in_out[0] != STDIN_FILENO)
-	{
-		dup2(fd_in_out[0], STDIN_FILENO);
-		close(fd_in_out[0]);
-	}
-	if (fd_in_out[1] != STDOUT_FILENO)
-	{
-		dup2(fd_in_out[1], STDOUT_FILENO);
-		close(fd_in_out[1]);
-	}
-}
 
 void	err_child(char **cmd)
 {

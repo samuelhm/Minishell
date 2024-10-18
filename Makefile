@@ -6,19 +6,19 @@
 #    By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/11 13:53:02 by linyao            #+#    #+#              #
-#    Updated: 2024/10/17 19:27:21 by shurtado         ###   ########.fr        #
+#    Updated: 2024/10/18 01:54:04 by shurtado         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #Config
 CC = gcc
 TARGET = minishell
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror
 LDFLAGS = -L$(LIBFT_DIR) -lreadline
 INCLUDES = -I$(INC_DIR) -I$(LIBFT_DIR)
 
 # Debug
-CFLAGS += -g -O0
+CFLAGS += -g -O0 -fsanitize=address
 # Directory
 SRC_DIR = src
 OBJ_DIR = obj
@@ -33,7 +33,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 SRCS_FILES = minishell.c main.c env/env.c env/utils_env.c env/make_env_arr.c signal.c env/delete_env.c
 SRCS_FILES += blt/cd.c blt/echo.c blt/blt_env.c blt/export.c blt/pwd.c blt/unset.c
 SRCS_FILES += parse/parse_arr.c parse/parse_arr1.c parse/parse_chr.c parse/parse_chr1.c parse/parse_utils.c parse/parse.c
-SRCS_FILES += exec/execs.c exec/simple.c exec/redirect.c exec/pipe.c exec/redir_util.c exec/exec_utils.c exec/exec_s.c exec/process.c exec/cmd.c exec/pipe1.c
+SRCS_FILES += exec/execs.c exec/simple.c exec/redirect.c exec/pipe.c exec/redir_util.c exec/exec_utils.c exec/process.c exec/cmd.c exec/pipe1.c
 SRCS_FILES += parse2/chck_q.c parse2/processav2.c parse2/dolar.c parse2/new_arr.c parse2/split.c parse2/utils.c
 SRCS = $(addprefix $(SRC_DIR)/,$(SRCS_FILES))
 

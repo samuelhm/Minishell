@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:43:05 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/17 19:12:59 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/18 02:06:00 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,14 @@
 
 void	execute_final_command(t_ms *ms, int pipi, char **cmd)
 {
-	exe_cmd(ms, ms->fd_pipe[pipi - 1][0], STDOUT_FILENO, cmd);
-	close(ms->fd_pipe[pipi - 1][0]);
+	if (pipi > 0)
+	{
+		exe_cmd(ms, ms->fd_pipe[pipi - 1][0], STDOUT_FILENO, cmd);
+		close(ms->fd_pipe[pipi - 1][0]);
+	}
+	else
+		exe_cmd(ms, STDIN_FILENO, STDOUT_FILENO, cmd);
+
 }
 
 void	execute_pipe_segment(t_ms *ms, int pipi, char **cmd)
@@ -35,23 +41,23 @@ void	execute_pipe_segment(t_ms *ms, int pipi, char **cmd)
 
 int	execute_piped_commands(t_ms *ms)
 {
-	int		pipi;
+	int		pip;
 	char	**cmd;
 	char	**av;
 
 	av = ms->av;
-	pipi = 0;
+	pip = 0;
 	cmd = get_cmd(av);
-	while (ms->fd_pipe[pipi])
+	while (ms->fd_pipe[pip])
 	{
 		av += find_pipe_position(av);
 		av++;
-		execute_pipe_segment(ms, pipi, cmd);
-		pipi++;
+		execute_pipe_segment(ms, pip, cmd);
+		pip++;
 		free_array(cmd);
 		cmd = get_cmd(av);
 	}
-	execute_final_command(ms, pipi, cmd);
+	execute_final_command(ms, pip, cmd);
 	free_array(cmd);
 	return (wait_for_last_process(ms));
 }
@@ -87,13 +93,6 @@ int	process_line(t_ms *ms)
 {
 	if (!sintax_ok(ms->av))
 		return (2);
-	if (!has_redirection(ms->av, PIPE_S))
-	{
-		execute_simple_comand(ms);
-		if (!is_builtin(ms->av[0]))
-			ms->status = wait_for_last_process(ms);
-		return (ms->status);
-	}
 	init_pipes(ms);
 	return (execute_piped_commands(ms));
 }

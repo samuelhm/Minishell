@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:50:34 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/16 11:38:40 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/18 01:53:58 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,16 @@ bool	handle_heredoc_redirection(char **av)
 	char	**av2;
 
 	av2 = av;
+
 	while (has_redirection(av2, "<<"))
 	{
 		filename = get_filename(av2, "<<");
 		fd_in = handle_heredoc(filename);
 		free(filename);
 		if (fd_in == -1)
+		{
 			return (false);
+		}
 		if (!has_redirection(av2 + 2, "<<"))
 			dup2(fd_in, STDIN_FILENO);
 		close(fd_in);

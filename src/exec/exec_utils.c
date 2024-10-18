@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:16:28 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/17 20:15:53 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/18 02:25:41 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,55 +32,35 @@ char	*find_executable_path(char **paths, char *file)
 	return (NULL);
 }
 
-char	*get_path_from_env(t_hash *env)
+static void	dup_close_child(int fd_in, int fd_out)
 {
-	char	*path;
-
-	if (lookup_hash(env, "PATH") == NULL)
-		return (NULL);
-	path = strdup(lookup_hash(env, "PATH"));
-	return (path);
+	if (fd_in != STDIN_FILENO)
+	{
+		if (dup2(fd_in, STDIN_FILENO) == -1)
+		{
+			perror("Error duplicando fd_in a STDIN");
+			exit(EXIT_FAILURE);
+		}
+		close(fd_in);
+	}
+	if (fd_out != STDOUT_FILENO)
+	{
+		if (dup2(fd_out, STDOUT_FILENO) == -1)
+		{
+			perror("Error duplicando fd_out a STDOUT");
+			exit(EXIT_FAILURE);
+		}
+		close(fd_out);
+	}
 }
 
-char	*getpath(t_hash *env, char *file)
-{
-	char	**paths;
-	char	*path;
-
-	if (access(file, F_OK | X_OK | R_OK) == 0)
-	{
-		path = ft_strdup(file);
-		return (path);
-	}
-	path = get_path_from_env(env);
-	if (!path)
-		return (NULL);
-	paths = ft_split(path, ':');
-	free(path);
-	path = find_executable_path(paths, file);
-	free_array(paths);
-	return (path);
-}
-
-static void	exe_child(t_ms *ms, int fd_in_out[2], char **cmd)
+static void	exe_child(t_ms *ms, char **cmd, int fd_in, int fd_out)
 {
 	char	*path;
-	char	**cmdcp;
 
-	cmdcp = cmd;
-	while (!strcmp(cmdcp[0], DOUBLE_LESS) || !strcmp(cmdcp[0], LESS_S))
-	{
-		if (cmdcp[2])
-			cmdcp += 2;
-		else
-			break ;
-	}
-	path = getpath(ms->env, cmdcp[0]);
-	if (!setup_redirections(cmd))
-		exit (EXIT_FAILURE);
-	remove_redirections(cmd);
+	dup_close_child(fd_in, fd_out);
+	path = getpath(ms->env, cmd[0]);
 	set_child_signals();
-	move_std(&fd_in_out);
 	if (is_builtin(cmd[0]))
 		exit(exec_builtin(cmd, ms->env, &ms->crude_env));
 	if (!path)
@@ -91,15 +71,14 @@ static void	exe_child(t_ms *ms, int fd_in_out[2], char **cmd)
 void	exe_cmd(t_ms *ms, int fd_in, int fd_out, char **cmd)
 {
 	pid_t	pid;
-	int		fd_in_out[2];
 
-	fd_in_out[0] = fd_in;
-	fd_in_out[1] = fd_out;
 	pid = fork();
 	if (pid == -1)
 		perror("Error no fork at execute_comand");
 	if (pid == 0)
-		exe_child(ms, fd_in_out, cmd);
+	{
+		exe_child(ms, cmd, fd_in, fd_out);
+	}
 	ms->last_pid = pid;
 	ft_lstadd_front(&ms->pidlst, ft_lstnew((void *)(intptr_t)pid));
 }
