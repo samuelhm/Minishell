@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:43:05 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/19 16:47:09 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/19 18:31:49 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static bool	sintax_ok(char **av)
 				ft_printf(SINTAXERROR, av[i + 1]);
 				return (false);
 			}
-			if (is_redirection(special) && is_redirection(av[i + 1]))
+			if (is_redirection(special) && (is_redirection(av[i + 1]) || !strcmp(av[i + 1], PIPE_S)))
 			{
 				ft_printf(SINTAXERROR, av[i + 1]);
 				return (false);
