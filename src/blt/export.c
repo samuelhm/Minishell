@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 13:09:52 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/17 18:48:34 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/19 18:23:11 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	print_exported_vars(t_hash *env)
 		node = env->slot[i];
 		while (node)
 		{
-			if (node->value[0] != '\0')
+			if (node->value[0] != '^')
 				ft_printf("declare -x %s=\"%s\"\n", node->key, node->value);
 			else
 				ft_printf("declare -x %s\n", node->key);
@@ -81,7 +81,9 @@ static int	assign_single_var(char *arg, t_hash *env)
 	}
 	else
 	{
-		assign_hash(env, arg, "");
+		if (lookup_hash(env, arg))
+			return (0);
+		assign_hash(env, arg, NULL);
 	}
 	return (0);
 }
