@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:43:05 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/19 18:31:49 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/19 18:46:18 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,8 @@ static int	execute_all(t_ms *ms)
 
 int	process_line(t_ms *ms)
 {
+//	for(int i = 0; ms->av[i]; i++)
+//		printf("%s\n", ms->av[i]);
 	if (!sintax_ok(ms->av))
 		return (2);
 	init_pipes(ms);
