@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:16:28 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/19 01:37:49 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/19 15:12:55 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,40 @@ char	*find_executable_path(char **paths, char *file)
 	return (NULL);
 }
 
-static void	exe_child(t_ms *ms, char **cmd, int fd_in, int fd_out)
+static int	get_fd(int *fd, int mode)
+{
+	if (mode == IN)
+	{
+		if (fd == NULL)
+			return (STDIN_FILENO);
+		else
+		{
+			close(fd[1]);
+			return (fd[0]);
+		}
+	}
+	else if (mode == OUT)
+	{
+		if (fd == NULL)
+			return (STDOUT_FILENO);
+		else
+		{
+			close(fd[0]);
+			return (fd[1]);
+		}
+	}
+	else
+		exit (127);
+}
+
+static void	exe_child(t_ms *ms, char **cmd, int *in_fd, int *out_fd)
 {
 	char	*path;
+	int		fd_in;
+	int		fd_out;
 
+	fd_in = get_fd(in_fd, IN);
+	fd_out = get_fd(out_fd, OUT);
 	set_child_signals();
 	if (!setup_redirections(cmd, fd_in, fd_out))
 	{
@@ -54,7 +84,7 @@ static void	exe_child(t_ms *ms, char **cmd, int fd_in, int fd_out)
 	execve(path, cmd, ms->crude_env);
 }
 
-void	exe_cmd(t_ms *ms, int fd_in, int fd_out, char **cmd)
+void	exe_cmd(t_ms *ms, int *fd_in, int *fd_out, char **cmd)
 {
 	pid_t	pid;
 

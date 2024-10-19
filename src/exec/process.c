@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:43:05 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/19 02:27:54 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/19 15:13:27 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,22 +27,22 @@ void	execute_segment(t_ms *ms, int pip, char **cmd)
 				dup2(ms->atty_out, STDOUT_FILENO);
 		}
 		else
-			exe_cmd(ms, STDIN_FILENO, STDOUT_FILENO, cmd);
+			exe_cmd(ms, NULL, NULL, cmd);
 	}
 	else if (pip == 0 && ms->fd_pipe && ms->fd_pipe[0])
 	{
-		exe_cmd(ms, STDIN_FILENO, ms->fd_pipe[0][1], cmd);
+		exe_cmd(ms, NULL, ms->fd_pipe[0], cmd);
 		close(ms->fd_pipe[0][1]);
 	}
 	else if (ms->fd_pipe && ms->fd_pipe[pip])
 	{
-		exe_cmd(ms, ms->fd_pipe[pip - 1][0], ms->fd_pipe[pip][1], cmd);
+		exe_cmd(ms, ms->fd_pipe[pip - 1], ms->fd_pipe[pip], cmd);
 		close(ms->fd_pipe[pip - 1][0]);
 		close(ms->fd_pipe[pip][1]);
 	}
 	else if (!ms->fd_pipe[pip])
 	{
-		exe_cmd(ms, ms->fd_pipe[pip - 1][0], STDOUT_FILENO, cmd);
+		exe_cmd(ms, ms->fd_pipe[pip - 1], NULL, cmd);
 		close(ms->fd_pipe[pip - 1][0]);
 	}
 }

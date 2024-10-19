@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:14:45 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/19 01:10:50 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/19 15:07:54 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,9 @@
 
 # define TRUNCATE 0
 # define APPEND 1
+
+# define IN 0
+# define OUT 1
 
 # ifndef PATH_MAX
 #  define PATH_MAX 4096
@@ -146,7 +149,7 @@ void	init_pipes(t_ms *ms);
 void	clean_pipes(int **fd_pipe);
 bool	has_redirection(char **av, char *redir);
 void	process_pipe(int fd_pipe[2], int is_last, int fd_local[2]);
-void	exe_cmd(t_ms *ms, int fd_in, int fd_out, char **cmd);
+void	exe_cmd(t_ms *ms, int *fd_in, int *fd_out, char **cmd);
 char	**get_cmd(char **av);
 bool	setup_redirections(char **cmd, int fd_in, int fd_out);
 int		wait_for_last_process(t_ms *ms);

@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:50:34 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/19 02:58:48 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/19 15:29:01 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ bool	catch_heredocs(char **av, int fd_in)
 		close(fd_in);
 	}
 	i++;
-	filename = ft_strdup("tmpa");
-	filename[3] += i;
+	filename = ft_strdup("/tmp/tmpa");
+	filename[8] += i;
 	while (*av)
 	{
 		if (!ft_strcmp(*av, DOUBLE_LESS) && av[1])
