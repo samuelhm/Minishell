@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:17:34 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/08 16:48:45 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/19 18:35:34 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	main(int ac, char **av, char **env)
 {
 	t_ms	ms;
 
+	if (!isatty(STDIN_FILENO) || !isatty(STDOUT_FILENO))
+		return (0);
 	(void)av;
 	if (ac != 1)
 		return (printf("Incorrect number of argument\n"), 1);
