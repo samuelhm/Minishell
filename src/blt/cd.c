@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 13:09:45 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/19 03:17:25 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/19 19:05:30 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@ static char	*resolve_cd_path(char **av, t_hash *env)
 {
 	char	*path;
 
+	path = NULL;
 	if (!av[1])
 	{
-		path = ft_strdup(lookup_hash(env, "HOME"));
+		if (lookup_hash(env, "HOME"))
+			path = ft_strdup(lookup_hash(env, "HOME"));
 		if (!path)
 		{
 			ft_printf("cd: HOME not set\n");
