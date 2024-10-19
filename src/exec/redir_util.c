@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:50:34 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/19 15:29:01 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/19 16:44:19 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ bool	handle_input_redirection(char **av, int fd_in)
 			file = open(av[1], O_RDONLY);
 			if (file == -1)
 			{
-				perror("Error abriendo archivo: ");
+				perror(av[1]);
 				return (false);
 			}
 			if (file != STDIN_FILENO)

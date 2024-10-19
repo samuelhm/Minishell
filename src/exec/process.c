@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:43:05 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/19 15:13:27 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/19 16:47:09 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,11 @@ static bool	sintax_ok(char **av)
 				ft_printf(SINTAXERROR, av[i + 1]);
 				return (false);
 			}
+		}
+		else if (is_special(av[i]) && !av[i + 1])
+		{
+			ft_printf(SINTAXERROR);
+			return (false);
 		}
 		i++;
 	}
