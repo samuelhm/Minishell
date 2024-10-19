@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 21:07:00 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/19 15:28:40 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/19 15:31:58 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,10 @@ bool	handle_heredoc(char *delimiter)
 	if (tempfile == -1)
 		perror("no se puede crear tmp:");
 	if (tempfile < 0)
+	{
+		free(filename);
 		return (false);
+	}
 	while (1)
 	{
 		line = readline("> ");
