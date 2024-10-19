@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:16:28 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/19 15:12:55 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/19 18:01:34 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,33 @@ static int	get_fd(int *fd, int mode)
 		exit (127);
 }
 
+static void	close_all_pipes(int **plist, int *fd_in, int *fd_out)
+{
+	if (!plist)
+		return ;
+	while (*plist)
+	{
+		if (*plist && *plist != fd_in)
+		{
+			if ((*plist)[0] && !isatty((*plist)[0]))
+				close((*plist)[0]);
+		}
+		if (*plist && *plist != fd_out)
+		{
+			if ((*plist)[1] && !isatty((*plist)[1]))
+				close((*plist)[1]);
+		}
+		plist++;
+	}
+}
+
 static void	exe_child(t_ms *ms, char **cmd, int *in_fd, int *out_fd)
 {
 	char	*path;
 	int		fd_in;
 	int		fd_out;
 
+	close_all_pipes(ms->fd_pipe, in_fd, out_fd);
 	fd_in = get_fd(in_fd, IN);
 	fd_out = get_fd(out_fd, OUT);
 	set_child_signals();
