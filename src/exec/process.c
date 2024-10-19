@@ -6,61 +6,48 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:43:05 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/18 02:06:00 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/19 02:27:54 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	execute_final_command(t_ms *ms, int pipi, char **cmd)
+void	execute_segment(t_ms *ms, int pip, char **cmd)
 {
-	if (pipi > 0)
+	if (!ms->fd_pipe)
 	{
-		exe_cmd(ms, ms->fd_pipe[pipi - 1][0], STDOUT_FILENO, cmd);
-		close(ms->fd_pipe[pipi - 1][0]);
+		if (has_builtin(cmd))
+		{
+			setup_redirections(cmd, STDIN_FILENO, STDOUT_FILENO);
+			remove_redirections(cmd);
+			ms->status = exec_builtin(cmd, ms->env, &ms->crude_env);
+			if (!isatty(STDIN_FILENO))
+				dup2(ms->atty_in, STDIN_FILENO);
+			if (!isatty(STDOUT_FILENO))
+				dup2(ms->atty_out, STDOUT_FILENO);
+		}
+		else
+			exe_cmd(ms, STDIN_FILENO, STDOUT_FILENO, cmd);
 	}
-	else
-		exe_cmd(ms, STDIN_FILENO, STDOUT_FILENO, cmd);
-
-}
-
-void	execute_pipe_segment(t_ms *ms, int pipi, char **cmd)
-{
-	if (pipi == 0)
+	else if (pip == 0 && ms->fd_pipe && ms->fd_pipe[0])
 	{
 		exe_cmd(ms, STDIN_FILENO, ms->fd_pipe[0][1], cmd);
 		close(ms->fd_pipe[0][1]);
 	}
-	else
+	else if (ms->fd_pipe && ms->fd_pipe[pip])
 	{
-		exe_cmd(ms, ms->fd_pipe[pipi - 1][0], ms->fd_pipe[pipi][1], cmd);
-		close(ms->fd_pipe[pipi - 1][0]);
-		close(ms->fd_pipe[pipi][1]);
+		exe_cmd(ms, ms->fd_pipe[pip - 1][0], ms->fd_pipe[pip][1], cmd);
+		close(ms->fd_pipe[pip - 1][0]);
+		close(ms->fd_pipe[pip][1]);
+	}
+	else if (!ms->fd_pipe[pip])
+	{
+		exe_cmd(ms, ms->fd_pipe[pip - 1][0], STDOUT_FILENO, cmd);
+		close(ms->fd_pipe[pip - 1][0]);
 	}
 }
 
-int	execute_piped_commands(t_ms *ms)
-{
-	int		pip;
-	char	**cmd;
-	char	**av;
 
-	av = ms->av;
-	pip = 0;
-	cmd = get_cmd(av);
-	while (ms->fd_pipe[pip])
-	{
-		av += find_pipe_position(av);
-		av++;
-		execute_pipe_segment(ms, pip, cmd);
-		pip++;
-		free_array(cmd);
-		cmd = get_cmd(av);
-	}
-	execute_final_command(ms, pip, cmd);
-	free_array(cmd);
-	return (wait_for_last_process(ms));
-}
 
 static bool	sintax_ok(char **av)
 {
@@ -89,10 +76,53 @@ static bool	sintax_ok(char **av)
 	return (true);
 }
 
+static int	execute_all(t_ms *ms)
+{
+	int		pip;
+	char	**cmd;
+	char	**av;
+
+	av = ms->av;
+	pip = 0;
+	while ((ms->fd_pipe && ms->fd_pipe[pip]) || pip == 0)
+	{
+		cmd = get_cmd(av);
+		execute_segment(ms, pip, cmd);
+		if (find_pipe_position(av))
+			av += find_pipe_position(av);
+		if (av && av[0] && !strcmp(av[0], PIPE_S))
+			av++;
+		pip++;
+		free_array(cmd);
+	}
+	if (pip && ms->fd_pipe)
+	{
+		cmd = get_cmd(av);
+		execute_segment(ms, pip, cmd);
+		free_array(cmd);
+	}
+	return (wait_for_last_process(ms));
+}
+
+//minishell > << endl cat | ls -la > b | << c
+//<<
+//endl
+//cat
+//|
+//ls
+//-la
+//>
+//b
+//|
+//<<
+//c
+
 int	process_line(t_ms *ms)
 {
 	if (!sintax_ok(ms->av))
 		return (2);
 	init_pipes(ms);
-	return (execute_piped_commands(ms));
+	make_hdoc_files(ms->av);
+	init_signals(CHILD);
+	return (execute_all(ms));
 }

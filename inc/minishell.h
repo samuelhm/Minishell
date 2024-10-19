@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:14:45 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/18 02:21:35 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/19 01:10:50 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ typedef struct s_ms
 	int				status;
 	int				**fd_pipe;
 	t_list			*pidlst;
+	int				atty_in;
+	int				atty_out;
 }	t_ms;
 
 void	init_ms(t_ms *ms, char **env);
@@ -126,7 +128,7 @@ bool	is_builtin(char *cmd);
 int		process_line(t_ms *ms);
 int		exec_builtin(char **cmd, t_hash *env, char ***crude);
 char	*getpath(t_hash *env, char *file);
-char	*get_filename(char **av, char *redir);
+char	*get_filename_ordeli(char **av, char *redir);
 int		find_pipe_position(char **av);
 char	**allocate_command_array(int size);
 int		find_pipe_position(char **av);
@@ -146,13 +148,14 @@ bool	has_redirection(char **av, char *redir);
 void	process_pipe(int fd_pipe[2], int is_last, int fd_local[2]);
 void	exe_cmd(t_ms *ms, int fd_in, int fd_out, char **cmd);
 char	**get_cmd(char **av);
-bool	setup_redirections(char **cmd);
+bool	setup_redirections(char **cmd, int fd_in, int fd_out);
 int		wait_for_last_process(t_ms *ms);
-bool	handle_input_redirection(char **av);
-bool	handle_output_redirection(char **av);
-bool	handle_heredoc_redirection(char **av);
-int		handle_heredoc(char *delimiter);
+bool	handle_input_redirection(char **av, int fd_in);
+bool	handle_output_redirection(char **av, int fd_out);
+bool	make_hdoc_files(char **av);
+bool	handle_heredoc(char *delimiter);
 bool	is_ptyin_interactive(char *cmd);
+bool	catch_heredocs(char **av, int fd_in);
 
 ///parse2
 bool	check_p2quotes(char *s);

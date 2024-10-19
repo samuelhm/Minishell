@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 09:28:31 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/08 12:35:53 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/19 00:05:03 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,9 @@ void	handle_signal_b(int sig)
 
 void	set_child_signals(void)
 {
-	struct sigaction	sa;
-
-	sa.sa_handler = SIG_DFL;
-	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = 0;
-	sigaction(SIGINT, &sa, NULL);
-	sa.sa_handler = SIG_DFL;
-	sigaction(SIGQUIT, &sa, NULL);
-	signal(SIGTSTP, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGTERM, SIG_DFL);
 }
 
 void	init_signals(int mode)

@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 21:07:00 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/18 01:52:06 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/19 01:11:19 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,51 +30,30 @@ bool	has_redirection(char **av, char *redir)
 	return (false);
 }
 
-bool	setup_redirections(char **cmd)
+bool	setup_redirections(char **cmd, int fd_in, int fd_out)
 {
-	if (!handle_input_redirection(cmd))
+	if (!catch_heredocs(cmd, fd_in))
 		return (false);
-	if (!handle_input_redirection(cmd))
+	if (!handle_input_redirection(cmd, fd_in))
 		return (false);
-	if (!handle_heredoc_redirection(cmd))
-		return (false);
-	if (!handle_output_redirection(cmd))
+	if (!handle_output_redirection(cmd, fd_out))
 		return (false);
 	return (true);
 }
 
-char	*get_filename(char **av, char *redir)
+bool	handle_heredoc(char *delimiter)
 {
-	int	i;
+	char		*filename;
+	int			tempfile;
+	char		*line;
+	static int	i;
 
-	i = 0;
-	while (av[i])
-	{
-		if (!strcmp(av[i], redir))
-		{
-			if (av[i + 1])
-				return (ft_strdup(av[i + 1]));
-			else
-			{
-				fprintf(stderr, ERRFILE, redir);
-				return (NULL);
-			}
-		}
-		i++;
-	}
-	return (NULL);
-}
-
-int	handle_heredoc(char *delimiter)
-{
-	int		pipe_fd[2];
-	char	*line;
-
-	if (pipe(pipe_fd) == -1)
-	{
-		perror("pipe error on handle_heredoc");
-		return (-1);
-	}
+	i++;
+	filename = ft_strdup("tmpa");
+	filename[3] += i;
+	tempfile = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	if (tempfile < 0)
+		return (false);
 	while (1)
 	{
 		line = readline("> ");
@@ -85,10 +64,25 @@ int	handle_heredoc(char *delimiter)
 			free(line);
 			break ;
 		}
-		ft_putstr_fd(line, pipe_fd[1]);
-		ft_putstr_fd("\n", pipe_fd[1]);
+		ft_putstr_fd(line, tempfile);
+		ft_putstr_fd("\n", tempfile);
 		free(line);
 	}
-	close(pipe_fd[1]);
-	return (pipe_fd[0]);
+	close(tempfile);
+	free(filename);
+	return (true);
+}
+
+bool	make_hdoc_files(char **av)
+{
+	while (*av)
+	{
+		if (!ft_strcmp(*av, DOUBLE_LESS) && av[1])
+		{
+			if (!handle_heredoc(av[1]))
+				return (false);
+		}
+		av++;
+	}
+	return (true);
 }

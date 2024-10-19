@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 12:37:25 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/18 01:53:28 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/18 13:26:34 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	init_ms(t_ms *ms, char **env)
 	ms->last_pid = 0;
 	ms->status = 0;
 	ms->pidlst = NULL;
+	ms->atty_in = dup(STDIN_FILENO);
+	ms->atty_out = dup(STDOUT_FILENO);
 }
 
 void	free_resources(t_ms *ms)

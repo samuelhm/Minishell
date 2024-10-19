@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:41:03 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/18 01:56:50 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/19 01:26:55 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,11 @@ void	init_pipes(t_ms *ms)
 		return ;
 	}
 	alloc_pipes(ms, pipe_count);
+	if (!ms->fd_pipe[0] && ms->fd_pipe)
+	{
+		free (ms->fd_pipe);
+		ms->fd_pipe = NULL;
+	}
 }
 
 void	process_pipe(int fd_pipe[2], int is_last, int fd_local[2])
@@ -92,7 +97,7 @@ int	wait_for_last_process(t_ms *ms)
 	node = ms->pidlst;
 	while (node)
 	{
-		waitpid((pid_t)(intptr_t)ms->pidlst->content, &status, 0);
+		waitpid((pid_t)(intptr_t)node->content, &status, 0);
 		node = node->next;
 	}
 	ft_lstclear(&ms->pidlst, NULL);
