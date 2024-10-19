@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 21:35:24 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/19 18:52:43 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/19 18:54:29 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ char	**process(char **av, t_hash *env)
 	}
 	expand_dolar(av, env);
 	check_fquotes(av);
-//	move_av(av);
+////	move_av(av);
 	new_av = create_new_av(av, 0, 0, 0);
 	if (!new_av)
 	{
