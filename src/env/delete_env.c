@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 11:21:45 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/06 16:41:30 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/20 21:23:18 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ void	delete_env(t_hash *env)
 		while (current)
 		{
 			tmp = current;
+			current = current->next;
 			free(tmp->key);
 			free(tmp->value);
-			current = current->next;
 			free(tmp);
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 13:10:06 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/19 18:12:42 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/20 21:29:21 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,23 +66,32 @@ bool	add_list(t_node *n, char *key, char *value)
 	return (true);
 }
 
-bool	del_list(t_node *n, char *key)
+bool	del_list(t_node **n, char *key)
 {
 	t_node	*cur;
 	t_node	*pre;
 
 	if (!n || !key)
 		return (false);
-	cur = n;
+	cur = *n;
 	pre = NULL;
-	if (ft_strcmp(cur->key, key) == 0)
-		return (free_node(&n, cur));
+	if (cur && ft_strcmp(cur->key, key) == 0)
+	{
+		*n = cur->next;
+		free(cur->key);
+		free(cur->value);
+		free(cur);
+		return (true);
+	}
 	while (cur)
 	{
 		if (ft_strcmp(cur->key, key) == 0)
 		{
 			pre->next = cur->next;
-			return (free_node(&pre->next, cur));
+			free(cur->key);
+			free(cur->value);
+			free(cur);
+			return (true);
 		}
 		pre = cur;
 		cur = cur->next;
@@ -97,9 +106,8 @@ bool	del_hash(t_hash *env, char *key)
 	inx = hash_function(key);
 	if (!env->slot[inx])
 		return (false);
-	if (del_list(env->slot[inx], key))
+	if (del_list(&env->slot[inx], key))
 	{
-		env->slot[inx] = NULL;
 		return (true);
 	}
 	else

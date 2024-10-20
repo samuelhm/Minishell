@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 15:22:32 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/02 11:32:12 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/20 21:20:58 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ bool			assign_hash(t_hash *en, char *key, char *value);
 unsigned int	hash_function(char *key);
 t_node			*init_list(void);
 bool			add_list(t_node *n, char *key, char *value);
-bool			del_list(t_node *n, char *key);
+bool			del_list(t_node **n, char *key);
 bool			del_hash(t_hash *env, char *key);
 
 #endif
