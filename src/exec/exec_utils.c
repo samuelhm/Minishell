@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:16:28 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/19 18:01:34 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/20 14:12:02 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,13 @@ static void	close_all_pipes(int **plist, int *fd_in, int *fd_out)
 	}
 }
 
-static void	exe_child(t_ms *ms, char **cmd, int *in_fd, int *out_fd)
+static void	 exe_child(t_ms *ms, char **cmd, int *in_fd, int *out_fd)
 {
 	char	*path;
 	int		fd_in;
 	int		fd_out;
 
-	close_all_pipes(ms->fd_pipe, in_fd, out_fd);
+
 	fd_in = get_fd(in_fd, IN);
 	fd_out = get_fd(out_fd, OUT);
 	set_child_signals();
@@ -96,6 +96,7 @@ static void	exe_child(t_ms *ms, char **cmd, int *in_fd, int *out_fd)
 			close(fd_out);
 		exit(EXIT_FAILURE);
 	}
+	close_all_pipes(ms->fd_pipe, in_fd, out_fd);
 	remove_redirections(cmd);
 	path = getpath(ms->env, cmd[0]);
 	if (is_builtin(cmd[0]))

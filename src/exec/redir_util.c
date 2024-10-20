@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:50:34 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/19 16:44:19 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/20 14:17:01 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ bool	handle_input_redirection(char **av, int fd_in)
 
 	if (has_redirection(av, LESS_S) && fd_in != -1 && fd_in != STDIN_FILENO)
 		close(fd_in);
-	else if (fd_in != -1 && !isatty(fd_in))
+	else if (fd_in != -1 && !isatty(fd_in) && fd_in != STDIN_FILENO)
 	{
 		dup2(fd_in, STDIN_FILENO);
 		close(fd_in);
@@ -94,7 +94,7 @@ bool	handle_output_redirection(char **av, int fd_out)
 	if ((has_redirection(av, MORE_S) || has_redirection(av, DOUBLE_MORE)) \
 		&& fd_out != -1 && fd_out != STDOUT_FILENO)
 		close(fd_out);
-	else if (fd_out != -1 && !isatty(fd_out))
+	else if (fd_out != -1 && !isatty(fd_out) && fd_out != STDOUT_FILENO)
 	{
 		dup2(fd_out, STDOUT_FILENO);
 		close(fd_out);
