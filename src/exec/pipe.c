@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:41:03 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/19 01:26:55 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/20 17:41:12 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,13 @@ int	wait_for_last_process(t_ms *ms)
 		node = node->next;
 	}
 	ft_lstclear(&ms->pidlst, NULL);
+	if (ms->status)
+	{
+		temp = ft_itoa(ms->status);
+		assign_hash(ms->env, "?", temp);
+		free (temp);
+		return (ms->status);
+	}
 	if (WIFEXITED(status))
 	{
 		exit_code = WEXITSTATUS(status);

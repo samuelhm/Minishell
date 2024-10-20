@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 20:09:31 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/17 23:11:41 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/20 16:55:57 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,14 @@ int	exec_builtin(char **cmd, t_hash *env, char ***crude)
 		return (blt_pwd());
 	else if (!strcmp(blt, "unset"))
 		return (blt_unset(cmd, env));
+	else if (!strcmp(blt, "exit"))
+		return (blt_exit(cmd));
 	else
 		return (-1);
 	return (0);
 }
 
-static int	all_digits(const char *str)
+int	all_digits(const char *str)
 {
 	int	i;
 

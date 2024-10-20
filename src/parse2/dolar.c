@@ -6,11 +6,18 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 23:58:47 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/16 15:38:52 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/20 18:21:50 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+//caracteres antes de dejar de procesar la palabra del dolar, ejemplo: $hola/tmp
+//solo $hola se debe procesar
+int	is_valid_char(char c)
+{
+	return (ft_isalnum(c) || c == '_');
+}
 
 void	swap_word(char *word, char **s, char *init, int i)
 {
@@ -27,7 +34,7 @@ void	swap_word(char *word, char **s, char *init, int i)
 		else
 			tmp[i++] = word[k];
 	}
-	while (*init && *init != ' ')
+	while (*init && (is_valid_char(*init) || init[0] == '$'))
 		init++;
 	while (*init)
 		tmp[i++] = *init++;
@@ -47,7 +54,7 @@ char	*get_word(char *sinit, t_hash *env)
 	char	*word;
 
 	i = 1;
-	while (sinit[i] != '\0' && sinit[i] != ' ')
+	while (sinit[i] != '\0' && is_valid_char(sinit[i]))
 	{
 		tmp[i - 1] = sinit[i];
 		i++;

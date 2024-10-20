@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:43:05 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/19 18:46:18 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/20 17:37:54 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,13 @@ void	execute_segment(t_ms *ms, int pip, char **cmd)
 	{
 		if (has_builtin(cmd))
 		{
-			setup_redirections(cmd, STDIN_FILENO, STDOUT_FILENO);
-			remove_redirections(cmd);
-			ms->status = exec_builtin(cmd, ms->env, &ms->crude_env);
+			if(!setup_redirections(cmd, STDIN_FILENO, STDOUT_FILENO))
+				ms->status = 1;
+			else
+			{
+				remove_redirections(cmd);
+				ms->status = exec_builtin(cmd, ms->env, &ms->crude_env);
+			}
 			if (!isatty(STDIN_FILENO))
 				dup2(ms->atty_in, STDIN_FILENO);
 			if (!isatty(STDOUT_FILENO))
@@ -89,6 +93,7 @@ static int	execute_all(t_ms *ms)
 
 	av = ms->av;
 	pip = 0;
+	ms->status = 0;
 	while ((ms->fd_pipe && ms->fd_pipe[pip]) || pip == 0)
 	{
 		cmd = get_cmd(av);

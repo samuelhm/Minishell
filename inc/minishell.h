@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:14:45 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/19 15:07:54 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/20 16:55:15 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,10 +115,11 @@ void	free_resources(t_ms *ms);
 void	process_cmds(t_ms *ms);
 void	remove_redirections(char **av);
 int		check_exit_args(t_ms *ms);
+int		all_digits(const char *str);
 
 //Built-ins
 int		blt_echo(char **av);
-int		blt_exit(t_ms *ms);
+int		blt_exit(char **cmd);
 int		blt_cd(char **av, t_hash *env);
 int		blt_pwd(void);
 int		blt_export(char **av, t_hash *env, char ***crude);
