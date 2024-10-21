@@ -58,6 +58,15 @@ tmux send-keys -t my_session:0.1 'cd $fd4/$USER' C-m
 sleep 0.05
 tmux send-keys -t my_session:0.0 'pwd' C-m
 tmux send-keys -t my_session:0.1 'pwd' C-m
+
+tmux send-keys -t my_session:0.0 "echo \"\'\'\'\"" C-m
+tmux send-keys -t my_session:0.1 "echo \"\'\'\'\"" C-m
+sleep 0.05
+tmux send-keys -t my_session:0.0 "echo \"'''\"" C-m
+tmux send-keys -t my_session:0.1 "echo \"'''\"" C-m
+sleep 0.05
+tmux send-keys -t my_session:0.0 "echo '\"\"\"'" C-m
+tmux send-keys -t my_session:0.1 "echo '\"\"\"'" C-m
 # Sincroniza los paneles para que ambos reciban las mismas entradas
 tmux setw synchronize-panes on
 
