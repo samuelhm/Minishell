@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 00:35:33 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/22 00:41:50 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/22 00:44:48 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static bool	check_file(char *filename)
 		close(file);
 	}
 	unlink(filename);
+	return (true);
 }
 
 bool	catch_heredocs(char **av, int fd_in)
