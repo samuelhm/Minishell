@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 23:58:47 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/20 19:41:53 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/21 15:45:12 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 //solo $hola se debe procesar
 int	is_valid_char(char c)
 {
-	return (ft_isalnum(c) || c == '_' || '?');
+	return (ft_isalnum(c) || c == '_' || c == '?');
 }
 
 void	swap_word(char *word, char **s, char *init, int i)
@@ -36,7 +36,8 @@ void	swap_word(char *word, char **s, char *init, int i)
 		else
 			tmp[i++] = word[k];
 	}
-	while (*init && (is_valid_char(*init) || init[0] == '$'))
+	init++; //skip $
+	while (*init && is_valid_char(*init))
 		init++;
 	while (*init)
 		tmp[i++] = *init++;
