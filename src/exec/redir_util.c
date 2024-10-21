@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:50:34 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/21 18:24:26 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/21 20:13:48 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ bool	catch_heredocs(char **av, int fd_in)
 	char		*filename;
 	int			file;
 
-	if(has_redirection(av, DOUBLE_LESS) && fd_in != -1  && fd_in != STDIN_FILENO)
+	if (has_redirection(av, DOUBLE_LESS) && \
+		fd_in != -1 && fd_in != STDIN_FILENO)
 		close(fd_in);
 	else if (fd_in != -1 && !isatty(fd_in))
 	{
@@ -33,7 +34,7 @@ bool	catch_heredocs(char **av, int fd_in)
 				filename[8]++;
 			if (filename[8] > 'z')
 				return (false);
-			file = open(filename,O_RDONLY);
+			file = open(filename, O_RDONLY);
 			if (file == -1)
 			{
 				free(filename);

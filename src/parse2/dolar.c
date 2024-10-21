@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 23:58:47 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/21 15:45:12 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/21 20:11:41 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	swap_word(char *word, char **s, char *init, int i)
 		else
 			tmp[i++] = word[k];
 	}
-	init++; //skip $
+	init++;
 	while (*init && is_valid_char(*init))
 		init++;
 	while (*init)

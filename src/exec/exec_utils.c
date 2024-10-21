@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:16:28 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/20 16:38:45 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/21 20:12:45 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,11 @@ static void	close_all_pipes(int **plist, int *fd_in, int *fd_out)
 	}
 }
 
-static void	 exe_child(t_ms *ms, char **cmd, int *in_fd, int *out_fd)
+static void	exe_child(t_ms *ms, char **cmd, int *in_fd, int *out_fd)
 {
 	char	*path;
 	int		fd_in;
 	int		fd_out;
-
 
 	fd_in = get_fd(in_fd, IN);
 	fd_out = get_fd(out_fd, OUT);
@@ -109,7 +108,6 @@ static void	 exe_child(t_ms *ms, char **cmd, int *in_fd, int *out_fd)
 void	exe_cmd(t_ms *ms, int *fd_in, int *fd_out, char **cmd)
 {
 	pid_t	pid;
-
 
 	pid = fork();
 	if (pid == -1)

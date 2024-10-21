@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:43:05 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/20 17:37:54 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/21 20:09:24 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	execute_segment(t_ms *ms, int pip, char **cmd)
 	{
 		if (has_builtin(cmd))
 		{
-			if(!setup_redirections(cmd, STDIN_FILENO, STDOUT_FILENO))
+			if (!setup_redirections(cmd, STDIN_FILENO, STDOUT_FILENO))
 				ms->status = 1;
 			else
 			{
@@ -51,8 +51,6 @@ void	execute_segment(t_ms *ms, int pip, char **cmd)
 	}
 }
 
-
-
 static bool	sintax_ok(char **av)
 {
 	int		i;
@@ -69,7 +67,8 @@ static bool	sintax_ok(char **av)
 				ft_printf(SINTAXERROR, av[i + 1]);
 				return (false);
 			}
-			if (is_redirection(special) && (is_redirection(av[i + 1]) || !strcmp(av[i + 1], PIPE_S)))
+			if (is_redirection(special) && (is_redirection(av[i + 1]) \
+				|| !strcmp(av[i + 1], PIPE_S)))
 			{
 				ft_printf(SINTAXERROR, av[i + 1]);
 				return (false);
@@ -114,23 +113,8 @@ static int	execute_all(t_ms *ms)
 	return (wait_for_last_process(ms));
 }
 
-//minishell > << endl cat | ls -la > b | << c
-//<<
-//endl
-//cat
-//|
-//ls
-//-la
-//>
-//b
-//|
-//<<
-//c
-
 int	process_line(t_ms *ms)
 {
-//	for(int i = 0; ms->av[i]; i++)
-//		printf("%s\n", ms->av[i]);
 	if (!sintax_ok(ms->av))
 		return (2);
 	init_pipes(ms);
