@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:16:28 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/21 20:12:45 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/22 00:34:27 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ static void	exe_child(t_ms *ms, char **cmd, int *in_fd, int *out_fd)
 			close(fd_in);
 		if (fd_out != -1)
 			close(fd_out);
+		perror("Redirecton ERR");
 		exit(EXIT_FAILURE);
 	}
 	close_all_pipes(ms->fd_pipe, in_fd, out_fd);

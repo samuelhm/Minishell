@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:41:03 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/21 18:44:41 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/21 20:48:58 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,14 +92,8 @@ int	wait_for_last_process(t_ms *ms)
 	int		status;
 	int		exit_code;
 	char	*temp;
-	t_list	*node;
 
-	node = ms->pidlst;
-	while (node)
-	{
-		waitpid((pid_t)(intptr_t)node->content, &status, 0);
-		node = node->next;
-	}
+	wait_for_processes(ms->pidlst, &status);
 	ft_lstclear(&ms->pidlst, NULL);
 	if (has_builtin(ms->av) && !has_redirection(ms->av, PIPE_S))
 	{
@@ -109,9 +103,7 @@ int	wait_for_last_process(t_ms *ms)
 		return (ms->status);
 	}
 	if (WIFEXITED(status))
-	{
 		exit_code = WEXITSTATUS(status);
-	}
 	else if (WIFSIGNALED(status))
 		exit_code = WTERMSIG(status) + 128;
 	else

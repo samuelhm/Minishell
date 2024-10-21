@@ -6,59 +6,14 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:50:34 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/21 20:13:48 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/22 00:36:03 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	catch_heredocs(char **av, int fd_in)
+void	prepare_std_in(char **av, int fd_in)
 {
-	char		*filename;
-	int			file;
-
-	if (has_redirection(av, DOUBLE_LESS) && \
-		fd_in != -1 && fd_in != STDIN_FILENO)
-		close(fd_in);
-	else if (fd_in != -1 && !isatty(fd_in))
-	{
-		dup2(fd_in, STDIN_FILENO);
-		close(fd_in);
-	}
-	filename = ft_strdup("/tmp/tmpa");
-	while (*av)
-	{
-		if (!ft_strcmp(*av, DOUBLE_LESS) && av[1])
-		{
-			while (access(filename, R_OK) != 0 && filename[8] < 'z')
-				filename[8]++;
-			if (filename[8] > 'z')
-				return (false);
-			file = open(filename, O_RDONLY);
-			if (file == -1)
-			{
-				free(filename);
-				perror("error, lecura de heredoc");
-				return (false);
-			}
-			if (file != STDIN_FILENO)
-			{
-				dup2(file, STDIN_FILENO);
-				close(file);
-			}
-			unlink(filename);
-			av++;
-		}
-		av++;
-	}
-	free(filename);
-	return (true);
-}
-
-bool	handle_input_redirection(char **av, int fd_in)
-{
-	int		file;
-
 	if (has_redirection(av, LESS_S) && fd_in != -1 && fd_in != STDIN_FILENO)
 		close(fd_in);
 	else if (fd_in != -1 && !isatty(fd_in) && fd_in != STDIN_FILENO)
@@ -66,16 +21,20 @@ bool	handle_input_redirection(char **av, int fd_in)
 		dup2(fd_in, STDIN_FILENO);
 		close(fd_in);
 	}
+}
+
+bool	handle_input_redirection(char **av, int fd_in)
+{
+	int		file;
+
+	prepare_std_in(av, fd_in);
 	while (*av)
 	{
 		if (!ft_strcmp(*av, LESS_S) && av[1])
 		{
 			file = open(av[1], O_RDONLY);
 			if (file == -1)
-			{
-				perror(av[1]);
 				return (false);
-			}
 			if (file != STDIN_FILENO)
 			{
 				dup2(file, STDIN_FILENO);
@@ -88,10 +47,8 @@ bool	handle_input_redirection(char **av, int fd_in)
 	return (true);
 }
 
-bool	handle_output_redirection(char **av, int fd_out)
+void	prepare_std_out(char **av, int fd_out)
 {
-	int		file;
-
 	if ((has_redirection(av, MORE_S) || has_redirection(av, DOUBLE_MORE)) \
 		&& fd_out != -1 && fd_out != STDOUT_FILENO)
 		close(fd_out);
@@ -100,6 +57,13 @@ bool	handle_output_redirection(char **av, int fd_out)
 		dup2(fd_out, STDOUT_FILENO);
 		close(fd_out);
 	}
+}
+
+bool	handle_output_redirection(char **av, int fd_out)
+{
+	int		file;
+
+	prepare_std_out(av, fd_out);
 	while (*av)
 	{
 		if ((!strcmp(*av, MORE_S) || !strcmp(*av, DOUBLE_MORE)) && av[1])
@@ -109,10 +73,7 @@ bool	handle_output_redirection(char **av, int fd_out)
 			else
 				file = open(av[1], O_WRONLY | O_CREAT | O_APPEND, 0644);
 			if (file < 0)
-			{
-				perror("Error al crear el archivo.");
 				return (false);
-			}
 			if (file != STDOUT_FILENO)
 			{
 				dup2(file, STDOUT_FILENO);

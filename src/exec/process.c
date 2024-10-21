@@ -6,49 +6,43 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:43:05 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/21 20:09:24 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/21 21:11:05 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	handle_cmd_with_pipes(t_ms *ms, int pip, char **cmd)
+{
+	if (pip == 0)
+	{
+		exe_cmd(ms, NULL, ms->fd_pipe[0], cmd);
+		close(ms->fd_pipe[0][1]);
+	}
+	else if (ms->fd_pipe[pip])
+	{
+		exe_cmd(ms, ms->fd_pipe[pip - 1], ms->fd_pipe[pip], cmd);
+		close(ms->fd_pipe[pip - 1][0]);
+		close(ms->fd_pipe[pip][1]);
+	}
+	else
+	{
+		exe_cmd(ms, ms->fd_pipe[pip - 1], NULL, cmd);
+		close(ms->fd_pipe[pip - 1][0]);
+	}
+}
 
 void	execute_segment(t_ms *ms, int pip, char **cmd)
 {
 	if (!ms->fd_pipe)
 	{
 		if (has_builtin(cmd))
-		{
-			if (!setup_redirections(cmd, STDIN_FILENO, STDOUT_FILENO))
-				ms->status = 1;
-			else
-			{
-				remove_redirections(cmd);
-				ms->status = exec_builtin(cmd, ms->env, &ms->crude_env);
-			}
-			if (!isatty(STDIN_FILENO))
-				dup2(ms->atty_in, STDIN_FILENO);
-			if (!isatty(STDOUT_FILENO))
-				dup2(ms->atty_out, STDOUT_FILENO);
-		}
+			handle_builtin(ms, cmd);
 		else
 			exe_cmd(ms, NULL, NULL, cmd);
 	}
-	else if (pip == 0 && ms->fd_pipe && ms->fd_pipe[0])
-	{
-		exe_cmd(ms, NULL, ms->fd_pipe[0], cmd);
-		close(ms->fd_pipe[0][1]);
-	}
-	else if (ms->fd_pipe && ms->fd_pipe[pip])
-	{
-		exe_cmd(ms, ms->fd_pipe[pip - 1], ms->fd_pipe[pip], cmd);
-		close(ms->fd_pipe[pip - 1][0]);
-		close(ms->fd_pipe[pip][1]);
-	}
-	else if (!ms->fd_pipe[pip])
-	{
-		exe_cmd(ms, ms->fd_pipe[pip - 1], NULL, cmd);
-		close(ms->fd_pipe[pip - 1][0]);
-	}
+	else
+		handle_cmd_with_pipes(ms, pip, cmd);
 }
 
 static bool	sintax_ok(char **av)
@@ -59,25 +53,19 @@ static bool	sintax_ok(char **av)
 	i = 0;
 	while (av[i])
 	{
-		if (is_special(av[i]) && av[i + 1])
+		if (is_special(av[i]))
 		{
 			special = av[i];
-			if (!(ft_strcmp(av[i], av[i + 1])))
+			if (!av[i + 1] || !ft_strcmp(av[i], av[i + 1]) || \
+				(is_redirection(special) && (is_redirection(av[i + 1]) || \
+				!strcmp(av[i + 1], PIPE_S))))
 			{
-				ft_printf(SINTAXERROR, av[i + 1]);
+				if (av[i + 1])
+					ft_printf(SINTAXERROR, av[i + 1]);
+				else
+					ft_printf(SINTAXERROR, "");
 				return (false);
 			}
-			if (is_redirection(special) && (is_redirection(av[i + 1]) \
-				|| !strcmp(av[i + 1], PIPE_S)))
-			{
-				ft_printf(SINTAXERROR, av[i + 1]);
-				return (false);
-			}
-		}
-		else if (is_special(av[i]) && !av[i + 1])
-		{
-			ft_printf(SINTAXERROR);
-			return (false);
 		}
 		i++;
 	}

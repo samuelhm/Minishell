@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 12:14:45 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/20 16:55:15 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/21 21:10:46 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ char	*find_executable_path(char **paths, char *file);
 void	init_signals(int mode);
 void	set_child_signals(void);
 void	handle_signal(int sig);
+void	wait_for_processes(t_list *pidlst, int *status);
 
 //PIPE
 void	init_pipes(t_ms *ms);
@@ -160,6 +161,8 @@ bool	make_hdoc_files(char **av);
 bool	handle_heredoc(char *delimiter);
 bool	is_ptyin_interactive(char *cmd);
 bool	catch_heredocs(char **av, int fd_in);
+void	restore_std_fds(t_ms *ms);
+void	handle_builtin(t_ms *ms, char **cmd);
 
 ///parse2
 bool	check_p2quotes(char *s);

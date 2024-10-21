@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 21:07:00 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/20 19:40:37 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/21 20:52:35 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,24 +41,10 @@ bool	setup_redirections(char **cmd, int fd_in, int fd_out)
 	return (true);
 }
 
-bool	handle_heredoc(char *delimiter)
+static void	heredoc_loop(int tempfile, char *delimiter)
 {
-	char		*filename;
-	int			tempfile;
-	char		*line;
-	static int	i;
+	char	*line;
 
-	i++;
-	filename = ft_strdup("/tmp/tmpa");
-	filename[8] += i;
-	tempfile = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (tempfile == -1)
-		perror("no se puede crear tmp:");
-	if (tempfile < 0)
-	{
-		free(filename);
-		return (false);
-	}
 	while (1)
 	{
 		line = readline("> ");
@@ -73,6 +59,26 @@ bool	handle_heredoc(char *delimiter)
 		ft_putstr_fd("\n", tempfile);
 		free(line);
 	}
+}
+
+bool	handle_heredoc(char *delimiter)
+{
+	char		*filename;
+	int			tempfile;
+	static int	i;
+
+	i++;
+	filename = ft_strdup("/tmp/tmpa");
+	filename[8] += i;
+	tempfile = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	if (tempfile == -1)
+		perror("no se puede crear tmp:");
+	if (tempfile < 0)
+	{
+		free(filename);
+		return (false);
+	}
+	heredoc_loop(tempfile, delimiter);
 	close(tempfile);
 	free(filename);
 	return (true);
