@@ -10,6 +10,7 @@ tmux send-keys -t my_session:0.1 'make' C-m
 tmux send-keys -t my_session:0.1 './minishell' C-m
 tmux send-keys -t my_session:0.0 'clear' C-m
 tmux send-keys -t my_session:0.1 'clear' C-m
+
 # Sincroniza los paneles para que ambos reciban las mismas entradas
 tmux setw synchronize-panes on
 
