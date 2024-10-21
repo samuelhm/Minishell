@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 13:10:06 by linyao            #+#    #+#             */
-/*   Updated: 2024/10/20 21:29:21 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/21 20:37:55 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,31 +35,43 @@ t_node	*init_list(void)
 	return (new);
 }
 
+bool	assign_key_value(t_node *node, char *key, char *value)
+{
+	if (!node || !key)
+		return (false);
+	node->key = ft_strdup(key);
+	if (!node->key)
+		return (false);
+	if (value)
+		node->value = ft_strdup(value);
+	else
+		node->value = ft_strdup("^");
+	if (!node->value)
+	{
+		free(node->key);
+		return (false);
+	}
+	return (true);
+}
+
 bool	add_list(t_node *n, char *key, char *value)
 {
 	t_node	*new;
 	t_node	*cur;
 
-	if (!n)
+	if (!n || !key)
 		return (false);
 	if (!n->key)
-	{
-		n->key = ft_strdup(key);
-		if (value)
-			n->value = ft_strdup(value);
-		else
-			n->value = ft_strdup("^");
-		return (true);
-	}
+		return (assign_key_value(n, key, value));
 	cur = n;
 	new = init_list();
 	if (!new)
 		return (false);
-	new->key = ft_strdup(key);
-	if (value)
-		new->value = ft_strdup(value);
-	else
-		new->value = ft_strdup("^");
+	if (!assign_key_value(new, key, value))
+	{
+		free(new);
+		return (false);
+	}
 	while (cur->next)
 		cur = cur->next;
 	cur->next = new;
@@ -76,13 +88,7 @@ bool	del_list(t_node **n, char *key)
 	cur = *n;
 	pre = NULL;
 	if (cur && ft_strcmp(cur->key, key) == 0)
-	{
-		*n = cur->next;
-		free(cur->key);
-		free(cur->value);
-		free(cur);
-		return (true);
-	}
+		return (free_node(n, cur));
 	while (cur)
 	{
 		if (ft_strcmp(cur->key, key) == 0)
@@ -97,19 +103,4 @@ bool	del_list(t_node **n, char *key)
 		cur = cur->next;
 	}
 	return (false);
-}
-
-bool	del_hash(t_hash *env, char *key)
-{
-	int	inx;
-
-	inx = hash_function(key);
-	if (!env->slot[inx])
-		return (false);
-	if (del_list(&env->slot[inx], key))
-	{
-		return (true);
-	}
-	else
-		return (false);
 }

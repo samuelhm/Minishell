@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 23:58:47 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/21 20:11:41 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/21 20:20:24 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,7 @@ void	swap_word(char *word, char **s, char *init, int i)
 		tmp[i++] = *init++;
 	tmp[i] = '\0';
 	free(*s);
-	if (tmp[0])
-		*s = ft_strdup(tmp);
-	else
-		*s = ft_strdup("");
+	*s = ft_strdup(tmp);
 }
 
 char	*get_word(char *sinit, t_hash *env)
