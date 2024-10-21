@@ -6,7 +6,7 @@
 /*   By: shurtado <shurtado@student.42barcelona.fr> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:50:34 by shurtado          #+#    #+#             */
-/*   Updated: 2024/10/21 16:21:17 by shurtado         ###   ########.fr       */
+/*   Updated: 2024/10/21 18:24:26 by shurtado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 bool	catch_heredocs(char **av, int fd_in)
 {
-	static int	i;
 	char		*filename;
 	int			file;
 
@@ -25,16 +24,16 @@ bool	catch_heredocs(char **av, int fd_in)
 		dup2(fd_in, STDIN_FILENO);
 		close(fd_in);
 	}
-	i++;
 	filename = ft_strdup("/tmp/tmpa");
-	filename[8] += i;
 	while (*av)
 	{
 		if (!ft_strcmp(*av, DOUBLE_LESS) && av[1])
 		{
+			while (access(filename, R_OK) != 0 && filename[8] < 'z')
+				filename[8]++;
+			if (filename[8] > 'z')
+				return (false);
 			file = open(filename,O_RDONLY);
-			i++;
-			filename[8] += i;
 			if (file == -1)
 			{
 				free(filename);
@@ -46,6 +45,7 @@ bool	catch_heredocs(char **av, int fd_in)
 				dup2(file, STDIN_FILENO);
 				close(file);
 			}
+			unlink(filename);
 			av++;
 		}
 		av++;
