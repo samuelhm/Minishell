@@ -94,5 +94,3 @@ El proyecto fue desarrollado utilizando el lenguaje C estándar y hace uso de la
 
 - **Samuel H. M.** - [GitHub](https://github.com/samuelhm)
 - **Lin Yao** - [GitHub](https://github.com/hazeliny)
-
-Siéntete libre de contribuir al proyecto o de hacer preguntas abriendo un issue.
